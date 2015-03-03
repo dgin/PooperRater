@@ -6,8 +6,8 @@ class Place(models.Model):
     # Place data - general
     name = models.CharField(max_length=80)
     floor = models.IntegerField(null=True)
-    unit = models.CharField(null=True, blank=True)
-    address = models.TextField(null=True, blank=True)
+    unit = models.CharField(null=True, blank=True, max_length=5)
+    address = models.CharField(null=True, blank=True, max_length=120)
     desc = models.TextField(null=True, blank=True)
     type = models.SmallIntegerField(max_length=2, null=True)
     start_hours = models.TimeField(null=True)
