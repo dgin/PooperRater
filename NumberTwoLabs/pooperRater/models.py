@@ -6,7 +6,7 @@ class Place(models.Model):
     # Place data - general
     name = models.CharField(max_length=80)
     floor = models.IntegerField(null=True)
-    unit = models.CharField(max_length=20, null=True, blank=True)
+    unit = models.CharField(max_length=5, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     desc = models.TextField(null=True, blank=True)
     type = models.SmallIntegerField(max_length=2, null=True)
