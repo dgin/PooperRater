@@ -37,17 +37,24 @@ class Place(models.Model):
 class Rating(models.Model):
     # links
     user = models.ForeignKey(User)
-    places = models.ForeignKey(Place)
+    place = models.ForeignKey(Place)
 
     # Stars
-    air_flow = models.SmallIntegerField()
-    cleanliness = models.SmallIntegerField()
-    available = models.SmallIntegerField()
-    quality = models.SmallIntegerField()
-    other = models.SmallIntegerField()
+    STAR_CONVERSION = (
+        (1, 'One'),
+        (2, 'Two'),
+        (3, 'Three'),
+        (4, 'Four'),
+        (5, 'Five'),
+    )
+    air_flow = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
+    cleanliness = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
+    available = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
+    quality = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
+    other = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
 
     def __unicode__(self):
-        return u"{}, {}".format(self.user, self.places)
+        return u"{}, {}".format(self.user, self.place)
 
 
 class Comment(models.Model):
