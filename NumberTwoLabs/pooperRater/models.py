@@ -13,7 +13,7 @@ class Place(models.Model):
     type = models.SmallIntegerField(max_length=2, null=True)
     start_hours = models.TimeField(null=True)
     end_hours = models.TimeField(null=True)
-    pic = models.ImageField(null=True)
+    pic = models.ImageField(null=True, blank=True)
 
     # Place data specific to yelp
     yelp_id = models.CharField(max_length=100, null=True, blank=True)
@@ -21,8 +21,8 @@ class Place(models.Model):
 
     # Place data specific to google
     google_id = models.CharField(max_length=100, null=True, blank=True)
-    google_lat = models.SmallIntegerField(null=True)
-    google_long = models.SmallIntegerField(null=True)
+    google_lat = models.SmallIntegerField(null=True, blank=True)
+    google_long = models.SmallIntegerField(null=True, blank=True)
 
     type_conversion = {
         1: "placeholder",
@@ -35,4 +35,28 @@ class Place(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User)
+    rating = models.OneToOneField(Rating)
+    body = models.TextField(null=True, blank=True)
+    upvote = models.SmallIntegerField(null=True, blank=True)
+    downvote = models.SmallIntegerField(null=True, blank=True)
+    date = models.TimeField(null=True)
+
+    def __unicode__(self):
+        return u"{} said: {}".format(self.rating.user.name)
+
+
+class Restroom(models.Model):
+    # Identifying information
+    place = models.ForeignKey(Place)
+    floor =
+    local_identifier = models.SmallIntegerField(null=True)
+
+    # Additional features
+    type = models.SmallIntegerField(max_length=1)
+    features = models.TextField(null=True, blank=True)
+
+    type_conversion = {
+        1: "test",
+        2: "other"
+    }
+
