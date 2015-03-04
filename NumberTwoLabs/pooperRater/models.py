@@ -10,7 +10,7 @@ class Place(models.Model):
     unit = models.CharField(null=True, blank=True, max_length=5)
     address = models.CharField(null=True, blank=True, max_length=120)
     desc = models.TextField(null=True, blank=True)
-    type = models.SmallIntegerField(max_length=2, null=True)
+    place_type = models.SmallIntegerField(null=True)
     start_hours = models.TimeField(null=True)
     end_hours = models.TimeField(null=True)
     pic = models.ImageField(null=True, blank=True)
@@ -31,7 +31,7 @@ class Place(models.Model):
     }
 
     def __unicode__(self):
-        return u"{}".format(self.name) + " Types: {}.".format(self.type_conversion[self.type])
+        return u"{}".format(self.name) + " Types: {}.".format(self.type_conversion[self.place_type])
 
 
 class Rating(models.Model):
@@ -40,11 +40,11 @@ class Rating(models.Model):
     places = models.ForeignKey(Place)
 
     # Stars
-    air_flow = models.SmallIntegerField(max_length=1, null=True)
-    clean = models.SmallIntegerField(max_length=1, null=True)
-    available = models.SmallIntegerField(max_length=1, null=True)
-    quality = models.SmallIntegerField(max_length=1, null=True)
-    other = models.SmallIntegerField(max_length=1, null=True)
+    air_flow = models.SmallIntegerField()
+    cleanliness = models.SmallIntegerField()
+    available = models.SmallIntegerField()
+    quality = models.SmallIntegerField()
+    other = models.SmallIntegerField()
 
     def __unicode__(self):
         return u"{}, {}".format(self.user, self.places)
@@ -58,13 +58,13 @@ class Comment(models.Model):
     date = models.TimeField(null=True)
 
     def __unicode__(self):
-        return u"{} said: {}".format(self.rating.user.username)
+        return u"{}".format(self.rating.user.username)
 
 
 class Restroom(models.Model):
     # Identifying information
     place = models.ForeignKey(Place)
-    floor =
+    floor = models.CharField(max_length=3, null=True, blank=True)
     local_identifier = models.SmallIntegerField(null=True)
 
     # Additional features
