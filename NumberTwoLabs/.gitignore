@@ -1,8 +1,7 @@
 .idea/*
 local_settings.py*
 *.pyc
-.DS_Store
-*/.DS_Store
+*/*DS_Store
 */untitled/
 migrations/*
 
