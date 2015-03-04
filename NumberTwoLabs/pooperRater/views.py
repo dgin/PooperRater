@@ -9,4 +9,3 @@ class RatingView(views.ModelViewSet):
     queryset = Rating.objects.all()
     # serializer = RatingSerializer
 
-    
