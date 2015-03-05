@@ -1,0 +1,19 @@
+html{
+    height: 100%;
+}
+body {
+    height: 100%;
+}
+
+#map-canvas {
+    height: 400px;
+    width: 600px;
+    border: solid;
+    display:inline-block;
+    /*height: auto;*/
+    /*width: auto;*/
+}
+
+#place-details {
+    display:inline-block;
+}

@@ -9,3 +9,7 @@ from django.shortcuts import render
 #     queryset = Rating.objects.all()
 #     # serializer = RatingSerializer
 #
+
+
+def googleplace(request):
+    return render(request, 'google_places_snippet.html')
