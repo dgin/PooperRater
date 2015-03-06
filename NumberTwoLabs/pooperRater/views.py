@@ -1,13 +1,9 @@
-from django.template import RequestContext
-from pooperRater.models import User
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from pooperRater.api_calls import yelp_api_call
 from pooperRater.api_calls.aggregation import something
 
-# Create your views here.
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from pooperRater.models import User
 
 
 def home(request):

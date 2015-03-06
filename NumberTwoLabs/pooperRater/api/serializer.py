@@ -2,7 +2,7 @@
 from rest_framework import serializers, permissions
 from pooperRater.models import Rating, Place, Comment, Restroom
 from pooperRater.permissions import IsOwnerOrReadOnly
-from pooperRater.models import User
+from pooperRater.models import User, AnonUserInfo
 
 class RatingSerializer(serializers.ModelSerializer):
 
@@ -42,3 +42,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username',]
+
+class AnonUserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnonUserInfo

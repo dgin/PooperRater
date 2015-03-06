@@ -58,15 +58,15 @@ class Place(models.Model):
 
 
 
-class AnonUserInfo(User):
-    user = models.OneToOneField(User)
-    anon_name = models.CharField(max_length=80, default='Anonymous')
-    user_img = models.ImageField(null=True)
+class AnonUserInfo(models.Model):
+    related_user = models.ForeignKey(User)
+    anonymous_name = models.CharField(max_length=80, default='Anonymous')
+    user_img = models.ImageField(null=True, blank=True)
 
     # REQUIRED_FIELDS = ['username', 'anon_name']
 
     def __unicode__(self):
-        return u"{}".format(self.name)
+        return u"{}".format(self.anonymous_name)
 
 
 class Rating(models.Model):
@@ -113,10 +113,8 @@ class Restroom(models.Model):
     place = models.ForeignKey(Place)
     floor = models.CharField(max_length=3, null=True, blank=True)
     local_identifier = models.SmallIntegerField(null=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # Additional features
     type = models.SmallIntegerField(max_length=1)
     features = models.TextField(null=True, blank=True)
 

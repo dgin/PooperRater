@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from pooperRater.models import Rating, Place, Comment, Restroom, User, AnonUserInfo
-from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, CommentSerializer, RestroomSerializer, UserSerializer
+from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, CommentSerializer, RestroomSerializer, UserSerializer, AnonUserInfoSerializer
+from pooperRater.permissions import IsOwnerOrReadOnly
+from rest_framework import permissions
 
 
 
@@ -27,3 +29,9 @@ class RestroomViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
+
+class AnonUserInfoVIewSet(viewsets.ModelViewSet):
+    queryset = AnonUserInfo.objects.all()
+    serializer_class = AnonUserInfoSerializer
+
