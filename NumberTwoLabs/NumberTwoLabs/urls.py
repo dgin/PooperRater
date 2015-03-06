@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from pooperRater import views
-from pooperRater.views import RatingViewSet, PlaceViewSet, CommentViewSet
+from pooperRater.api.views import RatingViewSet, PlaceViewSet, CommentViewSet
 from rest_framework import routers
 
 router = routers.SimpleRouter()
