@@ -8,7 +8,6 @@ from pooperRater.api_calls.aggregation import something
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from pooperRater.serializers import UserSerializer
 from pooperRater.models import User
 
 
@@ -43,13 +42,7 @@ def yelp_api(request):
 #     return render(request, 'profile.html', profile_data)
 ######################### user rest api view #######################
 
-class UserList(ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
-class UserDetail(RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 
 

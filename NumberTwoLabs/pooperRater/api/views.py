@@ -1,7 +1,7 @@
 from rest_framework import viewsets
-
-from pooperRater.models import Rating, Place, Comment, Restroom
-from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, CommentSerializer, RestroomSerializer
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+from pooperRater.models import Rating, Place, Comment, Restroom, User, AnonUserInfo
+from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, CommentSerializer, RestroomSerializer, UserSerializer
 
 
 class RatingViewSet(viewsets.ModelViewSet):
@@ -32,3 +32,12 @@ class CommentViewSet(viewsets.ModelViewSet):
 class RestroomViewSet(viewsets.ModelViewSet):
     queryset = Restroom.objects.all()
     serializer_class = RestroomSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+# class UserDetail(viewsets.ModelViewSet):
+#     queryset = AnonUserInfo.objects.all()
+#     serializer_class = UserSerializer
