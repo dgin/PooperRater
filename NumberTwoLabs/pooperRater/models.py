@@ -2,6 +2,9 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
+from django.db.models import Avg
+
+
 class Place(models.Model):
     # Place data - general
     name = models.CharField(max_length=80)
@@ -35,6 +38,24 @@ class Place(models.Model):
 
     def __unicode__(self):
         return u"{}".format(self.name) + " Types: {}.".format(self.type_conversion[self.place_type])
+
+    @property
+    def average_rating(self):
+        return [Rating.objects.filter(place__id=self.id).aggregate(Avg('air_flow')),
+                Rating.objects.filter(place__id=self.id).aggregate(Avg('cleanliness')),
+                Rating.objects.filter(place__id=self.id).aggregate(Avg('available')),
+                Rating.objects.filter(place__id=self.id).aggregate(Avg('quality')),
+                Rating.objects.filter(place__id=self.id).aggregate(Avg('other'))
+                ]
+
+    @property
+    def overall_average_rating(self):
+        overall_average = 0
+        average_rating_list = self.average_rating
+        for average in average_rating_list:
+            overall_average += average.values()[0]
+        return overall_average / len(average_rating_list)
+
 
 
 class AnonUserInfo(models.Model):
