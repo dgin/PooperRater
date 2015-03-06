@@ -16,7 +16,10 @@ def main():
 def get_results(params):
  
     #From Yelp's manage access page
-
+    consumer_key = "LM8exyo5oOnZyV5MyyNIGA"
+    consumer_secret = "7IAhPNR2oqW9acrZfA-KtYdn0Wo"
+    token = "gvLPsjS6sPFFXdnL-QIfRHFie5GWtZG-"
+    token_secret = "iQHiU4usIwoQUxqcQC75KPalVuQ"
 
     session = rauth.OAuth1Session(
         consumer_key = consumer_key
@@ -38,7 +41,7 @@ def get_search_parameters(lat,long):
     params["term"] = "starbucks"
     params["ll"] = "{},{}".format(str(lat),str(long))
     params["radius_filter"] = "1000"
-    params["limit"] = "2"
+    params["limit"] = "5"
  
     return params
  
