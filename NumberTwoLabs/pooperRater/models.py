@@ -33,5 +33,17 @@ class Place(models.Model):
         return u"{}".format(self.name) + " Types: {}.".format(self.type_conversion[self.type])
 
 
-class Comment(models.Model):
-    user = models.ForeignKey(User)
+class AnonUserInfo(User):
+    user = models.OneToOneField(User)
+    anon_name = models.CharField(max_length=80, default='Anonymous')
+    user_img = models.ImageField(null=True)
+
+    # REQUIRED_FIELDS = ['username', 'anon_name']
+
+    def __unicode__(self):
+        return u"{}".format(self.name)
+
+
+
+
+
