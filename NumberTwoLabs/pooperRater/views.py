@@ -5,7 +5,6 @@ from pooperRater.api_calls import yelp_api_call
 from pooperRater.api_calls.aggregation import something
 
 # Create your views here.
-from rest_framework.generics import RetrieveAPIView, ListAPIView
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from pooperRater.models import User

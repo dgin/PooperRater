@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'pooperRater',
+    'rest_framework',
     'social.apps.django_app.default',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,7 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
