@@ -58,6 +58,17 @@ class Place(models.Model):
 
 
 
+class AnonUserInfo(User):
+    user = models.OneToOneField(User)
+    anon_name = models.CharField(max_length=80, default='Anonymous')
+    user_img = models.ImageField(null=True)
+
+    # REQUIRED_FIELDS = ['username', 'anon_name']
+
+    def __unicode__(self):
+        return u"{}".format(self.name)
+
+
 class Rating(models.Model):
     # links
     user = models.ForeignKey(User)
@@ -113,5 +124,6 @@ class Restroom(models.Model):
         1: "test",
         2: "other"
     }
+
 
 

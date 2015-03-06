@@ -1,6 +1,8 @@
-__author__ = 'Nam-Storm'
-from rest_framework import serializers
+
+from rest_framework import serializers, permissions
 from pooperRater.models import Rating, Place, Comment, Restroom
+from pooperRater.permissions import IsOwnerOrReadOnly
+from pooperRater.models import User
 
 class RatingSerializer(serializers.ModelSerializer):
 
@@ -32,3 +34,11 @@ class RestroomSerializer (serializers.ModelSerializer):
         model = Restroom
         fields = ('place', 'floor', 'local_identifier', 'type', 'feature',
                   'created_at', 'updated_at')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    # user = serializers.PrimaryKeyRelatedField(many=True, queryset=Todo.objects.all())
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
+    class Meta:
+        model = User
+        fields = ['id', 'username',]

@@ -1,7 +1,7 @@
-from django.db.models import Avg
-from rest_framework import viewsets, generics
-from pooperRater.models import Rating, Place, Comment, Restroom
-from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, CommentSerializer, RestroomSerializer
+from rest_framework import viewsets
+from pooperRater.models import Rating, Place, Comment, Restroom, User, AnonUserInfo
+from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, CommentSerializer, RestroomSerializer, UserSerializer
+
 
 
 class RatingViewSet(viewsets.ModelViewSet):
@@ -14,19 +14,6 @@ class PlaceViewSet(viewsets.ModelViewSet):
     serializer_class = PlaceSerializer
 
 
-        # return Rating.objects.filter(place__id=self.kwargs['id']).aggregate(Avg('air_flow'))
-
-    #
-
-    # air_flow_average =.aggregate(Avg('air_flow'))
-    # cleanliness_average = Rating.objects.filter(place='id').aggregate(Avg('cleanliness'))
-    # available_average = Rating.objects.filter(place='id').aggregate(Avg('available'))
-    # quality_average = Rating.objects.filter(place='id').aggregate(Avg('air_flow'))
-    # other_average = Rating.objects.filter(place='id').aggregate(Avg('air_flow'))
-    #
-    # overall_average = Rating.objects.filter(place='place_id').aggregate(Avg(air_flow_average + cleanliness_average + available_average + quality_average + other_average))
-
-
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -35,3 +22,8 @@ class CommentViewSet(viewsets.ModelViewSet):
 class RestroomViewSet(viewsets.ModelViewSet):
     queryset = Restroom.objects.all()
     serializer_class = RestroomSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
