@@ -4,5 +4,5 @@ local_settings.py*
 .DS_Store
 */.DS_Store
 */untitled/
-migrations/*
+pooperRater/migrations/*
 

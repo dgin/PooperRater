@@ -30,6 +30,9 @@ class Place(models.Model):
         3: "new string"
     }
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __unicode__(self):
         return u"{}".format(self.name) + " Types: {}.".format(self.type_conversion[self.place_type])
 
@@ -53,6 +56,9 @@ class Rating(models.Model):
     quality = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
     other = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __unicode__(self):
         return u"{}, {}".format(self.user, self.place)
 
@@ -62,7 +68,9 @@ class Comment(models.Model):
     body = models.TextField(null=True, blank=True)
     upvote = models.SmallIntegerField(null=True, blank=True)
     downvote = models.SmallIntegerField(null=True, blank=True)
-    date = models.TimeField(null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return u"{}".format(self.rating.user.username)
@@ -74,6 +82,8 @@ class Restroom(models.Model):
     floor = models.CharField(max_length=3, null=True, blank=True)
     local_identifier = models.SmallIntegerField(null=True)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     # Additional features
     type = models.SmallIntegerField(max_length=1)
     features = models.TextField(null=True, blank=True)
@@ -82,4 +92,5 @@ class Restroom(models.Model):
         1: "test",
         2: "other"
     }
+
 
