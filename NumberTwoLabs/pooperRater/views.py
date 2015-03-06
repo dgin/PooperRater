@@ -15,6 +15,9 @@ def home(request):
 def googleplace(request):
     return render(request, 'google_places_snippet.html')
 
+def home_page(request):
+    return render(request, 'index.html')
+
 def yelp_api(request):
     yelp_response = yelp_api_call.main()
     x = something(1)

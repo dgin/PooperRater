@@ -7,6 +7,8 @@ urlpatterns = patterns('',
     url(r'^home/', 'pooperRater.views.home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
 
+
+    url(r'^index/$', views.home_page, name='home'),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url('', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^logout/$', 'pooperRater.views.home', name='logout'),
