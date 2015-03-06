@@ -2,3 +2,8 @@
 local_settings.py*
 *.pyc
 .DS_Store
+*/.DS_Store
+*/untitled/
+pooperRater/migrations/*
+DO_NOT_PUSH.txt
+
