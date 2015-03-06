@@ -1,12 +1,11 @@
 var map;
 var service;
 var infowindow;
-var iconBase = 'https://maps.google.com/mapfiles/ms/micons/';
 var iconBase2 = 'https://maps.google.com/mapfiles/kml/paddle/';
 
+// Calling promises in turn
 getUserPosition()
 .then(findGooglePlaces)
-//.then(findNearbyPlaces)
 .catch(function(error){
         console.log(error);
         console.log("Something BROKE!")
@@ -18,6 +17,7 @@ function getUserPosition() {
     });
 }
 
+// Two functions grouped together in same promise;
 function findGooglePlaces(position) {
     return new Promise(function(resolve, reject) {
         initializeMap(position.coords.latitude, position.coords.longitude);
@@ -26,20 +26,9 @@ function findGooglePlaces(position) {
         });
 }
 
-//function findNearbyPlaces(position) {
-//    return new Promise(function(resolve, reject) {
-//        getGooglePlaces(position.coords.latitude, position.coords.longitude);
-//        resolve(console.log("completed"));
-//    });
-//
-//}
-
 initializeMap = function(lat, lng) {
     console.log(lat, lng);
-    //currentLat = lat;
-    //currentLong = lng;
     var currentLocation = new google.maps.LatLng(lat,lng);
-    //console.log(1);
 
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         // Required
@@ -74,7 +63,7 @@ getGooglePlaces = function(lat, lng) {
         location: currentLocation,
         //Change radius depending on where you are!
         radius: '1000',
-        //types: ['restaurant', 'bakery', 'cafe'],
+        types: ['restaurant', 'bakery', 'cafe'],
         rankby: 'DISTANCE',
         openNow: 'true'
       };
@@ -106,45 +95,3 @@ createPlaceMarker = function(element, index, array) {
     place_details.insertAdjacentHTML('beforeend',
         '<div id=place_'+index+'>'+element.name+' is located at '+element.vicinity+'</div>');
 };
-
-//renderPlaceInfo = function(element, index, array) {
-//
-//
-//};
-
-// Example of a promise
-/*
-getNotificationPermission()
-    .then(getUserPosition)
-    .then(displayNotification)
-    .catch(function(error) {
-        // error, something went wrong.
-        console.log("Something went wrong!")
-    });
-
-// we defined this function earlier
-function getNotificationPermission() {
-    return new Promise(function(resolve, reject) {
-        Notification.requestPermission(function(status) {
-            if(status === "granted") {
-                resolve(status);
-            } else {
-                reject("Notification status " + status);
-            }
-        });
-    });
-}
-
-// we defined this function earlier
-function getUserPosition() {
-    return new Promise(function(resolve, reject) {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
-}
-
-// new function. displays lat/lng coordinates in a notification
-function displayNotification(position) {
-    new Notification(position.coords.latitude + "," +
-                     position.coords.longitude);
-}
-*/

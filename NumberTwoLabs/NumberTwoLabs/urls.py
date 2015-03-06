@@ -9,5 +9,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', views.googleplace, name='map')
+    url(r'^$', views.googleplace, name='map'),
+    url(r'^yelp', views.yelp_api, name='yelp_api')
 )

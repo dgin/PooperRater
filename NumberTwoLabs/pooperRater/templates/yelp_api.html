@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>This is a yelp API call snippet</title>
+</head>
+<body>
+<p id="test">Text appears!</p>
+<p>{{ one }}</p>
+{#<p>{{ yelp_response }}</p>#}
+{% for place in businesses %}
+<p>{{ place.name }} {{ place.id }} {{ place.location.display_address }}</p><br><br>
+{% endfor %}
+
+</body>
+</html>

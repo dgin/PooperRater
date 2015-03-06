@@ -53,8 +53,8 @@ class Rating(models.Model):
     quality = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
     other = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
 
-    def __unicode__(self):
-        return u"{}, {}".format(self.user, self.place)
+    # def __unicode__(self):
+        # return u"{}, {}".format(self.user, self.place)
 
 
 class Comment(models.Model):
