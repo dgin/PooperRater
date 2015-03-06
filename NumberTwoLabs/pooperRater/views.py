@@ -8,9 +8,8 @@ def googleplace(request):
 
 def yelp_api(request):
     yelp_response = yelp_api_call.main()
-    something(1)
-    # for i in yelp_response[0]['businesses']:
-    #     print type(i)
+    x = something(1)
+    print x['quality__avg']
     data = {
         "one": "One",
         "two": "Two",
