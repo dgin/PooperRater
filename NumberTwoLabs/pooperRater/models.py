@@ -91,8 +91,8 @@ class Rating(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # def __unicode__(self):
-    #     return u"{}, {}".format(self.user, self.place)
+    def __unicode__(self):
+        return u"{}, {}".format(self.owner, self.place)
 
 
 class Comment(models.Model):
@@ -105,7 +105,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}".format(self.rating.user.username)
+        return u"{}".format(self.rating.owner.username)
 
 
 class Restroom(models.Model):
