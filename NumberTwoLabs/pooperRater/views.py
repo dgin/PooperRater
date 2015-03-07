@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from pooperRater.api_calls import yelp_api_call
 from pooperRater.api_calls.aggregation import something
+
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
@@ -13,6 +14,9 @@ def home(request):
 
 def googleplace(request):
     return render(request, 'google_places_snippet.html')
+
+def home_page(request):
+    return render(request, 'index.html')
 
 def yelp_api(request):
     yelp_response = yelp_api_call.main()
