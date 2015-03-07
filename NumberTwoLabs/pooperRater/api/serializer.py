@@ -8,7 +8,7 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ('user', 'place', 'air_flow', 'cleanliness', 'available', 'quality', 'other',
+        fields = ('owner', 'place', 'air_flow', 'cleanliness', 'available', 'quality', 'other',
                   'created_at', 'updated_at')
 
 class PlaceSerializer(serializers.ModelSerializer):
@@ -37,12 +37,17 @@ class RestroomSerializer (serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    # user = serializers.PrimaryKeyRelatedField(many=True, queryset=Todo.objects.all())
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
+
     class Meta:
         model = User
         fields = ['id', 'username',]
 
 class AnonUserInfoSerializer(serializers.ModelSerializer):
+    related_user = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field = 'id'
+    )
+
     class Meta:
         model = AnonUserInfo
+        fields = ('id', 'anonymous_name', 'user_img', 'related_user')

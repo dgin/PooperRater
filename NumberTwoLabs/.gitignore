@@ -1,5 +1,5 @@
 .idea/*
-local_settings.py*
+local_settings.py
 *.pyc
 .DS_Store
 */.DS_Store
