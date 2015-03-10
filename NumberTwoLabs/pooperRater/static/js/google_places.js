@@ -2,6 +2,7 @@ var map;
 var service;
 var infowindow;
 var iconBase2 = 'https://maps.google.com/mapfiles/kml/paddle/';
+var toiletIcon = '../static/img/toilets.png';
 
 // Calling promises in turn
 getUserPosition()
@@ -50,7 +51,7 @@ initializeMap = function(lat, lng) {
         title: "You",
         icon: iconBase2 + 'grn-stars-lv.png'
     });
-    google.maps.event.addListener(youMarker, 'mouseover', function() {
+    google.maps.event.addListener(youMarker, 'click', function() {
         infowindow.setContent(youMarker.title);
         infowindow.open(map, this);
     });
@@ -83,9 +84,10 @@ createPlaceMarker = function(element, index, array) {
         position: coords,
         map: map,
         title: element.name,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        icon: toiletIcon
     });
-    google.maps.event.addListener(newMarker, 'mouseover', function() {
+    google.maps.event.addListener(newMarker, 'click', function() {
         infowindow.setContent(element.name);
         infowindow.open(map, this);
     });
