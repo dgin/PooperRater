@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% block content2 %}
+ <form class="col-md-12">
+    <div class="row text-center">
+        <div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-12">
+            <div>Login with ...</div>
+            <a class="btn btn-primary btn-block" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Facebook</a>
+            <a class="btn btn-danger btn-block" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Google</a>
+             <a class="btn btn-info btn-block" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Twitter</a>
+        </div>
+    </div>
+</form>
+
+{% endblock content2 %}
+
+<!--
+<nav>
+           <ul>
+           {% if user and not user.is_anonymous %}
+             <li>
+               <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+             </li>
+             <li>
+               <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+             </li>
+           {% else %}
+             <li>
+               <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
+             </li>
+             <li>
+               <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
+             </li>
+             <li>
+               <a class="btn btn-info btn-block" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
+             </li>
+           {% endif %}
+           </ul>
+</nav>
+<--
