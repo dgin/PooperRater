@@ -1,4 +1,3 @@
-
 from rest_framework import serializers, permissions
 from pooperRater.models import Rating, Place, Comment, Restroom
 from pooperRater.permissions import IsOwnerOrReadOnly

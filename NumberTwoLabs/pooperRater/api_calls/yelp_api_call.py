@@ -16,10 +16,7 @@ def main():
 def get_results(params):
  
     #From Yelp's manage access page
-    consumer_key = "LM8exyo5oOnZyV5MyyNIGA"
-    consumer_secret = "7IAhPNR2oqW9acrZfA-KtYdn0Wo"
-    token = "gvLPsjS6sPFFXdnL-QIfRHFie5GWtZG-"
-    token_secret = "iQHiU4usIwoQUxqcQC75KPalVuQ"
+
 
     session = rauth.OAuth1Session(
         consumer_key = consumer_key
