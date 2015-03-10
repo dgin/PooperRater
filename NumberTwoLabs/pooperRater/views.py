@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from pooperRater.api_calls import yelp_api_call
+from pooperRater.api_calls import yelp_api_call, yelp_business_search
 from pooperRater.api_calls.aggregation import something
 
 from django.shortcuts import render_to_response
@@ -20,8 +20,8 @@ def home_page(request):
 
 def yelp_api(request):
     yelp_response = yelp_api_call.main()
-    x = something(1)
-    print x['quality__avg']
+    # x = something(1)
+    # print x['quality__avg']
     data = {
         "one": "One",
         "two": "Two",
@@ -30,6 +30,36 @@ def yelp_api(request):
     }
     return render(request, 'tests/yelp_api.html', data)
 
+def yelp_display(request):
+    data={}
+    # If user makes a search
+    if request.method == "POST":
+        term=request.POST['term']
+        data['term'] = term
+
+        # If user inputs an address
+        if request.POST["location"]:
+            location = request.POST["location"]
+            data['location']=location
+            yelp_response = yelp_business_search.main(term, location)
+        else:
+            yelp_response = yelp_business_search.main(term, [(37.791459599999996, -122.4018921)])
+
+        data['yelp'] = yelp_response # Unused, but helpful for debugging
+        businesses = yelp_response[0]['businesses']
+        data['businesses'] = businesses
+
+    # Re-render/render page
+    return render(request, 'yelp_display.html', data)
+
+def yelp_search(request):
+    request.data = 2
+    # yelp_response = yelp_business_search.main()
+    data = {
+        # 'businesses': yelp_response[0]['businesses'],
+        'request': request
+    }
+    return render(request, 'yelp_search.html', data)
 
 ########################## user profiles ##########################
 # @login_required

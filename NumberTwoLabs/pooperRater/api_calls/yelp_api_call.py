@@ -35,7 +35,7 @@ def get_results(params):
 def get_search_parameters(lat,long):
     #See the Yelp API for more details
     params = {}
-    params["term"] = "starbucks"
+    params["term"] = "sandwich"
     params["ll"] = "{},{}".format(str(lat),str(long))
     params["radius_filter"] = "1000"
     params["limit"] = "5"
