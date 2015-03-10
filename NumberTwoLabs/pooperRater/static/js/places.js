@@ -1,3 +1,6 @@
+
+
+
 var converter = new Showdown.converter();
 
 var Place = React.createClass({
@@ -13,8 +16,8 @@ var Place = React.createClass({
                                     <div className="col-lg-1 col-sm-2 col-xs-2">{this.props.rating}</div>
                             </div>
                             <div>
-                                    <div className="col-lg-8 col-sm-8 col-xs-8">{this.props.desc}</div>
-                                    <div className="col-lg-4 col-sm-4 col-xs-4"><div><small>U: {this.props.unit}</small></div> <div><small>F: {this.props.floor}</small></div> <div><small>A: {this.props.address}</small></div></div>
+                                    <div className="col-lg-8 col-sm-8 col-xs-12">{this.props.desc}</div>
+                                    <div className="col-lg-4 col-sm-4 col-xs-12"><div><small>U: {this.props.unit}</small></div> <div><small>F: {this.props.floor}</small></div> <div><small>A: {this.props.address}</small></div></div>
                             </div>
                         </div>
 
