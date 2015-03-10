@@ -8,6 +8,7 @@ body {
 #map-canvas {
     height: 400px;
     width: 350px;
+    top: 65px;
     /*Commented out border because otherwise produces two overlapping borders
     Remove comment if you can fix that bug.*/
     /*border: solid;*/
