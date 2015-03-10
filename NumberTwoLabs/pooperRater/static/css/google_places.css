@@ -7,8 +7,10 @@ body {
 
 #map-canvas {
     height: 400px;
-    width: 600px;
-    border: solid;
+    width: 350px;
+    /*Commented out border because otherwise produces two overlapping borders
+    Remove comment if you can fix that bug.*/
+    /*border: solid;*/
     display:inline-block;
     /*height: auto;*/
     /*width: auto;*/

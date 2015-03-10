@@ -91,7 +91,10 @@ createPlaceMarker = function(element, index, array) {
     });
 
     // Puts the place details on the screen
+    // Commented out because we don't need to put place details on the screen
+    /*
     var place_details = document.getElementById("place-details");
     place_details.insertAdjacentHTML('beforeend',
         '<div id=place_'+index+'>'+element.name+' is located at '+element.vicinity+'</div>');
+    */
 };
