@@ -39,15 +39,13 @@ class AnonInfoIsRelatedUserOrReadOnly(permissions.BasePermission):
         # Write permissions are only allowed to the owner of the snippet.
         return obj.related_user == request.user
 
-class IsAdminUserOrReadPostOnly(permissions.BasePermission):
+class IsAdminUserOrReadOnly(permissions.BasePermission):
     """
     Allows access only to admin users.
     """
     def has_permission(self, request, view):
-        if request.user.is_authenticated():
-            if request.method == 'POST' or request.method == 'GET':
-                return True
-
+        if request.method in permissions.SAFE_METHODS:
+            return True
         return request.user and request.user.is_staff
 
 
