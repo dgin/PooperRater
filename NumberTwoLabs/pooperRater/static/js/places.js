@@ -1,4 +1,4 @@
-$("#input-id").rating(['min'=>1, 'max'=>5, 'step'=>0.1, 'size'=>'xs']);
+
 
 
 var converter = new Showdown.converter();
