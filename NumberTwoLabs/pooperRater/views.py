@@ -61,6 +61,9 @@ def yelp_search(request):
     }
     return render(request, 'yelp_search.html', data)
 
+def successful_logout(request):
+    return render(request, 'registration/successful_logout.html')
+
 ########################## user profiles ##########################
 # @login_required
 # def profile(request):
