@@ -39,6 +39,7 @@ def get_search_parameters(lat,long):
     params["ll"] = "{},{}".format(str(lat),str(long))
     params["radius_filter"] = "1000"
     params["limit"] = "5"
+    params["sort"] = 0
  
     return params
  
