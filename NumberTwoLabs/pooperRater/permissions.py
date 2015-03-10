@@ -43,8 +43,11 @@ class IsAdminUserOrReadOnly(permissions.BasePermission):
     """
     Allows access only to admin users.
     """
+
+
     def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS:
+        not_as_safe_methods = ['GET', 'HEAD', 'OPTIONS', 'POST']
+        if request.method in not_as_safe_methods:
             return True
         return request.user and request.user.is_staff
 

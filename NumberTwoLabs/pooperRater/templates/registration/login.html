@@ -1,6 +1,19 @@
 {% extends 'index.html' %}
 {% block content2 %}
-<div style="padding-top: 85px;">LOGIN</div>
+ <form class="col-md-12">
+    <div class="row text-center">
+        <div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-12">
+            <div>Login with ...</div>
+            <a class="btn btn-primary btn-block" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Facebook</a>
+            <a class="btn btn-danger btn-block" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Google</a>
+             <a class="btn btn-info btn-block" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Twitter</a>
+        </div>
+    </div>
+</form>
+
+{% endblock content2 %}
+
+<!--
 <nav>
            <ul>
            {% if user and not user.is_anonymous %}
@@ -18,10 +31,9 @@
                <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
              </li>
              <li>
-               <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
+               <a class="btn btn-info btn-block" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
              </li>
            {% endif %}
            </ul>
-        </nav>
-
-{% endblock content2 %}
+</nav>
+<--
