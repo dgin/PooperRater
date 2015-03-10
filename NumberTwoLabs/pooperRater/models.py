@@ -41,19 +41,33 @@ class Place(models.Model):
 
     @property
     def average_rating(self):
-        return [Rating.objects.filter(place__id=self.id).aggregate(Avg('air_flow')),
-                Rating.objects.filter(place__id=self.id).aggregate(Avg('cleanliness')),
-                Rating.objects.filter(place__id=self.id).aggregate(Avg('available')),
-                Rating.objects.filter(place__id=self.id).aggregate(Avg('quality')),
-                Rating.objects.filter(place__id=self.id).aggregate(Avg('other'))
-                ]
+        empty_list = []
+
+        if Rating.objects.filter(place__id=self.id).aggregate(Avg('air_flow')) > 0:
+            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('air_flow')))
+
+        if Rating.objects.filter(place__id=self.id).aggregate(Avg('cleanliness')) > 0:
+            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('cleanliness')))
+
+        if Rating.objects.filter(place__id=self.id).aggregate(Avg('available')) > 0:
+            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('available')))
+
+        if Rating.objects.filter(place__id=self.id).aggregate(Avg('quality')) > 0:
+            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('quality')))
+
+        if Rating.objects.filter(place__id=self.id).aggregate(Avg('other')) > 0:
+            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('other')))
+
+        return empty_list
+
 
     @property
     def overall_average_rating(self):
         overall_average = 0
         average_rating_list = self.average_rating
         for average in average_rating_list:
-            overall_average += average.values()[0]
+            if average.values()[0] != None:
+                overall_average += average.values()[0]
         return overall_average / len(average_rating_list)
 
 
