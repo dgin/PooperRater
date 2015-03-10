@@ -9,14 +9,16 @@ var Place = React.createClass({
 
                         <div>
                             <div>
-                                    <div className="placeName col-lg-10  col-sm-10 col-xs-10"><h3>{this.props.name}</h3></div><div className="col-lg-1  col-sm-2 col-xs-2">{this.props.rating}</div>
+                                    <div className="placeName col-lg-10 col-sm-10 col-xs-10"><h3>{this.props.name}</h3></div>
+                                    <div className="col-lg-1 col-sm-2 col-xs-2">{this.props.rating}</div>
                             </div>
                             <div>
-
+                                    <div className="col-lg-8 col-sm-8 col-xs-8">{this.props.desc}</div>
+                                    <div className="col-lg-4 col-sm-4 col-xs-4"><div><small>U: {this.props.unit}</small></div> <div><small>F: {this.props.floor}</small></div> <div><small>A: {this.props.address}</small></div></div>
                             </div>
                         </div>
 
-                                <div className="placeName col-lg-12 col-sm-12 col-xs-12">{this.props.desc}</div>
+
 
 
 
@@ -87,8 +89,8 @@ var PlaceList = React.createClass({
   render: function() {
     var placeNodes = this.props.data.map(function(place, index) {
       return (
-        <Place name={place.name} desc={place.desc} placeTyoe={place.place_type}
-            rating={place.overall_average_rating} key={index}></Place>
+        <Place name={place.name} desc={place.desc} placeType={place.place_type}
+            rating={place.overall_average_rating} unit={place.unit} floor={place.floor} address={place.address} key={index}></Place>
       );
     });
     return (
