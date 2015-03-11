@@ -3,14 +3,14 @@ var converter = new Showdown.converter();
 var Place = React.createClass({
   render: function() {
     return (
-<a href="{this.props.place_id}" >
+<a href={"api/v1/places/" + this.props.place_id + "/"}>
     <div className="panel panel-default">
         <div className="panel-body">
             <div className="place">
 
                         <div>
                             <div>
-                                    <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3>{this.props.name}</h3></div>
+                                    <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3> {this.props.name}</h3></div>
                                     <div className="col-lg-3 col-sm-12 col-xs-12"><StarRating rating={this.props.rating}></StarRating></div>
                             </div>
                             <div>
@@ -120,7 +120,7 @@ var StarRating = React.createClass({
         var ratingProp = Math.round(this.props.rating);
         var placeRating = [];
         if (ratingProp == 0){
-            placeRating.push(<span><small>no rating</small></span>)
+            placeRating.push(<span><small>- no rating -</small></span>)
         }
         else {
             for (var i = 0; i < ratingProp; i++){
