@@ -1,6 +1,3 @@
-
-
-
 var converter = new Showdown.converter();
 
 var Place = React.createClass({
@@ -12,19 +9,14 @@ var Place = React.createClass({
 
                         <div>
                             <div>
-                                    <div className="placeName col-lg-10 col-sm-10 col-xs-10"><h3>{this.props.name}</h3></div>
-                                    <div className="col-lg-1 col-sm-2 col-xs-2">{this.props.rating}</div>
+                                    <div className="placeName col-lg-9 col-sm-8 col-xs-8"><h3>{this.props.name}</h3></div>
+                                    <div className="col-lg-3 col-sm-4 col-xs-4"><StarRating rating={this.props.rating}></StarRating></div>
                             </div>
                             <div>
                                     <div className="col-lg-8 col-sm-8 col-xs-12">{this.props.desc}</div>
                                     <div className="col-lg-4 col-sm-4 col-xs-12"><div><small>U: {this.props.unit}</small></div> <div><small>F: {this.props.floor}</small></div> <div><small>A: {this.props.address}</small></div></div>
                             </div>
                         </div>
-
-
-
-
-
 
 
             </div>
@@ -104,6 +96,28 @@ var PlaceList = React.createClass({
   }
 });
 
+
+// overallRating - expecting number
+var StarRating = React.createClass({
+
+    getInitialState: function() {
+    return {rating: 0};
+    },
+
+    render: function() {
+        var ratingProp = Math.round(this.props.rating);
+        var placeRating = [];
+        for (var i = 0; i < ratingProp; i++){
+            placeRating.push(<span className="glyphicon glyphicon-star"></span>);
+        }
+        for (var i = ratingProp; i < 5; i++){
+            placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
+        }
+        return (
+            <span className={this.props.rating}>{placeRating}</span>
+        );
+    }
+});
 
 //var CommentForm = React.createClass({
 //  handleSubmit: function(e) {
