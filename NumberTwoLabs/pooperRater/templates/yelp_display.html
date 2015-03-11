@@ -14,17 +14,17 @@
 
 
 <input type="radio" name="inputAddress" value="no" onclick="returnUserPosition()"> Search near you?
-<input type="radio" name="inputAddress" value="yes"> Search near an address? <br>
+<input type="radio" name="inputAddress" value="yes" onclick="enableLocationSearch()"> Search near an address? <br>
 <div id="userCoord" style="display:block;">
     <p id="placeholderWhileGettingLocation"></p>
-    <p><span id="userLat"></span>
-    <span id="userLong"></span></p>
+    <p><span id="userLat" style="display:none;"></span>
+    <span id="userLong" style="display:none;"></span></p>
 </div>
-</div>
+
 
 <form method="post" name="yelpSearch">
     {% csrf_token %}
-
+    <input id="yelpGeoCoord" type="text" name="geoCoord" style="display:none;">
     <input id="yelpLocation" type="text" name='location' placeholder="Input an address near which you'd like to search!" style="width:300px;" value="{{ location }}"><br>
     <input id="yelpInput" type="text" name='term' placeholder="Search terms here" style="width:200px;" value="{{ term }}"><br><br>
     <input id="yelpSubmit" type="submit" value="Search on Yelp!">
