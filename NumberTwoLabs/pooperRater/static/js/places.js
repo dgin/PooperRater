@@ -14,7 +14,11 @@ var Place = React.createClass({
                             </div>
                             <div>
                                     <div className="col-lg-8 col-sm-8 col-xs-12">{this.props.desc}</div>
-                                    <div className="col-lg-4 col-sm-4 col-xs-12"><div><small>U: {this.props.unit}</small></div> <div><small>F: {this.props.floor}</small></div> <div><small>A: {this.props.address}</small></div></div>
+                                    <div className="col-lg-4 col-sm-4 col-xs-12">
+                                        <div><small className="glyphicon glyphicon-inbox"> {this.props.unit}</small></div>
+                                        <div><small className="glyphicon glyphicon-align-justify"> {this.props.floor}</small></div>
+                                        <div><small className="glyphicon glyphicon-home"> {this.props.address}</small></div>
+                                        <div><small className="glyphicon glyphicon-globe"> {this.props.address}</small></div></div>
                             </div>
                         </div>
 
