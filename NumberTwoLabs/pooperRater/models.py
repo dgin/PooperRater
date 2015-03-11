@@ -13,7 +13,7 @@ class Place(models.Model):
     unit = models.CharField(null=True, blank=True, max_length=5)
     address = models.CharField(null=True, blank=True, max_length=120)
     city = models.CharField(null=True, blank=True, max_length=120)
-    desc = models.TextField(null=True, blank=True)
+    desc = models.TextField(null=True, blank=True, max_length=200)
     place_type = models.SmallIntegerField(null=True)
     start_hours = models.TimeField(null=True)
     end_hours = models.TimeField(null=True)
