@@ -11,6 +11,11 @@ def home(request):
                            {'user': request.user})
    return render_to_response('places/places.html', context_instance=context)
 
+def place(request):
+   context = RequestContext(request,
+                           {'user': request.user})
+   return render_to_response('places/place.html', context_instance=context)
+
 
 def googleplace(request):
     return render(request, 'tests/google_places_snippet.html')

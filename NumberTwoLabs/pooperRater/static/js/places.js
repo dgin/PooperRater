@@ -3,7 +3,7 @@ var converter = new Showdown.converter();
 var Place = React.createClass({
   render: function() {
     return (
-<a href={"api/v1/places/" + this.props.place_id + "/"}>
+<a href="place.html">
     <div className="panel panel-default">
         <div className="panel-body">
             <div className="place">

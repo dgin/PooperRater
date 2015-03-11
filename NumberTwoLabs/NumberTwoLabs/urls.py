@@ -5,6 +5,7 @@ from pooperRater import views
 
 urlpatterns = patterns('',
     url(r'^home/', 'pooperRater.views.home', name='home'),
+    url(r'^place/', 'pooperRater.views.place', name='place'),
     url(r'^admin/', include(admin.site.urls)),
 
 
