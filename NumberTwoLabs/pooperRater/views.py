@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.utils.datastructures import MultiValueDictKeyError
 from pooperRater.api_calls import yelp_api_call, yelp_business_search
 from pooperRater.api_calls.aggregation import something
 
@@ -48,12 +49,16 @@ def yelp_display(request):
         data['term'] = term
 
         # If user inputs an address
-        if request.POST["location"]:
+        # Checks whether location was input
+        try:
             location = request.POST["location"]
             data['location']=location
             yelp_response = yelp_business_search.main(term, location)
-        else:
-            yelp_response = yelp_business_search.main(term, [(37.791459599999996, -122.4018921)])
+        # If user is searching by automatically generated location instead
+        except MultiValueDictKeyError:
+            geoCoordLat = float(request.POST["geoCoordLat"])
+            geoCoordLong = float(request.POST["geoCoordLong"])
+            yelp_response = yelp_business_search.main(term, [(geoCoordLat, geoCoordLong)])
 
         data['yelp'] = yelp_response # Unused, but helpful for debugging
         businesses = yelp_response[0]['businesses']
