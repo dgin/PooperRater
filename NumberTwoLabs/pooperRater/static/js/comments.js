@@ -76,8 +76,7 @@ var CommentList = React.createClass({
         <Comment key={index}
                    body = {comment.body}
             upvote = {comment.upvote}
-            downvote = {comment.downvote} >
-        </Comment>
+            downvote = {comment.downvote} />
       );
     });
     return (
@@ -124,6 +123,6 @@ var CommentForm = React.createClass({
 
 React.render(
     //<CommentsBox data={data}/>,
-    <CommentsBox url="api/v1/comments/" pollInterval={10000} />,
+    <CommentsBox data="api/v1/comments/" url="api/v1/comments/" pollInterval={10000} />,
   document.getElementById('comments')
 );
