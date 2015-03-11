@@ -3,7 +3,6 @@ var converter = new Showdown.converter();
 var Place = React.createClass({
   render: function() {
     return (
-<a href="{this.props.place_id}" >
     <div className="panel panel-default">
         <div className="panel-body">
             <div className="place">
@@ -27,7 +26,6 @@ var Place = React.createClass({
             </div>
         </div>
     </div>
-    </a>
     );
   }
 });
@@ -97,7 +95,7 @@ var PlaceList = React.createClass({
             unit={place.unit} floor={place.floor}
             address={place.address}
             city={place.city}
-            place_id={place.id}></Place>
+            key={index}></Place>
       );
     });
     return (
