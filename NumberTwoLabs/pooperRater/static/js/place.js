@@ -10,7 +10,7 @@ var Place = React.createClass({
                         <div>
                             <div>
                                     <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3>{this.props.name}</h3></div>
-                                    <div className="col-lg-3 col-sm-12 col-xs-12"><StarRating rating={this.props.rating}></StarRating></div>
+                                    <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.rating}></OverallStarRating></div>
                             </div>
                             <div>
                                     <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.desc}</div>
@@ -108,7 +108,137 @@ var PlaceList = React.createClass({
 
 
 // overallRating - expecting number
-var StarRating = React.createClass({
+var OverallStarRating = React.createClass({
+
+    getInitialState: function() {
+    return {rating: 0};
+    },
+
+    render: function() {
+        var ratingProp = Math.round(this.props.rating);
+        var placeRating = [];
+        if (ratingProp == 0){
+            placeRating.push(<span><small>no rating</small></span>)
+        }
+        else {
+            for (var i = 0; i < ratingProp; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
+            }
+            for (var i = ratingProp; i < 5; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
+            }
+        }
+        return (
+            <span className={this.props.rating}>{placeRating}</span>
+        );
+    }
+});
+
+var OverallStarRating = React.createClass({
+
+    getInitialState: function() {
+    return {rating: 0};
+    },
+
+    render: function() {
+        var ratingProp = Math.round(this.props.rating);
+        var placeRating = [];
+        if (ratingProp == 0){
+            placeRating.push(<span><small>no rating</small></span>)
+        }
+        else {
+            for (var i = 0; i < ratingProp; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
+            }
+            for (var i = ratingProp; i < 5; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
+            }
+        }
+        return (
+            <span className={this.props.rating}>{placeRating}</span>
+        );
+    }
+});
+
+var OverallStarRating = React.createClass({
+
+    getInitialState: function() {
+    return {rating: 0};
+    },
+
+    render: function() {
+        var ratingProp = Math.round(this.props.rating);
+        var placeRating = [];
+        if (ratingProp == 0){
+            placeRating.push(<span><small>no rating</small></span>)
+        }
+        else {
+            for (var i = 0; i < ratingProp; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
+            }
+            for (var i = ratingProp; i < 5; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
+            }
+        }
+        return (
+            <span className={this.props.rating}>{placeRating}</span>
+        );
+    }
+});
+
+var OverallStarRating = React.createClass({
+
+    getInitialState: function() {
+    return {rating: 0};
+    },
+
+    render: function() {
+        var ratingProp = Math.round(this.props.rating);
+        var placeRating = [];
+        if (ratingProp == 0){
+            placeRating.push(<span><small>no rating</small></span>)
+        }
+        else {
+            for (var i = 0; i < ratingProp; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
+            }
+            for (var i = ratingProp; i < 5; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
+            }
+        }
+        return (
+            <span className={this.props.rating}>{placeRating}</span>
+        );
+    }
+});
+
+var OverallStarRating = React.createClass({
+
+    getInitialState: function() {
+    return {rating: 0};
+    },
+
+    render: function() {
+        var ratingProp = Math.round(this.props.rating);
+        var placeRating = [];
+        if (ratingProp == 0){
+            placeRating.push(<span><small>no rating</small></span>)
+        }
+        else {
+            for (var i = 0; i < ratingProp; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
+            }
+            for (var i = ratingProp; i < 5; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
+            }
+        }
+        return (
+            <span className={this.props.rating}>{placeRating}</span>
+        );
+    }
+});
+
+var OverallStarRating = React.createClass({
 
     getInitialState: function() {
     return {rating: 0};
@@ -159,7 +289,7 @@ var StarRating = React.createClass({
 
 React.render(
   <PlacesBox url="api/v1/places/" pollInterval={10000} />,
-  document.getElementById('places')
+  document.getElementById('place')
 );
 
 
