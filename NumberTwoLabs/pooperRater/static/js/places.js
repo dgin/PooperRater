@@ -9,16 +9,16 @@ var Place = React.createClass({
 
                         <div>
                             <div>
-                                    <div className="placeName col-lg-9 col-sm-8 col-xs-8"><h3>{this.props.name}</h3></div>
-                                    <div className="col-lg-3 col-sm-4 col-xs-4"><StarRating rating={this.props.rating}></StarRating></div>
+                                    <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3>{this.props.name}</h3></div>
+                                    <div className="col-lg-3 col-sm-12 col-xs-12"><StarRating rating={this.props.rating}></StarRating></div>
                             </div>
                             <div>
-                                    <div className="col-lg-8 col-sm-8 col-xs-12">{this.props.desc}</div>
-                                    <div className="col-lg-4 col-sm-4 col-xs-12">
+                                    <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.desc}</div>
+                                    <div className="col-lg-4 col-sm-12 col-xs-12">
                                         <div><small className="glyphicon glyphicon-inbox"> {this.props.unit}</small></div>
                                         <div><small className="glyphicon glyphicon-align-justify"> {this.props.floor}</small></div>
                                         <div><small className="glyphicon glyphicon-home"> {this.props.address}</small></div>
-                                        <div><small className="glyphicon glyphicon-globe"> {this.props.address}</small></div></div>
+                                        <div><small className="glyphicon glyphicon-globe"> {this.props.city}</small></div></div>
                             </div>
                         </div>
 
@@ -88,8 +88,14 @@ var PlaceList = React.createClass({
   render: function() {
     var placeNodes = this.props.data.map(function(place, index) {
       return (
-        <Place name={place.name} desc={place.desc} placeType={place.place_type}
-            rating={place.overall_average_rating} unit={place.unit} floor={place.floor} address={place.address} key={index}></Place>
+        <Place name={place.name}
+            desc={place.desc}
+            placeType={place.place_type}
+            rating={place.overall_average_rating}
+            unit={place.unit} floor={place.floor}
+            address={place.address}
+            city={place.city}
+            key={index}></Place>
       );
     });
     return (
@@ -111,11 +117,16 @@ var StarRating = React.createClass({
     render: function() {
         var ratingProp = Math.round(this.props.rating);
         var placeRating = [];
-        for (var i = 0; i < ratingProp; i++){
-            placeRating.push(<span className="glyphicon glyphicon-star"></span>);
+        if (ratingProp == 0){
+            placeRating.push(<span><small>no rating</small></span>)
         }
-        for (var i = ratingProp; i < 5; i++){
-            placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
+        else {
+            for (var i = 0; i < ratingProp; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
+            }
+            for (var i = ratingProp; i < 5; i++){
+                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
+            }
         }
         return (
             <span className={this.props.rating}>{placeRating}</span>
