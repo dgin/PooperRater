@@ -98,7 +98,7 @@ var CommentForm = React.createClass({
     e.preventDefault();
     var body = this.refs.body.getDOMNode().value.trim();
     var upvote = this.refs.upvote.getDOMNode().value.trim();
-    var downvote = this.ref.downvote.getDOMNode().value.trim();
+    var downvote = this.refs.downvote.getDOMNode().value.trim();
     if (!upvote || !downvote || !body) {
       return;
     }
@@ -123,6 +123,6 @@ var CommentForm = React.createClass({
 
 React.render(
     //<CommentsBox data={data}/>,
-    <CommentsBox data="api/v1/comments/" url="api/v1/comments/" pollInterval={10000} />,
+    <CommentsBox url="api/v1/comments/" pollInterval={10000} />,
   document.getElementById('comments')
 );
