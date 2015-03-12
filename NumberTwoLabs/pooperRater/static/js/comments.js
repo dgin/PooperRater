@@ -1,15 +1,16 @@
+
 var converter = new Showdown.converter();
 
 var Comment = React.createClass({
   render: function() {
     return (
-     <div className="panel panel-default">
-        <div className="panel-body">
-            <div className="comment">
-                <div className="commentBody col-lg-10 offset-lg-1">{this.props.body}</div>
-          </div>
-        </div>
-     </div>
+      <div className="comment">
+        <h2 className="commentBody">
+          {this.props.body}
+        </h2>
+        <div>{this.props.upvote}</div>
+        <div>{this.props.downvote}</div>
+      </div>
     );
   }
 });
@@ -61,10 +62,9 @@ var CommentsBox = React.createClass({
   render: function() {
     return (
       <div className="CommentsBox">
-        <h1>Comments</h1>
-        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+        <h1>Comment</h1>
         <CommentList data={this.state.data} />
-
+        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
   }
@@ -75,7 +75,10 @@ var CommentList = React.createClass({
     var commentNodes = this.props.data.map(function(comment, index) {
       return (
         <Comment key={index}
-                   body = {comment.body}/>
+                   body = {comment.body}
+            upvote = {comment.upvote}
+            downvote = {comment.downvote} >
+        </Comment>
       );
     });
     return (
@@ -86,39 +89,42 @@ var CommentList = React.createClass({
   }
 });
 
+//air_flow_rating={comment.Rating.air_flow}
+//            cleanliness_rating = {comment.Rating.cleanliness}
+//            available_rating = {comment.Rating.available}
+//            quality_rating = {comment.Rating.quality}
+
 
 var CommentForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var body = this.refs.body.getDOMNode().value.trim();
-    if (!body) {
+    var upvote = this.refs.upvote.getDOMNode().value.trim();
+    var downvote = this.refs.downvote.getDOMNode().value.trim();
+    if (!upvote || !downvote || !body) {
       return;
     }
-    this.props.onCommentSubmit({body: body});
+    this.props.onCommentSubmit({body: body,
+                                upvote: upvote,
+                                downvote: downvote });
     this.refs.body.getDOMNode().value = '';
+    this.refs.upvote.getDOMNode().value = '';
+    this.refs.downvote.getDOMNode().value = '';
   },
   render: function() {
     return (
-      <div className="panel panel-default">
-        <div className="panel-body">
-              <form className="commentForm" onSubmit={this.handleSubmit}>
-                <div class="row">
-                    <div className="col-lg-12"><textarea rows="4" type="text" className="form-control .col-lg-10 .offset-lg-1" placeholder="Start writing your comment..." ref="body" />
-                        <span id="helpBlock" className="help-block"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div className="col-lg-4 text-right"><input type="submit" value="Post" /></div>
-                </div>
-              </form>
-        </div>
-      </div>
+      <form className="commentForm" onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="body" ref="body" />
+        <input type="text" placeholder="upvote" ref="upvote" />
+        <input type="text" placeholder="downvote" ref="downvote" />
+        <input type="submit" value="Post" />
+      </form>
     );
   }
 });
 
-//React.render(
-//    //<CommentsBox data={data}/>,
-//  <CommentsBox url="api/v1/comments/" pollInterval={10000} />,
-//  document.getElementById('comments')
-//);
+React.render(
+    //<CommentsBox data={data}/>,
+    <CommentsBox url="api/v1/comments/" pollInterval={10000} />,
+  document.getElementById('comments')
+);
