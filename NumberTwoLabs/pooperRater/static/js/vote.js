@@ -7,6 +7,7 @@ var Comment = React.createClass({
         <div className="panel-body">
             <div className="comment">
                 <div className="commentBody col-lg-10 offset-lg-1">{this.props.body}</div>
+                <div className="col-lg-4"><div className="col-lg-6 glyphicon glyphicon-thumbs-up"> {this.props.upvote}</div> <div className="col-lg-6 glyphicon glyphicon-thumbs-down"> {this.props.downvote}</div></div>
           </div>
         </div>
      </div>
@@ -75,7 +76,9 @@ var CommentList = React.createClass({
     var commentNodes = this.props.data.map(function(comment, index) {
       return (
         <Comment key={index}
-                   body = {comment.body}/>
+                   body = {comment.body}
+            upvote = {comment.upvote}
+            downvote = {comment.downvote} />
       );
     });
     return (
@@ -91,11 +94,17 @@ var CommentForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var body = this.refs.body.getDOMNode().value.trim();
-    if (!body) {
+    var upvote = this.refs.upvote.getDOMNode().value.trim();
+    var downvote = this.refs.downvote.getDOMNode().value.trim();
+    if (!upvote || !downvote || !body) {
       return;
     }
-    this.props.onCommentSubmit({body: body});
+    this.props.onCommentSubmit({body: body,
+                                upvote: upvote,
+                                downvote: downvote });
     this.refs.body.getDOMNode().value = '';
+    this.refs.upvote.getDOMNode().value = '';
+    this.refs.downvote.getDOMNode().value = '';
   },
   render: function() {
     return (
@@ -108,6 +117,8 @@ var CommentForm = React.createClass({
                     </div>
                 </div>
                 <div class="row">
+                    <div className="col-lg-4"><input type="text" placeholder="upvote" ref="upvote" /></div>
+                    <div className="col-lg-4"><input type="text" placeholder="downvote" ref="downvote" /></div>
                     <div className="col-lg-4 text-right"><input type="submit" value="Post" /></div>
                 </div>
               </form>

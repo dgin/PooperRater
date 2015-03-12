@@ -6,7 +6,7 @@ from django.db.models import Avg
 
 
 class Place(models.Model):
-    # Place data - general
+    # PlaceListItem data - general
     name = models.CharField(max_length=80)
     floor = models.IntegerField(null=True)
 
@@ -19,11 +19,11 @@ class Place(models.Model):
     end_hours = models.TimeField(null=True)
     pic = models.ImageField(null=True, blank=True)
 
-    # Place data specific to yelp
+    # PlaceListItem data specific to yelp
     yelp_id = models.CharField(max_length=100, null=True, blank=True)
     yelp_categories = models.TextField(blank=True)
 
-    # Place data specific to google
+    # PlaceListItem data specific to google
     google_id = models.CharField(max_length=100, null=True, blank=True)
     google_lat = models.SmallIntegerField(null=True, blank=True)
     google_long = models.SmallIntegerField(null=True, blank=True)
@@ -112,7 +112,17 @@ class Rating(models.Model):
 
 class Comment(models.Model):
     rating = models.OneToOneField(Rating)
-    body = models.TextField(null=True, blank=True)
+    body = models.TextField(null=True, blank=True, max_length=500)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return u"{}".format(self.rating.owner.username)
+
+
+class Vote(models.Model):
+    comment = models.ForeignKey(Comment)
     upvote = models.SmallIntegerField(null=True, blank=True)
     downvote = models.SmallIntegerField(null=True, blank=True)
 
@@ -120,7 +130,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}".format(self.rating.owner.username)
+        return u"{}, {}".format(self.comment.rating.owner.username, self.comment.id)
 
 
 class Restroom(models.Model):
