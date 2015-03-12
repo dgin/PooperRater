@@ -3,7 +3,8 @@
 //      - PlacesPage
 //      - PlacePage
 //            - rating
-//            - Comment
+//            - VotePage
+//                  - VotePage
 var App = React.createClass({
     getInitialState: function() {
         return {

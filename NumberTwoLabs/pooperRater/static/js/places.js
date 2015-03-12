@@ -50,7 +50,7 @@ var PlacesPage = React.createClass({
       }.bind(this)
     });
   },
-  //handleCommentSubmit: function(comment) {
+  //handleVoteSubmit: function(comment) {
   //  var comments = this.state.data;
   //  comments.push(comment);
   //  this.setState({data: comments}, function() {
@@ -71,7 +71,7 @@ var PlacesPage = React.createClass({
   //    });
   //  });
   //},
-  // <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+  // <VoteForm onCommentSubmit={this.handleVoteSubmit} />
 
   getInitialState: function() {
     return {data: []};
@@ -95,7 +95,7 @@ var PlacesPage = React.createClass({
 
 var PlaceList = React.createClass({
   render: function() {
-    var placeNodes = this.props.data.map(function(place, index) {
+    var placeNodes = this.props.data.map(function(place) {
       return (
         <PlaceListItem name={place.name}
             desc={place.desc}
@@ -143,7 +143,7 @@ var OverallStarRating = React.createClass({
     }
 });
 
-//var CommentForm = React.createClass({
+//var VoteForm = React.createClass({
 //  handleSubmit: function(e) {
 //    e.preventDefault();
 //    var author = this.refs.author.getDOMNode().value.trim();

@@ -60,7 +60,7 @@ var PlacePage = React.createClass({
       }.bind(this)
     });
   },
-  //handleCommentSubmit: function(comment) {
+  //handleVoteSubmit: function(comment) {
   //  var comments = this.state.data;
   //  comments.push(comment);
   //  this.setState({data: comments}, function() {
@@ -81,7 +81,7 @@ var PlacePage = React.createClass({
   //    });
   //  });
   //},
-  // <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+  // <VoteForm onCommentSubmit={this.handleVoteSubmit} />
 
   getInitialState: function() {
     return {data: []};
@@ -163,7 +163,7 @@ var SmallStarRating = React.createClass({
     }
 });
 
-//var CommentForm = React.createClass({
+//var VoteForm = React.createClass({
 //  handleSubmit: function(e) {
 //    e.preventDefault();
 //    var author = this.refs.author.getDOMNode().value.trim();
