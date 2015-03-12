@@ -2,23 +2,17 @@ import rauth
 import time
  
 def main(term, locations):
-    locations = locations # List of 2-tuples with lat,long respectively
-    yelp_response = []
-    # If user doesn't specify location, then using current location, stored in list
-    if type(locations) == type([]):
-        for lat,long in locations:
-            params = get_search_parameters(lat,long, term)
-            yelp_response.append(get_results(params))
-            # Rate-limiting just in case
-            time.sleep(1.0)
+    locations = locations # Either a tuple with Lat,Lng or a string with address
+    # If user doesn't specify location, then using current location, stored as tuple
+    if type(locations) == type((1,)):
+        lat = locations[0]
+        long = locations[1]
+        params = get_search_parameters(lat,long, term)
     # If user specifies location, then pass that in as parameter
     else:
         params=get_search_parameters_alt(locations, term)
-        yelp_response.append(get_results(params))
-        time.sleep(1.0)
 
-    ##Do other processing
-    return yelp_response
+    return get_results(params)
  
 def get_results(params):
  
@@ -34,6 +28,7 @@ def get_results(params):
     request = session.get("http://api.yelp.com/v2/search",params=params)
 
     #Transforms the JSON API response into a Python dictionary
+    # Use for testing, but disable for development version
     data = request.json()
     session.close()
 

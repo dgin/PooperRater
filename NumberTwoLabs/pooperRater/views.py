@@ -58,23 +58,38 @@ def yelp_display(request):
         except MultiValueDictKeyError:
             geoCoordLat = float(request.POST["geoCoordLat"])
             geoCoordLong = float(request.POST["geoCoordLong"])
-            yelp_response = yelp_business_search.main(term, [(geoCoordLat, geoCoordLong)])
+            yelp_response = yelp_business_search.main(term, (geoCoordLat, geoCoordLong))
 
         data['yelp'] = yelp_response # Unused, but helpful for debugging
-        businesses = yelp_response[0]['businesses']
+        businesses = yelp_response['businesses']
         data['businesses'] = businesses
 
     # Re-render/render page
-    return render(request, 'yelp_display.html', data)
+    return render(request, 'yelp/yelp_display.html', data)
 
 def yelp_search(request):
-    request.data = 2
-    # yelp_response = yelp_business_search.main()
-    data = {
-        # 'businesses': yelp_response[0]['businesses'],
-        'request': request
-    }
-    return render(request, 'yelp_search.html', data)
+    data={}
+    # If user makes a search
+    if request.method == "POST":
+        term=request.POST['term']
+        data['term'] = term
+
+        # If user inputs an address
+        # Checks whether location was input
+        try:
+            location = request.POST["location"]
+            data['location']=location
+            yelp_response = yelp_business_search.main(term, location)
+        # If user is searching by automatically generated location instead
+        except MultiValueDictKeyError:
+            geoCoordLat = float(request.POST["geoCoordLat"])
+            geoCoordLong = float(request.POST["geoCoordLong"])
+            yelp_response = yelp_business_search.main(term, (geoCoordLat, geoCoordLong))
+
+        data['yelp'] = yelp_response # Unused, but helpful for debugging
+        businesses = yelp_response['businesses']
+        data['businesses'] = businesses
+    return render(request, 'yelp/yelp_search.html', data)
 
 def successful_logout(request):
     return render(request, 'registration/successful_logout.html')
