@@ -11,8 +11,10 @@ function returnUserPosition() {
     document.getElementById("yelpLocation").style.display = "none";
     document.getElementById("yelpGeoCoordLat").disabled = false;
     document.getElementById("yelpGeoCoordLat").style.display = "inline-block";
+    document.getElementById("yelpGeoCoordLat").style.visibility = "hidden";
     document.getElementById("yelpGeoCoordLong").disabled = false;
     document.getElementById("yelpGeoCoordLong").style.display = "inline-block";
+    document.getElementById("yelpGeoCoordLong").style.visibility = "hidden";
     document.getElementById("placeholderWhileGettingLocation").style.display = "block";
 
     // Show placeholder while searching
