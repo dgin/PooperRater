@@ -1,9 +1,13 @@
+// PlaceBox
+//    PlaceList
+//       PlaceListItem
+
 var converter = new Showdown.converter();
 
-var Place = React.createClass({
+var PlaceListItem = React.createClass({
   render: function() {
     return (
-<a href="place">
+<a href={"#places/" + this.props.place_id}>
     <div className="panel panel-default">
         <div className="panel-body">
             <div className="place">
@@ -32,7 +36,7 @@ var Place = React.createClass({
   }
 });
 
-var PlacesBox = React.createClass({
+var PlacesPage = React.createClass({
   loadPlacesFromServer: function() {
     $.ajax({
       url: this.props.url,
@@ -74,7 +78,10 @@ var PlacesBox = React.createClass({
   },
   componentDidMount: function() {
     this.loadPlacesFromServer();
-    setInterval(this.loadPlacesFromServer, this.props.pollInterval);
+
+      if (this.props.pollInterval > 0){
+          setInterval(this.loadPlacesFromServer, this.props.pollInterval);
+       };
   },
   render: function() {
     return (
@@ -90,14 +97,14 @@ var PlaceList = React.createClass({
   render: function() {
     var placeNodes = this.props.data.map(function(place, index) {
       return (
-        <Place name={place.name}
+        <PlaceListItem name={place.name}
             desc={place.desc}
             placeType={place.place_type}
             rating={place.overall_average_rating}
             unit={place.unit} floor={place.floor}
             address={place.address}
             city={place.city}
-            place_id={place.id}></Place>
+            place_id={place.id}></PlaceListItem>
       );
     });
     return (
@@ -158,10 +165,10 @@ var OverallStarRating = React.createClass({
 //    );
 //  }
 //});
-
-React.render(
-  <PlacesBox url="api/v1/places/" pollInterval={10000} />,
-  document.getElementById('places')
-);
+//
+//React.render(
+//  <PlacesPage url="api/v1/places/" pollInterval={10000} />,
+//  document.getElementById('places')
+//);
 
 
