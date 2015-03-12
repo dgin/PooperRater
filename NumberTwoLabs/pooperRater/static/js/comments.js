@@ -1,15 +1,18 @@
+
 var converter = new Showdown.converter();
 
 var Comment = React.createClass({
   render: function() {
     return (
-     <div className="panel panel-default">
+       <div className="panel panel-default">
         <div className="panel-body">
-            <div className="comment">
-                <div className="commentBody col-lg-10 offset-lg-1">{this.props.body}</div>
-          </div>
-        </div>
-     </div>
+              <div className="comment">
+                <div className="commentBody">
+                  {this.props.body}
+                </div>
+              </div>
+      </div>
+      </div>
     );
   }
 });
@@ -62,9 +65,8 @@ var CommentsBox = React.createClass({
     return (
       <div className="CommentsBox">
         <h1>Comments</h1>
-        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-        <CommentList data={this.state.data} />
-
+            <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+            <CommentList data={this.state.data} />
       </div>
     );
   }
@@ -85,16 +87,27 @@ var CommentList = React.createClass({
   }
 });
 
+//air_flow_rating={comment.Rating.air_flow}
+//            cleanliness_rating = {comment.Rating.cleanliness}
+//            available_rating = {comment.Rating.available}
+//            quality_rating = {comment.Rating.quality}
+
 
 var CommentForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     var body = this.refs.body.getDOMNode().value.trim();
-    if (!body) {
+    var upvote = this.refs.upvote.getDOMNode().value.trim();
+    var downvote = this.refs.downvote.getDOMNode().value.trim();
+    if (!upvote || !downvote || !body) {
       return;
     }
-    this.props.onCommentSubmit({body: body});
+    this.props.onCommentSubmit({body: body,
+                                upvote: upvote,
+                                downvote: downvote });
     this.refs.body.getDOMNode().value = '';
+    this.refs.upvote.getDOMNode().value = '';
+    this.refs.downvote.getDOMNode().value = '';
   },
   render: function() {
     return (
