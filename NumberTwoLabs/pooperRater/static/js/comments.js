@@ -3,13 +3,14 @@ var converter = new Showdown.converter();
 var Comment = React.createClass({
   render: function() {
     return (
-      <div className="comment">
-        <h2 className="commentBody">
-          {this.props.body}
-        </h2>
-        <div>{this.props.upvote}</div>
-        <div>{this.props.downvote}</div>
-      </div>
+     <div className="panel panel-default">
+        <div className="panel-body">
+            <div className="comment">
+                <div className="commentBody col-lg-10 offset-lg-1">{this.props.body}</div>
+                <div className="col-lg-4"><div className="col-lg-6 glyphicon glyphicon-thumbs-up"> {this.props.upvote}</div> <div className="col-lg-6 glyphicon glyphicon-thumbs-down"> {this.props.downvote}</div></div>
+          </div>
+        </div>
+     </div>
     );
   }
 });
@@ -61,9 +62,10 @@ var CommentsBox = React.createClass({
   render: function() {
     return (
       <div className="CommentsBox">
-        <h1>Comment</h1>
-        <CommentList data={this.state.data} />
+        <h1>Comments</h1>
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+        <CommentList data={this.state.data} />
+
       </div>
     );
   }
@@ -87,11 +89,6 @@ var CommentList = React.createClass({
   }
 });
 
-//air_flow_rating={comment.Rating.air_flow}
-//            cleanliness_rating = {comment.Rating.cleanliness}
-//            available_rating = {comment.Rating.available}
-//            quality_rating = {comment.Rating.quality}
-
 
 var CommentForm = React.createClass({
   handleSubmit: function(e) {
@@ -111,18 +108,28 @@ var CommentForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="body" ref="body" />
-        <input type="text" placeholder="upvote" ref="upvote" />
-        <input type="text" placeholder="downvote" ref="downvote" />
-        <input type="submit" value="Post" />
-      </form>
+      <div className="panel panel-default">
+        <div className="panel-body">
+              <form className="commentForm" onSubmit={this.handleSubmit}>
+                <div class="row">
+                    <div className="col-lg-12"><textarea rows="4" type="text" className="form-control .col-lg-10 .offset-lg-1" placeholder="Start writing your comment..." ref="body" />
+                        <span id="helpBlock" className="help-block"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div className="col-lg-4"><input type="text" placeholder="upvote" ref="upvote" /></div>
+                    <div className="col-lg-4"><input type="text" placeholder="downvote" ref="downvote" /></div>
+                    <div className="col-lg-4 text-right"><input type="submit" value="Post" /></div>
+                </div>
+              </form>
+        </div>
+      </div>
     );
   }
 });
 
-React.render(
-    //<CommentsBox data={data}/>,
-    <CommentsBox url="api/v1/comments/" pollInterval={10000} />,
-  document.getElementById('comments')
-);
+//React.render(
+//    //<CommentsBox data={data}/>,
+//  <CommentsBox url="api/v1/comments/" pollInterval={10000} />,
+//  document.getElementById('comments')
+//);

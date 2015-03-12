@@ -1,3 +1,10 @@
+// PlacePage
+//      Place
+//      Comments
+//      Ratings
+
+
+
 var converter = new Showdown.converter();
 
 var Place = React.createClass({
@@ -9,23 +16,23 @@ var Place = React.createClass({
 
                         <div>
                             <div>
-                                    <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3>{this.props.name}</h3></div>
+                                    <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3>{this.props.data.name}</h3></div>
                             </div>
                             <div>
-                                    <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.desc}</div>
+                                    <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.data.desc}</div>
                                     <div className="col-lg-4 col-sm-12 col-xs-12">
-                                        <div><small className="glyphicon glyphicon-inbox"> {this.props.unit}</small></div>
-                                        <div><small className="glyphicon glyphicon-align-justify"> {this.props.floor}</small></div>
-                                        <div><small className="glyphicon glyphicon-home"> {this.props.address}</small></div>
-                                        <div><small className="glyphicon glyphicon-globe"> {this.props.city}</small></div></div>
+                                        <div><small className="glyphicon glyphicon-inbox"> {this.props.data.unit}</small></div>
+                                        <div><small className="glyphicon glyphicon-align-justify"> {this.props.data.floor}</small></div>
+                                        <div><small className="glyphicon glyphicon-home"> {this.props.data.address}</small></div>
+                                        <div><small className="glyphicon glyphicon-globe"> {this.props.data.city}</small></div></div>
                             </div>
                             <div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><h3><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Overall Rating: </div><div className="col-lg-6 col-sm-6 col-xs-6"><OverallStarRating rating={this.props.rating}></OverallStarRating></div></h3></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><AirStarRating air_rating={this.props.air_rating}></AirStarRating></div></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6"><CleanStarRating clean_rating={this.props.clean_rating}></CleanStarRating></div></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6"><AvailbleStarRating available_rating={this.props.available_rating}></AvailbleStarRating></div></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><QualityStarRating quality_rating={this.props.quality_rating}></QualityStarRating></div></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><OtherStarRating other_rating={this.props.other_rating}></OtherStarRating></div></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><h3><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Overall Rating: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.overall_average_rating}></SmallStarRating></div></h3></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.air_flow__avg}></SmallStarRating></div></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.cleanliness__avg}></SmallStarRating></div></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.available__avg}></SmallStarRating></div></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.quality__avg}></SmallStarRating></div></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.other__avg}></SmallStarRating></div></div>
                             </div>
                         </div>
 
@@ -37,7 +44,7 @@ var Place = React.createClass({
   }
 });
 
-var PlacesBox = React.createClass({
+var PlacePage = React.createClass({
   loadPlacesFromServer: function() {
     $.ajax({
       url: this.props.url,
@@ -79,48 +86,55 @@ var PlacesBox = React.createClass({
   },
   componentDidMount: function() {
     this.loadPlacesFromServer();
-    setInterval(this.loadPlacesFromServer, this.props.pollInterval);
+    if (this.props.pollInterval > 0){
+          setInterval(this.loadPlacesFromServer, this.props.pollInterval);
+       };
   },
   render: function() {
-    return (
-      <div className="PlaceBox">
-        <h1>Place</h1>
-        <PlaceList data={this.state.data} />
-      </div>
-    );
+      if (this.state.data.length == 0) {
+          return (<span>loading...</span>);
+      }
+      else{
+          return (
+              <div className="PlaceBox">
+                <h1>Place</h1>
+                <Place data={this.state.data} />
+              </div>
+          );
+
+      }
+
   }
 });
 
-var PlaceList = React.createClass({
-  render: function() {
-    var placeNodes = this.props.data.map(function(place, index) {
-      return (
-        <Place name={place.name}
-            desc={place.desc}
-            placeType={place.place_type}
-            rating={place.overall_average_rating}
-            air_rating={place.average_rating.air_flow__avg}
-            clean_rating={place.average_rating.cleanliness__avg}
-            available_rating={place.average_rating.available__avg}
-            quality_rating={place.average_rating.quality__avg}
-            other_rating={place.average_rating.other__avg}
-            unit={place.unit} floor={place.floor}
-            address={place.address}
-            city={place.city}
-            key={index}></Place>
-      );
-    });
-    return (
-      <div className="placeList">
-        {placeNodes}
-      </div>
-    );
-  }
-});
+//var PlaceList = React.createClass({
+//  render: function() {
+//    var placeNodes = this.props.data.map(function(place, index) {
+//      return (
+//        <Place name={place.name}
+//            desc={place.desc}
+//            placeType={place.place_type}
+//            rating={place.overall_average_rating}
+//            air_rating={place.average_rating.air_flow__avg}
+//            clean_rating={place.average_rating.cleanliness__avg}
+//            available_rating={place.average_rating.available__avg}
+//            quality_rating={place.average_rating.quality__avg}
+//            other_rating={place.average_rating.other__avg}
+//            unit={place.unit} floor={place.floor}
+//            address={place.address}
+//            city={place.city}
+//            key={index}></Place>
+//      );
+//    });
+//    return (
+//      <div className="placeList">
+//        {placeNodes}
+//      </div>
+//    );
+//  }
+//});
 
-
-// overallRating - expecting number
-var OverallStarRating = React.createClass({
+var SmallStarRating = React.createClass({
 
     getInitialState: function() {
     return {rating: 0};
@@ -128,7 +142,9 @@ var OverallStarRating = React.createClass({
 
     render: function() {
         var ratingProp = Math.round(this.props.rating);
+
         var placeRating = [];
+
         if (ratingProp == 0){
             placeRating.push(<span><small>no rating</small></span>)
         }
@@ -142,138 +158,6 @@ var OverallStarRating = React.createClass({
         }
         return (
             <span className={this.props.rating}>{placeRating}</span>
-        );
-    }
-});
-
-var AirStarRating = React.createClass({
-
-    getInitialState: function() {
-    return {air_rating: 0};
-    },
-
-    render: function() {
-        var airRatingProp = Math.round(this.props.air_rating);
-
-        var airPlaceRating = [];
-
-        if (airRatingProp == 0){
-            airPlaceRating.push(<span><small>no rating</small></span>)
-        }
-        else {
-            for (var i = 0; i < airRatingProp; i++){
-                airPlaceRating.push(<span className="glyphicon glyphicon-star"></span>);
-            }
-            for (var i = airRatingProp; i < 5; i++){
-                airPlaceRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
-            }
-        }
-        return (
-            <span className={this.props.air_rating}>{airPlaceRating}</span>
-        );
-    }
-});
-
-var CleanStarRating = React.createClass({
-
-    getInitialState: function() {
-    return {clean_rating: 0};
-    },
-
-    render: function() {
-        var ratingProp = Math.round(this.props.clean_rating);
-        var placeRating = [];
-        if (ratingProp == 0){
-            placeRating.push(<span><small>no rating</small></span>)
-        }
-        else {
-            for (var i = 0; i < ratingProp; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
-            }
-            for (var i = ratingProp; i < 5; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
-            }
-        }
-        return (
-            <span className={this.props.clean_rating}>{placeRating}</span>
-        );
-    }
-});
-
-var AvailbleStarRating = React.createClass({
-
-    getInitialState: function() {
-    return {available_rating: 0};
-    },
-
-    render: function() {
-        var ratingProp = Math.round(this.props.available_rating);
-        var placeRating = [];
-        if (ratingProp == 0){
-            placeRating.push(<span><small>no rating</small></span>)
-        }
-        else {
-            for (var i = 0; i < ratingProp; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
-            }
-            for (var i = ratingProp; i < 5; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
-            }
-        }
-        return (
-            <span className={this.props.available_rating}>{placeRating}</span>
-        );
-    }
-});
-
-var QualityStarRating = React.createClass({
-
-    getInitialState: function() {
-    return {quality_rating: 0};
-    },
-
-    render: function() {
-        var ratingProp = Math.round(this.props.quality_rating);
-        var placeRating = [];
-        if (ratingProp == 0){
-            placeRating.push(<span><small>no rating</small></span>)
-        }
-        else {
-            for (var i = 0; i < ratingProp; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
-            }
-            for (var i = ratingProp; i < 5; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
-            }
-        }
-        return (
-            <span className={this.props.quality_rating}>{placeRating}</span>
-        );
-    }
-});
-
-var OtherStarRating = React.createClass({
-
-    getInitialState: function() {
-    return {other_rating: 0};
-    },
-
-    render: function() {
-        var ratingProp = Math.round(this.props.other_rating);
-        var placeRating = [];
-        if (ratingProp == 0){
-            placeRating.push(<span><small>no rating</small></span>)
-        }
-        else {
-            for (var i = 0; i < ratingProp; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
-            }
-            for (var i = ratingProp; i < 5; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
-            }
-        }
-        return (
-            <span className={this.props.other_rating}>{placeRating}</span>
         );
     }
 });
@@ -301,9 +185,9 @@ var OtherStarRating = React.createClass({
 //  }
 //});
 
-React.render(
-  <PlacesBox url="api/v1/places/" pollInterval={10000} />,
-  document.getElementById('place')
-);
-
+//React.render(
+//  <PlacePage url="api/v1/places/" pollInterval={10000} />,
+//  document.getElementById('place')
+//);
+//
 
