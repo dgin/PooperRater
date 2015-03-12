@@ -1,3 +1,5 @@
+import json
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
 from pooperRater.api_calls import yelp_api_call, yelp_business_search
@@ -89,10 +91,37 @@ def yelp_search(request):
         data['yelp'] = yelp_response # Unused, but helpful for debugging
         businesses = yelp_response['businesses']
         data['businesses'] = businesses
-    return render(request, 'yelp/yelp_search.html', data)
+    return render(request, 'yelp/yelp_blah.html', data)
 
 def successful_logout(request):
     return render(request, 'registration/successful_logout.html')
+
+def yelp_ajax(request):
+    data={}
+    # If user makes a search
+    if request.method == "GET":
+        print "TRUE"
+        term=request.GET['term']
+        data['term'] = term
+
+        # If user inputs an address
+        # Checks whether location was input
+        try:
+            location = request.GET["location"]
+            data['location']=location
+            yelp_response = yelp_business_search.main(term, location)
+        # If user is searching by automatically generated location instead
+        except MultiValueDictKeyError:
+            geoCoordLat = float(request.GET["geoCoordLat"])
+            geoCoordLong = float(request.GET["geoCoordLong"])
+            yelp_response = yelp_business_search.main(term, (geoCoordLat, geoCoordLong))
+
+        data['yelp'] = yelp_response # Unused, but helpful for debugging
+        businesses = yelp_response['businesses']
+        print type(businesses)
+        # data['businesses'] = json.loads(businesses)
+    return JsonResponse(businesses,safe=False, status=200)
+
 
 ########################## user profiles ##########################
 # @login_required

@@ -1,3 +1,4 @@
+import json
 import rauth
 import time
  
@@ -31,8 +32,8 @@ def get_results(params):
     # Use for testing, but disable for development version
     data = request.json()
     session.close()
-
     return data
+    # return json.dumps(request.json())
 
 def get_search_parameters(lat,long, term):
     #See the Yelp API for more details

@@ -1,12 +1,24 @@
 {% extends 'index.html' %}
 
 {% block content2 %}
+    <script src="../../static/js/yelp_ajax.js"></script>
+    <!--
     <script type="text/jsx;harmony=true" src="../../static/js/yelp_place.js"></script>
     <div class="container">
     <div class="row">
         <div id="yelpPlace" class="col-lg-7 col-sm-6 col-xs-12"></div>
-        <div id="map-canvas" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 text-center">{% include 'tests/goog_place_snip.html' %}</div>
+{#        <div id="map-canvas" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 text-center">{% include 'tests/goog_place_snip.html' %}</div>#}
     </div>
+    -->
+
+    <h4>Test ajax call</h4>
+    <form id="ajaxForm">
+        {% csrf_token %}
+        <input type="text" placeholder="Location here" id="ajaxLocation">
+        <input type="text" placeholder="search term" id="ajaxTerm">
+        <input type="submit" value="workworkwork" onclick="yelp_ajax();">
+    </form>
+    <button onclick="yelp_ajax()">Hi</button>
 
     <h4>PoopeRater Yelp Search</h4>
 <br><br>

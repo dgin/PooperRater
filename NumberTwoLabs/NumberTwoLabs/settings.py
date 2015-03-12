@@ -89,7 +89,7 @@ ROOT_URLCONF = 'NumberTwoLabs.urls'
 
 WSGI_APPLICATION = 'NumberTwoLabs.wsgi.application'
 
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/places'
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
