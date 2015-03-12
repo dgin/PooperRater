@@ -10,14 +10,13 @@ var converter = new Showdown.converter();
 var Place = React.createClass({
   render: function() {
     return (
+    <div className="place">
+    <h1>{this.props.data.name}</h1>
     <div className="panel panel-default">
         <div className="panel-body">
-            <div className="place">
+
 
                         <div>
-                            <div>
-                                    <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3>{this.props.data.name}</h3></div>
-                            </div>
                             <div>
                                     <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.data.desc}</div>
                                     <div className="col-lg-4 col-sm-12 col-xs-12">
@@ -25,6 +24,9 @@ var Place = React.createClass({
                                         <div><small className="glyphicon glyphicon-align-justify"> {this.props.data.floor}</small></div>
                                         <div><small className="glyphicon glyphicon-home"> {this.props.data.address}</small></div>
                                         <div><small className="glyphicon glyphicon-globe"> {this.props.data.city}</small></div></div>
+                            </div>
+                            <div>
+                                <h1>&nbsp;</h1>
                             </div>
                             <div>
                                 <div className="col-lg-12 col-sm-12 col-xs-12"><h3><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Overall Rating: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.overall_average_rating}></SmallStarRating></div></h3></div>
@@ -97,7 +99,6 @@ var PlacePage = React.createClass({
       else{
           return (
               <div className="PlaceBox">
-                <h1>Place</h1>
                 <Place data={this.state.data} />
               </div>
           );

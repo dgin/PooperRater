@@ -1,5 +1,5 @@
 from rest_framework import serializers, permissions
-from pooperRater.models import Rating, Place, Comment, Restroom
+from pooperRater.models import Rating, Place, Comment, Restroom, Vote
 from pooperRater.permissions import IsOwnerOrReadOnly
 from pooperRater.models import User, AnonUserInfo
 
@@ -24,8 +24,17 @@ class CommentSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('rating', 'body', 'upvote', 'downvote',
+        fields = ('rating', 'body',
                   'created_at', 'updated_at')
+
+
+class VoteSerializer (serializers.ModelSerializer):
+
+    class Meta:
+        model = Vote
+        fields = ('comment', 'upvote', 'downvote',
+                  'created_at', 'updated_at')
+
 
 class RestroomSerializer (serializers.ModelSerializer):
 
@@ -39,7 +48,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username',]
+        fields = ['id', 'username']
+
 
 class AnonUserInfoSerializer(serializers.ModelSerializer):
     related_user = serializers.SlugRelatedField(
