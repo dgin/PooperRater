@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 
-def home(request):
+def places(request):
    context = RequestContext(request,
                            {'user': request.user})
    return render_to_response('places/places.html', context_instance=context)

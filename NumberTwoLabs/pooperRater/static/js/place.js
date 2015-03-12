@@ -10,7 +10,6 @@ var Place = React.createClass({
                         <div>
                             <div>
                                     <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3>{this.props.name}</h3></div>
-                                    <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.rating}></OverallStarRating></div>
                             </div>
                             <div>
                                     <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.desc}</div>
@@ -19,6 +18,14 @@ var Place = React.createClass({
                                         <div><small className="glyphicon glyphicon-align-justify"> {this.props.floor}</small></div>
                                         <div><small className="glyphicon glyphicon-home"> {this.props.address}</small></div>
                                         <div><small className="glyphicon glyphicon-globe"> {this.props.city}</small></div></div>
+                            </div>
+                            <div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><h3><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Overall Rating: </div><div className="col-lg-6 col-sm-6 col-xs-6"><OverallStarRating rating={this.props.rating}></OverallStarRating></div></h3></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><AirStarRating air_rating={this.props.air_rating}></AirStarRating></div></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6"><CleanStarRating clean_rating={this.props.clean_rating}></CleanStarRating></div></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6"><AvailbleStarRating available_rating={this.props.available_rating}></AvailbleStarRating></div></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><QualityStarRating quality_rating={this.props.quality_rating}></QualityStarRating></div></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><OtherStarRating other_rating={this.props.other_rating}></OtherStarRating></div></div>
                             </div>
                         </div>
 
@@ -77,7 +84,7 @@ var PlacesBox = React.createClass({
   render: function() {
     return (
       <div className="PlaceBox">
-        <h1>Places</h1>
+        <h1>Place</h1>
         <PlaceList data={this.state.data} />
       </div>
     );
@@ -92,6 +99,11 @@ var PlaceList = React.createClass({
             desc={place.desc}
             placeType={place.place_type}
             rating={place.overall_average_rating}
+            air_rating={place.average_rating.air_flow__avg}
+            clean_rating={place.average_rating.cleanliness__avg}
+            available_rating={place.average_rating.available__avg}
+            quality_rating={place.average_rating.quality__avg}
+            other_rating={place.average_rating.other__avg}
             unit={place.unit} floor={place.floor}
             address={place.address}
             city={place.city}
@@ -134,40 +146,42 @@ var OverallStarRating = React.createClass({
     }
 });
 
-var OverallStarRating = React.createClass({
+var AirStarRating = React.createClass({
 
     getInitialState: function() {
-    return {rating: 0};
+    return {air_rating: 0};
     },
 
     render: function() {
-        var ratingProp = Math.round(this.props.rating);
-        var placeRating = [];
-        if (ratingProp == 0){
-            placeRating.push(<span><small>no rating</small></span>)
+        var airRatingProp = Math.round(this.props.air_rating);
+
+        var airPlaceRating = [];
+
+        if (airRatingProp == 0){
+            airPlaceRating.push(<span><small>no rating</small></span>)
         }
         else {
-            for (var i = 0; i < ratingProp; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star"></span>);
+            for (var i = 0; i < airRatingProp; i++){
+                airPlaceRating.push(<span className="glyphicon glyphicon-star"></span>);
             }
-            for (var i = ratingProp; i < 5; i++){
-                placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
+            for (var i = airRatingProp; i < 5; i++){
+                airPlaceRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
             }
         }
         return (
-            <span className={this.props.rating}>{placeRating}</span>
+            <span className={this.props.air_rating}>{airPlaceRating}</span>
         );
     }
 });
 
-var OverallStarRating = React.createClass({
+var CleanStarRating = React.createClass({
 
     getInitialState: function() {
-    return {rating: 0};
+    return {clean_rating: 0};
     },
 
     render: function() {
-        var ratingProp = Math.round(this.props.rating);
+        var ratingProp = Math.round(this.props.clean_rating);
         var placeRating = [];
         if (ratingProp == 0){
             placeRating.push(<span><small>no rating</small></span>)
@@ -181,19 +195,19 @@ var OverallStarRating = React.createClass({
             }
         }
         return (
-            <span className={this.props.rating}>{placeRating}</span>
+            <span className={this.props.clean_rating}>{placeRating}</span>
         );
     }
 });
 
-var OverallStarRating = React.createClass({
+var AvailbleStarRating = React.createClass({
 
     getInitialState: function() {
-    return {rating: 0};
+    return {available_rating: 0};
     },
 
     render: function() {
-        var ratingProp = Math.round(this.props.rating);
+        var ratingProp = Math.round(this.props.available_rating);
         var placeRating = [];
         if (ratingProp == 0){
             placeRating.push(<span><small>no rating</small></span>)
@@ -207,19 +221,19 @@ var OverallStarRating = React.createClass({
             }
         }
         return (
-            <span className={this.props.rating}>{placeRating}</span>
+            <span className={this.props.available_rating}>{placeRating}</span>
         );
     }
 });
 
-var OverallStarRating = React.createClass({
+var QualityStarRating = React.createClass({
 
     getInitialState: function() {
-    return {rating: 0};
+    return {quality_rating: 0};
     },
 
     render: function() {
-        var ratingProp = Math.round(this.props.rating);
+        var ratingProp = Math.round(this.props.quality_rating);
         var placeRating = [];
         if (ratingProp == 0){
             placeRating.push(<span><small>no rating</small></span>)
@@ -233,19 +247,19 @@ var OverallStarRating = React.createClass({
             }
         }
         return (
-            <span className={this.props.rating}>{placeRating}</span>
+            <span className={this.props.quality_rating}>{placeRating}</span>
         );
     }
 });
 
-var OverallStarRating = React.createClass({
+var OtherStarRating = React.createClass({
 
     getInitialState: function() {
-    return {rating: 0};
+    return {other_rating: 0};
     },
 
     render: function() {
-        var ratingProp = Math.round(this.props.rating);
+        var ratingProp = Math.round(this.props.other_rating);
         var placeRating = [];
         if (ratingProp == 0){
             placeRating.push(<span><small>no rating</small></span>)
@@ -259,7 +273,7 @@ var OverallStarRating = React.createClass({
             }
         }
         return (
-            <span className={this.props.rating}>{placeRating}</span>
+            <span className={this.props.other_rating}>{placeRating}</span>
         );
     }
 });
