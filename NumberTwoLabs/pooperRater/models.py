@@ -42,22 +42,22 @@ class Place(models.Model):
 
     @property
     def average_rating(self):
-        empty_list = []
+        empty_list = {}
 
         if Rating.objects.filter(place__id=self.id).aggregate(Avg('air_flow')) > 0:
-            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('air_flow')))
+            empty_list.update(Rating.objects.filter(place__id=self.id).aggregate(Avg('air_flow')))
 
         if Rating.objects.filter(place__id=self.id).aggregate(Avg('cleanliness')) > 0:
-            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('cleanliness')))
+            empty_list.update(Rating.objects.filter(place__id=self.id).aggregate(Avg('cleanliness')))
 
         if Rating.objects.filter(place__id=self.id).aggregate(Avg('available')) > 0:
-            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('available')))
+            empty_list.update(Rating.objects.filter(place__id=self.id).aggregate(Avg('available')))
 
         if Rating.objects.filter(place__id=self.id).aggregate(Avg('quality')) > 0:
-            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('quality')))
+            empty_list.update(Rating.objects.filter(place__id=self.id).aggregate(Avg('quality')))
 
         if Rating.objects.filter(place__id=self.id).aggregate(Avg('other')) > 0:
-            empty_list.append(Rating.objects.filter(place__id=self.id).aggregate(Avg('other')))
+            empty_list.update(Rating.objects.filter(place__id=self.id).aggregate(Avg('other')))
 
         return empty_list
 
@@ -65,11 +65,11 @@ class Place(models.Model):
     @property
     def overall_average_rating(self):
         overall_average = 0
-        average_rating_list = self.average_rating
-        for average in average_rating_list:
-            if average.values()[0] != None:
-                overall_average += average.values()[0]
-        return overall_average / len(average_rating_list)
+
+        for average in self.average_rating:
+            if self.average_rating[average] != None:
+                overall_average += self.average_rating[average]
+        return overall_average / len(self.average_rating)
 
 
 

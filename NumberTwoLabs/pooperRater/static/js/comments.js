@@ -76,8 +76,7 @@ var CommentList = React.createClass({
         <Comment key={index}
                    body = {comment.body}
             upvote = {comment.upvote}
-            downvote = {comment.downvote} >
-        </Comment>
+            downvote = {comment.downvote} />
       );
     });
     return (
@@ -99,7 +98,7 @@ var CommentForm = React.createClass({
     e.preventDefault();
     var body = this.refs.body.getDOMNode().value.trim();
     var upvote = this.refs.upvote.getDOMNode().value.trim();
-    var downvote = this.ref.downvote.getDOMNode().value.trim();
+    var downvote = this.refs.downvote.getDOMNode().value.trim();
     if (!upvote || !downvote || !body) {
       return;
     }
