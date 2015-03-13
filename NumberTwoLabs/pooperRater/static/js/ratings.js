@@ -6,11 +6,11 @@ var Rating = React.createClass({
     return (
       <div className="rating">
         <div className="ratingBody">
-          <div>{this.props.air_flow}</div>
-          <div>{this.props.cleanliness}</div>
-          <div>{this.props.available}</div>
-          <div>{this.props.quality}</div>
-          <div>{this.props.other}</div>
+          <div>air flow: {this.props.air_flow}</div>
+          <div>cleanliness: {this.props.cleanliness}</div>
+          <div>availible: {this.props.available}</div>
+          <div>quality: {this.props.quality}</div>
+          <div>other: {this.props.other}</div>
       </div>
       </div>
     );
@@ -101,16 +101,16 @@ var RatingList = React.createClass({
 var RatingForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
-    var air_flow = this.refs.body.getDOMNode().value.trim();
-    var cleanliness = this.refs.upvote.getDOMNode().value.trim();
-    var available = this.refs.downvote.getDOMNode().value.trim();
-    var quality = this.refs.upvote.getDOMNode().value.trim();
-    var other = this.refs.downvote.getDOMNode().value.trim();
+    var air_flow = this.refs.air_flow.getDOMNode().value.trim();
+    var cleanliness = this.refs.cleanliness.getDOMNode().value.trim();
+    var available = this.refs.available.getDOMNode().value.trim();
+    var quality = this.refs.quality.getDOMNode().value.trim();
+    var other = this.refs.other.getDOMNode().value.trim();
 
     if (!air_flow || !cleanliness || !available || !quality || !other) {
       return;
     }
-    this.props.onCommentSubmit({air_flow: air_flow,
+    this.props.onRatingSubmit({air_flow: air_flow,
                                 cleanliness: cleanliness,
                                 available: available,
                                 quality: quality,
