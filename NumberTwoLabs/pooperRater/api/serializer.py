@@ -16,7 +16,7 @@ class PlaceSerializer(serializers.ModelSerializer):
         model = Place
         fields = ('id', 'name', 'floor', 'unit', 'address', 'city', 'desc',
                   'place_type', 'start_hours', 'end_hours', 'pic',
-                  'yelp_id', 'yelp_categories', 'google_id',
+                  'yelp_id', 'yelp_categories', 'yelp_url', 'google_id',
                   'google_lat', 'google_long', 'created_at', 'updated_at',
                   'average_rating', 'overall_average_rating')
 

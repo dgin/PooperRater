@@ -8,19 +8,20 @@ from django.db.models import Avg
 class Place(models.Model):
     # PlaceListItem data - general
     name = models.CharField(max_length=80)
-    floor = models.IntegerField(null=True)
+    floor = models.IntegerField(null=True, blank=True)
 
     unit = models.CharField(null=True, blank=True, max_length=5)
     address = models.CharField(null=True, blank=True, max_length=120)
     city = models.CharField(null=True, blank=True, max_length=120)
     desc = models.TextField(null=True, blank=True, max_length=200)
-    place_type = models.SmallIntegerField(null=True)
-    start_hours = models.TimeField(null=True)
-    end_hours = models.TimeField(null=True)
+    place_type = models.SmallIntegerField(null=True, blank=True)
+    start_hours = models.TimeField(null=True, blank=True)
+    end_hours = models.TimeField(null=True, blank=True)
     pic = models.ImageField(null=True, blank=True)
 
     # PlaceListItem data specific to yelp
     yelp_id = models.CharField(max_length=100, null=True, blank=True)
+    yelp_url = models.URLField(null=True, blank=True)
     yelp_categories = models.TextField(blank=True)
 
     # PlaceListItem data specific to google
@@ -38,7 +39,8 @@ class Place(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}".format(self.name) + " Types: {}.".format(self.type_conversion[self.place_type])
+        return u"{}".format(self.name)\
+               # + " Types: {}.".format(self.type_conversion[self.place_type])
 
     @property
     def average_rating(self):
@@ -74,7 +76,7 @@ class Place(models.Model):
 
 
 class AnonUserInfo(models.Model):
-    related_user = models.ForeignKey(User)
+    related_user = models.OneToOneField(User)
     anonymous_name = models.CharField(max_length=80, default='Anonymous')
     user_img = models.ImageField(null=True, blank=True)
 
