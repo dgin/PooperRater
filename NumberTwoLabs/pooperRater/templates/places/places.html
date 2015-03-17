@@ -4,8 +4,10 @@
     <div class="row text-center">
         <div id="searchagain" class="col-lg-7 col-sm-6 col-xs-12">
             <button type="submit" class="btn btn-lg btn-default">Search Again</button>
-            <button type="submit" class="btn btn-lg btn-default">Add A Place</button>
+            {% include 'modals.html' %}
+            <!--<button type="submit" class="btn btn-lg btn-default">Add A Place</button>-->
             <button type="submit" class="btn btn-lg btn-default">Add A Rating</button>
+
         </div>
     </div>
 </div>
@@ -17,5 +19,6 @@
     </div>
 
 </div>
+
 {% endblock content2 %}
 

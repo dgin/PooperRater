@@ -15,9 +15,9 @@ class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
         fields = ('id', 'name', 'floor', 'unit', 'address', 'city', 'desc',
-                  'place_type', 'start_hours', 'end_hours', 'pic',
+                  'place_type', 'start_hours', 'end_hours', 'pic', 'latitude', 'longitude',
                   'yelp_id', 'yelp_categories', 'yelp_url', 'google_id',
-                  'google_lat', 'google_long', 'created_at', 'updated_at',
+                  'created_at', 'updated_at',
                   'average_rating', 'overall_average_rating')
 
 class CommentSerializer (serializers.ModelSerializer):

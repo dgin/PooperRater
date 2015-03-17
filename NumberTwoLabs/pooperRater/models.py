@@ -18,16 +18,18 @@ class Place(models.Model):
     start_hours = models.TimeField(null=True, blank=True)
     end_hours = models.TimeField(null=True, blank=True)
     pic = models.ImageField(null=True, blank=True)
+    # Location data
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
 
     # PlaceListItem data specific to yelp
-    yelp_id = models.CharField(max_length=100, null=True, blank=True)
+    yelp_id = models.CharField(max_length=100, null=True, blank=True, unique=True)
     yelp_url = models.URLField(null=True, blank=True)
     yelp_categories = models.TextField(blank=True)
 
+
     # PlaceListItem data specific to google
     google_id = models.CharField(max_length=100, null=True, blank=True)
-    google_lat = models.SmallIntegerField(null=True, blank=True)
-    google_long = models.SmallIntegerField(null=True, blank=True)
 
     type_conversion = {
         1: "placeholder",

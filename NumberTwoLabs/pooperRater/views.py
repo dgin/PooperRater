@@ -162,7 +162,8 @@ def place_add(request):
         if form.is_valid():
             form.save()
             return redirect('/places', status=201)
-    form = ManualPlaceCreationForm()
+    else:
+        form = ManualPlaceCreationForm()
     data = {
         'form': form
     }

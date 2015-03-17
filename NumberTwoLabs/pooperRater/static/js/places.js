@@ -166,9 +166,9 @@ var OverallStarRating = React.createClass({
 //  }
 //});
 //
-//React.render(
-//  <PlacesPage url="api/v1/places/" pollInterval={10000} />,
-//  document.getElementById('places')
-//);
+React.render(
+  <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
+  document.getElementById('places')
+);
 
 

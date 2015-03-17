@@ -1,9 +1,3 @@
-console.log(1);
-
-yelp_search = function () {
-    console.log(3);
-};
-
 // If user chooses to search near self
 function returnUserPosition() {
     // First disable and hide the location search bar, information
