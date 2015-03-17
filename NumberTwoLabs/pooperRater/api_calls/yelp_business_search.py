@@ -20,7 +20,6 @@ def get_results(params):
     #From Yelp's manage access page
     
 
-
     session = rauth.OAuth1Session(
         consumer_key = consumer_key
         ,consumer_secret = consumer_secret
