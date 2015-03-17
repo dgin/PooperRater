@@ -7,23 +7,23 @@ var converter = new Showdown.converter();
 var PlaceListItem = React.createClass({
   render: function() {
     return (
-<a href={"#places/" + this.props.place_id}>
+<a href={"#places/" + this.props.place.id}>
     <div className="panel panel-default">
         <div className="panel-body">
             <div className="place">
 
                         <div>
                             <div>
-                                    <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3> {this.props.name}</h3></div>
-                                    <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.rating}></OverallStarRating></div>
+                                    <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3> {this.props.place.name}</h3></div>
+                                    <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.place.overall_average_rating}></OverallStarRating></div>
                             </div>
                             <div>
-                                    <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.desc}</div>
+                                    <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.place.desc}</div>
                                     <div className="col-lg-4 col-sm-12 col-xs-12">
-                                        <div><small className="glyphicon glyphicon-inbox"> {this.props.unit}</small></div>
-                                        <div><small className="glyphicon glyphicon-align-justify"> {this.props.floor}</small></div>
-                                        <div><small className="glyphicon glyphicon-home"> {this.props.address}</small></div>
-                                        <div><small className="glyphicon glyphicon-globe"> {this.props.city}</small></div></div>
+                                        <div><small className="glyphicon glyphicon-inbox"> {this.props.place.unit}</small></div>
+                                        <div><small className="glyphicon glyphicon-align-justify"> {this.props.place.floor}</small></div>
+                                        <div><small className="glyphicon glyphicon-home"> {this.props.place.address}</small></div>
+                                        <div><small className="glyphicon glyphicon-globe"> {this.props.place.city}</small></div></div>
                             </div>
                         </div>
 
@@ -97,14 +97,7 @@ var PlaceList = React.createClass({
   render: function() {
     var placeNodes = this.props.data.map(function(place) {
       return (
-        <PlaceListItem name={place.name}
-            desc={place.desc}
-            placeType={place.place_type}
-            rating={place.overall_average_rating}
-            unit={place.unit} floor={place.floor}
-            address={place.address}
-            city={place.city}
-            place_id={place.id}></PlaceListItem>
+        <PlaceListItem place={place}></PlaceListItem>
       );
     });
     return (

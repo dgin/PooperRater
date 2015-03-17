@@ -4,9 +4,9 @@ var VoteListItem = React.createClass({
   render: function() {
     return (
             <div className="vote">
-                <div className="col-lg-4">
-                    <div className="col-lg-6 glyphicon glyphicon-thumbs-up"> {this.props.vote.upvote}</div>
-                    <div className="col-lg-6 glyphicon glyphicon-thumbs-down"> {this.props.vote.downvote}</div>
+                <div className="col-xs-12 col-sm-12 col-lg-12 text-center">
+                    <div className="col-xs-6 col-sm-3 col-lg-2 glyphicon glyphicon-thumbs-up"> {this.props.vote.upvote}</div>
+                    <div className="col-xs-6 col-sm-3 col-lg-2 glyphicon glyphicon-thumbs-down"> {this.props.vote.downvote}</div>
                 </div>
           </div>
     );

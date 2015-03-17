@@ -4,36 +4,53 @@ var converter = new Showdown.converter();
 var Rating = React.createClass({
   render: function() {
     return (
+        <div className="panel panel-default">
+        <div className="panel-body">
             <div className="rating">
                 <div className="ratingBody">
-                      <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.air_flow}></SmallStarRating></div></div>
-                      <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Cleanliness:  </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.cleanliness}></SmallStarRating></div></div>
-                      <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Availible: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.available}></SmallStarRating></div></div>
-                      <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.quality}></SmallStarRating></div></div>
-                      <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
-               </div>
-              </div>
+                    <div className="row">
+                     <div className="col-lg-6 col-sm-12 col-xs-12">
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.air_flow}></SmallStarRating></div></div>
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean:  </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.cleanliness}></SmallStarRating></div></div>
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Availible: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.available}></SmallStarRating></div></div>
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.quality}></SmallStarRating></div></div>
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
+                     </div>
+                     <div className="col-lg-6 col-sm-12 col-xs-12">
+                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
+                     </div>
+                </div>
+                </div>
+                <div className="col-lg-12 col-sm-12 col-xs-12">
+                    <h1>&nbsp;</h1>
+                    <VoteBox url={"/api/v1/vote/" + this.props.rating.id + "/"} pollInterval={10000} ></VoteBox>
+                </div>
+            </div>
+
+        </div>
+        </div>
 
 
     );
   }
 });
 
+//<CommentsBox url={"/api/v1/comments/" + this.props.rating.id + "/"}></CommentsBox>
 
 var RatingsBox = React.createClass({
-  //loadRatingsFromServer: function() {
-  //  $.ajax({
-  //    url: this.props.url,
-  //    dataType: 'json',
-  //    contentType: 'application/json',
-  //    success: function(data) {
-  //      this.setState({data: data});
-  //    }.bind(this),
-  //    error: function(xhr, status, err) {
-  //      console.error(this.props.url, status, err.toString());
-  //    }.bind(this)
-  //  });
-  //},
+  loadRatingsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   handleRatingSubmit: function(rating) {
     var ratings = this.state.data;
     ratings.push(rating);
@@ -66,13 +83,13 @@ var RatingsBox = React.createClass({
         };
   },
   render: function() {
-    if (this.props.ratings === null) {
+    if (this.state.data === null) {
           return (<span>loading ratings...</span>);
       }
       else {
         return (
             <div className="RatingsBox">
-                <RatingList data={this.props.ratings} />
+                <RatingList data={this.state.data} />
             </div>
         );
     }
@@ -151,8 +168,8 @@ var RatingForm = React.createClass({
   }
 });
 
-//React.render(
-//    //<CommentsBox data={data}/>,
-//    <RatingsBox url="/api/v1/ratings/" pollInterval={10000} />,
-//  document.getElementById('ratings')
-//);
+React.render(
+    //<CommentsBox data={data}/>,
+    <RatingsBox url="/api/v1/ratings/" pollInterval={10000} />,
+  document.getElementById('ratings')
+);

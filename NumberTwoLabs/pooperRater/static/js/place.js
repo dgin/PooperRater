@@ -40,18 +40,8 @@ var Place = React.createClass({
 
             </div>
         </div>
-
-        <div className="panel panel-default">
-        <div className="panel-body">
-                <div><RatingsBox ratings={this.props.data.ratings} pollInterval={10000} /></div>
-            <div>
-                <h1>&nbsp;</h1>
-            </div>
-            <div><CommentsBox url={"/api/v1/comments/" + this.props.data.id + "/"} pollInterval={10000} ></CommentsBox></div>
-            <div><VoteBox url={"/api/v1/vote/" + this.props.data.id + "/"} pollInterval={10000} ></VoteBox></div>
+                <div><RatingsBox url={"/api/v1/places/" + this.props.data.id + "/ratings/"} pollInterval={10000} /></div>
         </div>
-        </div>
-    </div>
 
     );
   }

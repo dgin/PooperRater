@@ -14,11 +14,17 @@ class RatingViewSet(viewsets.ModelViewSet):
 
 
 class PlaceRatingViewSet(generics.ListAPIView):
+    serializer_class = RatingSerializer
 
-     def get(self, request, pk):
-         queryset = Rating.objects.filter(place__id=self.kwargs.get(id))
-         serializer = RatingSerializer(queryset)
-         return Response(serializer.data)
+    def get_queryset(self, *args, **kwargs):
+        return Rating.objects.filter(place__id=self.kwargs.get('pk'))
+
+
+class RatingCommentViewSet(generics.ListAPIView):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        return Comment.objects.filter(rating__id=self.kwargs.get('pk'))
 
 
 class PlaceViewSet(viewsets.ModelViewSet):
