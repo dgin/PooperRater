@@ -7,7 +7,7 @@ var converter = new Showdown.converter();
 var PlaceListItem = React.createClass({
   render: function() {
     return (
-<a href={"#places/" + this.props.place_id}>
+<a href={"#places/" + this.props.place.id}>
     <div className="panel panel-default">
         <div className="panel-body">
             <div className="place">
