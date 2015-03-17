@@ -15,7 +15,6 @@ var Place = React.createClass({
     <div className="panel panel-default">
         <div className="panel-body">
 
-
                         <div>
                             <div>
                                     <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.data.desc}</div>
@@ -41,7 +40,19 @@ var Place = React.createClass({
 
             </div>
         </div>
+
+        <div className="panel panel-default">
+        <div className="panel-body">
+            <div><RatingsBox url={"/api/v1/ratings/" + this.props.data.id + "/"} pollInterval={4000} /></div>
+            <div>
+                <h1>&nbsp;</h1>
+            </div>
+            <div><CommentsBox url={"/api/v1/comments/" + this.props.data.id + "/"} pollInterval={4000} ></CommentsBox></div>
+            <div><VoteBox url={"/api/v1/vote/" + this.props.data.id + "/"} pollInterval={4000} ></VoteBox></div>
+        </div>
+        </div>
     </div>
+
     );
   }
 });
@@ -102,9 +113,7 @@ var PlacePage = React.createClass({
                 <Place data={this.state.data} />
               </div>
           );
-
       }
-
   }
 });
 

@@ -4,15 +4,11 @@ var converter = new Showdown.converter();
 var Comment = React.createClass({
   render: function() {
     return (
-       <div className="panel panel-default">
-        <div className="panel-body">
-              <div className="comment">
-                <div className="commentBody">
-                  {this.props.body}
-                </div>
-              </div>
-      </div>
-      </div>
+            <div className="comment">
+            <div className="commentBody">
+              {this.props.comment.body}
+            </div>
+          </div>
     );
   }
 });
@@ -59,38 +55,53 @@ var CommentsBox = React.createClass({
   },
   componentDidMount: function() {
     this.loadCommentsFromServer();
+
+      if (this.props.pollInterval > 0) {
           setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+      };
   },
   render: function() {
-    return (
-      <div className="CommentsBox">
-        <h1>Comments</h1>
-            <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-            <CommentList data={this.state.data} />
-      </div>
-    );
+    if (this.state.data.length === null) {
+          return (<span>loading comments...</span>);
+      }
+      else {
+        return (
+            <div className="CommentsBox">
+                <CommentList data={this.state.data} />
+            </div>
+        );
+    }
   }
 });
+
+//<CommentForm onCommentSubmit={this.handleCommentSubmit} />
 
 var CommentList = React.createClass({
   render: function() {
+    if (Array.isArray(this.props.data)){
     var commentNodes = this.props.data.map(function(comment) {
       return (
-        <Comment body = {comment.body} />
+        <Comment comment = {comment}></Comment>
       );
     });
-    return (
-      <div className="commentList">
-        {commentNodes}
-      </div>
-    );
-  }
-});
+    } else {
+        var commentNodes = [];
+        commentNodes.push(this.singleNode(this.props.data));
+    }
 
-//air_flow_rating={comment.Rating.air_flow}
-//            cleanliness_rating = {comment.Rating.cleanliness}
-//            available_rating = {comment.Rating.available}
-//            quality_rating = {comment.Rating.quality}
+    return (
+        <div className="commentList">
+            {commentNodes}
+        </div>
+    );
+  },
+
+    singleNode: function(comment) {
+        return (
+            <Comment comment = {comment}></Comment>
+        );
+    }
+});
 
 
 var CommentForm = React.createClass({
@@ -130,6 +141,6 @@ var CommentForm = React.createClass({
 });
 
 React.render(
-  <CommentsBox url="api/v1/comments/" pollInterval={10000} />,
+  <CommentsBox url="/api/v1/comments/" pollInterval={10000} />,
   document.getElementById('comments')
 );
