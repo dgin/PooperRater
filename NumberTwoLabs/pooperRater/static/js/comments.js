@@ -1,16 +1,14 @@
+
 var converter = new Showdown.converter();
 
 var Comment = React.createClass({
   render: function() {
     return (
-     <div className="panel panel-default">
-        <div className="panel-body">
             <div className="comment">
-                <div className="commentBody col-lg-10 offset-lg-1">{this.props.body}</div>
-                <div className="col-lg-4"><div className="col-lg-6 glyphicon glyphicon-thumbs-up"> {this.props.upvote}</div> <div className="col-lg-6 glyphicon glyphicon-thumbs-down"> {this.props.downvote}</div></div>
+            <div className="commentBody">
+              {this.props.comment.body}
+            </div>
           </div>
-        </div>
-     </div>
     );
   }
 });
@@ -20,12 +18,13 @@ var CommentsBox = React.createClass({
     $.ajax({
       url: this.props.url,
       dataType: 'json',
-      contentType: 'application/json',
+      contentType: "application/json; charset=utf-8",
       success: function(data) {
-        this.setState({data: data});
+        this.setState({data: data}
+        );
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.url, err);
       }.bind(this)
     });
   },
@@ -50,43 +49,58 @@ var CommentsBox = React.createClass({
       });
     });
   },
-  //<CommentForm onCommentSubmit={this.handleCommentSubmit} />
 
   getInitialState: function() {
     return {data: []};
   },
   componentDidMount: function() {
     this.loadCommentsFromServer();
-    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+
+      if (this.props.pollInterval > 0) {
+          setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+      };
   },
   render: function() {
-    return (
-      <div className="CommentsBox">
-        <h1>Comments</h1>
-        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-        <CommentList data={this.state.data} />
-
-      </div>
-    );
+    if (this.state.data.length === null) {
+          return (<span>loading comments...</span>);
+      }
+      else {
+        return (
+            <div className="CommentsBox">
+                <CommentList data={this.state.data} />
+            </div>
+        );
+    }
   }
 });
 
+//<CommentForm onCommentSubmit={this.handleCommentSubmit} />
+
 var CommentList = React.createClass({
   render: function() {
-    var commentNodes = this.props.data.map(function(comment, index) {
+    if (Array.isArray(this.props.data)){
+    var commentNodes = this.props.data.map(function(comment) {
       return (
-        <Comment key={index}
-                   body = {comment.body}
-            upvote = {comment.upvote}
-            downvote = {comment.downvote} />
+        <Comment comment = {comment}></Comment>
       );
     });
+    } else {
+        var commentNodes = [];
+        commentNodes.push(this.singleNode(this.props.data));
+    }
+
     return (
-      <div className="commentList">
-        {commentNodes}
-      </div>
+        <div className="commentList">
+            {commentNodes}
+        </div>
     );
-  }
+  },
+
+    singleNode: function(comment) {
+        return (
+            <Comment comment = {comment}></Comment>
+        );
+    }
 });
 
 
@@ -117,9 +131,7 @@ var CommentForm = React.createClass({
                     </div>
                 </div>
                 <div class="row">
-                    <div className="col-lg-4"><input type="text" placeholder="upvote" ref="upvote" /></div>
-                    <div className="col-lg-4"><input type="text" placeholder="downvote" ref="downvote" /></div>
-                    <div className="col-lg-4 text-right"><input type="submit" value="Post" /></div>
+                    <div className="col-lg-12 text-right"><input type="submit" value="Post" /></div>
                 </div>
               </form>
         </div>
@@ -128,8 +140,7 @@ var CommentForm = React.createClass({
   }
 });
 
-//React.render(
-//    //<CommentsBox data={data}/>,
-//  <CommentsBox url="api/v1/comments/" pollInterval={10000} />,
-//  document.getElementById('comments')
-//);
+React.render(
+  <CommentsBox url="/api/v1/comments/" pollInterval={10000} />,
+  document.getElementById('comments')
+);

@@ -116,7 +116,17 @@ class Rating(models.Model):
 
 class Comment(models.Model):
     rating = models.OneToOneField(Rating)
-    body = models.TextField(null=True, blank=True)
+    body = models.TextField(null=True, blank=True, max_length=500)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return u"{}".format(self.rating.owner.username)
+
+
+class Vote(models.Model):
+    comment = models.ForeignKey(Comment)
     upvote = models.SmallIntegerField(null=True, blank=True)
     downvote = models.SmallIntegerField(null=True, blank=True)
 
@@ -124,7 +134,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}".format(self.rating.owner.username)
+        return u"{}, {}".format(self.comment.rating.owner.username, self.comment.id)
 
 
 class Restroom(models.Model):

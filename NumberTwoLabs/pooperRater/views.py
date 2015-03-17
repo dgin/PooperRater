@@ -27,6 +27,17 @@ def comment(request):
                            {'user': request.user})
    return render_to_response('comments/comments.html', context_instance=context)
 
+def vote(request):
+   context = RequestContext(request,
+                           {'user': request.user})
+   return render_to_response('comments/vote.html', context_instance=context)
+
+def rating(request):
+   context = RequestContext(request,
+                           {'user': request.user})
+   return render_to_response('ratings/ratings.html', context_instance=context)
+
+
 
 def googleplace(request):
     return render(request, 'tests/google_places_snippet.html')
