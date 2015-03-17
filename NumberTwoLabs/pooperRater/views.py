@@ -114,7 +114,6 @@ def yelp_ajax(request):
     data={}
     # If user makes a search
     if request.method == "GET":
-        print "TRUE"
         term=request.GET['term']
         data['term'] = term
 
@@ -133,7 +132,6 @@ def yelp_ajax(request):
 
         data['yelp'] = yelp_response # Unused, but helpful for debugging
         businesses = yelp_response['businesses']
-        print type(businesses)
         # data['businesses'] = json.loads(businesses)
     return JsonResponse(businesses,safe=False, status=200)
 

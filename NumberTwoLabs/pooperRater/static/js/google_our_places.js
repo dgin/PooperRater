@@ -27,6 +27,14 @@ function findGooglePlaces(position) {
         });
 }
 
+function placeOurPlacesOnMap(data) {
+    return new Promise(function(resole, reject){
+       displayPlaces(data);
+    });
+}
+
+
+
 initializeMap = function(lat, lng) {
     console.log(lat, lng);
     var currentLocation = new google.maps.LatLng(lat,lng);
@@ -150,16 +158,16 @@ getGooglePlaces = function(lat, lng) {
       };
     service = new google.maps.places.PlacesService(map);
     infowindow = new google.maps.InfoWindow();
-    service.nearbySearch(request, displayGooglePlaces);
+    service.nearbySearch(request, displayPlaces);
 };
 
-displayGooglePlaces = function(results, status) {
-    //console.log(results, status);
+displayPlaces = function(results) {
+    console.log(results);
     results.forEach(createPlaceMarker);
 };
 
 createPlaceMarker = function(element, index, array) {
-    var coords = new google.maps.LatLng(element.geometry.location.k,element.geometry.location.D);
+    var coords = new google.maps.LatLng(element.latitude,element.longitude);
     var newMarker = new google.maps.Marker({
         position: coords,
         map: map,
@@ -171,12 +179,4 @@ createPlaceMarker = function(element, index, array) {
         infowindow.setContent(element.name);
         infowindow.open(map, this);
     });
-
-    // Puts the place details on the screen
-    // Commented out because we don't need to put place details on the screen
-    /*
-    var place_details = document.getElementById("place-details");
-    place_details.insertAdjacentHTML('beforeend',
-        '<div id=place_'+index+'>'+element.name+' is located at '+element.vicinity+'</div>');
-    */
 };

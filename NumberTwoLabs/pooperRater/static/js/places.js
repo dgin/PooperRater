@@ -16,6 +16,7 @@ var PlaceListItem = React.createClass({
                             <div>
                                     <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3> {this.props.place.name}</h3></div>
                                     <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.place.overall_average_rating}></OverallStarRating></div>
+
                             </div>
                             <div>
                                     <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.place.desc}</div>
@@ -81,7 +82,7 @@ var PlacesPage = React.createClass({
 
       if (this.props.pollInterval > 0){
           setInterval(this.loadPlacesFromServer, this.props.pollInterval);
-       };
+       }
   },
   render: function() {
     return (
@@ -96,9 +97,32 @@ var PlacesPage = React.createClass({
 var PlaceList = React.createClass({
   render: function() {
     var placeNodes = this.props.data.map(function(place) {
+<<<<<<< HEAD
       return (
         <PlaceListItem place={place}></PlaceListItem>
       );
+=======
+        // Catches error in case user doesn't have position data
+        // Here: if position data exists, then find nearby places
+        if (userPositionCoords !== undefined) {
+            var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
+                userPositionCoords.longitude, place.latitude,place.longitude);
+            if (distanceFromYou <= 1) {
+            return (
+                <PlaceListItem place = {place}></PlaceListItem>
+            );
+            }
+        // If position data doesn't exist, return all places
+        }
+        //else {
+        //    return (
+        //        <PlaceListItem place = {place}></PlaceListItem>
+        //    );
+        //}
+      //return (
+      //  <PlaceListItem place = {place}></PlaceListItem>
+      //);
+>>>>>>> ae81c3a8b6651baa8629851646dc0f0693a356cf
     });
     return (
       <div className="placeList">
@@ -159,9 +183,63 @@ var OverallStarRating = React.createClass({
 //  }
 //});
 //
-React.render(
-  <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
-  document.getElementById('places')
-);
+//************
+// We actually render the page further down - this statement is unnecessary
+//React.render(
+//  <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
+//  document.getElementById('places')
+//);
+var userPositionCoords;
 
+getUserPosition()
+.then(setUserLocation)
+.then(reactRenderPromise)
+.catch(function(error) {
+        console.log(error);
+    });
+
+//***************
+// Roughly calculating geodistance from geocoordinates
+// Used for picking out places within 1km of user
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1);
+  var a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+//***************
+
+// Obtains geolocation data for use with filtering
+function getUserPosition() {
+    return new Promise(function(resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+}
+function setUserLocation(position) {
+    return new Promise(function(resolve, reject) {
+        userPositionCoords = position.coords;
+        resolve(position);
+    });
+}
+function reactRenderPromise(position) {
+    return new Promise(function(resolve, reject){
+        console.log(position);
+        React.render(
+            <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
+            document.getElementById('places')
+        );
+        resolve()
+    });
+}
 
