@@ -91,7 +91,7 @@ class AnonUserInfo(models.Model):
 class Rating(models.Model):
     # links
     owner = models.ForeignKey(User)
-    place = models.ForeignKey(Place)
+    place = models.ForeignKey(Place, related_name='ratings')
 
     # Stars
     STAR_CONVERSION = (

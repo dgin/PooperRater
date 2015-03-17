@@ -16,9 +16,7 @@ def main(term, locations):
     return get_results(params)
  
 def get_results(params):
- 
-    #From Yelp's manage access page
-    
+
 
     session = rauth.OAuth1Session(
         consumer_key = consumer_key

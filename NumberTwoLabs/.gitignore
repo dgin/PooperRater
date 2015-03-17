@@ -7,3 +7,4 @@ local_settings.py
 pooperRater/migrations/*
 DO_NOT_PUSH.txt
 jquery*
+pooperRater/api_calls/yelp_business_search.py
