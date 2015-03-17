@@ -21,19 +21,19 @@ var Rating = React.createClass({
 
 
 var RatingsBox = React.createClass({
-  loadRatingsFromServer: function() {
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      contentType: 'application/json',
-      success: function(data) {
-        this.setState({data: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
+  //loadRatingsFromServer: function() {
+  //  $.ajax({
+  //    url: this.props.url,
+  //    dataType: 'json',
+  //    contentType: 'application/json',
+  //    success: function(data) {
+  //      this.setState({data: data});
+  //    }.bind(this),
+  //    error: function(xhr, status, err) {
+  //      console.error(this.props.url, status, err.toString());
+  //    }.bind(this)
+  //  });
+  //},
   handleRatingSubmit: function(rating) {
     var ratings = this.state.data;
     ratings.push(rating);
@@ -66,13 +66,13 @@ var RatingsBox = React.createClass({
         };
   },
   render: function() {
-    if (this.state.data === null) {
+    if (this.props.ratings === null) {
           return (<span>loading ratings...</span>);
       }
       else {
         return (
             <div className="RatingsBox">
-                <RatingList data={this.state.data} />
+                <RatingList data={this.props.ratings} />
             </div>
         );
     }

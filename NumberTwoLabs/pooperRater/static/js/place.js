@@ -43,12 +43,12 @@ var Place = React.createClass({
 
         <div className="panel panel-default">
         <div className="panel-body">
-            <div><RatingsBox url={"/api/v1/ratings/" + this.props.data.id + "/"} pollInterval={4000} /></div>
+                <div><RatingsBox ratings={this.props.data.ratings} pollInterval={10000} /></div>
             <div>
                 <h1>&nbsp;</h1>
             </div>
-            <div><CommentsBox url={"/api/v1/comments/" + this.props.data.id + "/"} pollInterval={4000} ></CommentsBox></div>
-            <div><VoteBox url={"/api/v1/vote/" + this.props.data.id + "/"} pollInterval={4000} ></VoteBox></div>
+            <div><CommentsBox url={"/api/v1/comments/" + this.props.data.id + "/"} pollInterval={10000} ></CommentsBox></div>
+            <div><VoteBox url={"/api/v1/vote/" + this.props.data.id + "/"} pollInterval={10000} ></VoteBox></div>
         </div>
         </div>
     </div>
