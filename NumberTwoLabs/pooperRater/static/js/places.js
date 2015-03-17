@@ -97,11 +97,7 @@ var PlacesPage = React.createClass({
 var PlaceList = React.createClass({
   render: function() {
     var placeNodes = this.props.data.map(function(place) {
-<<<<<<< HEAD
-      return (
-        <PlaceListItem place={place}></PlaceListItem>
-      );
-=======
+
         // Catches error in case user doesn't have position data
         // Here: if position data exists, then find nearby places
         if (userPositionCoords !== undefined) {
@@ -122,7 +118,6 @@ var PlaceList = React.createClass({
       //return (
       //  <PlaceListItem place = {place}></PlaceListItem>
       //);
->>>>>>> ae81c3a8b6651baa8629851646dc0f0693a356cf
     });
     return (
       <div className="placeList">
