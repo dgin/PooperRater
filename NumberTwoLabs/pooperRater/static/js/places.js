@@ -96,7 +96,6 @@ var PlacesPage = React.createClass({
 
 var PlaceList = React.createClass({
   render: function() {
-
     var placeNodes = this.props.data.map(function(place) {
 
         // Catches error in case user doesn't have position data
@@ -230,18 +229,18 @@ function setUserLocation(position) {
 }
 
 
-function reactRenderPromise(position) {
-    return new Promise(function(resolve, reject){
-        console.log(position);
-
-        //*********
-        //SOMEHOW EVERYTHING WORKS WHEN THIS IS COMMENTED OUT ARGHHHHH
-        //React.render(
-        //    <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
-        //    document.getElementById('places')
-        //);
-        resolve()
-    });
-}
+//function reactRenderPromise(position) {
+//    return new Promise(function(resolve, reject){
+//        console.log(position);
+//
+//        //*********
+//        //SOMEHOW EVERYTHING WORKS WHEN THIS IS COMMENTED OUT ARGHHHHH
+        React.render(
+            <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
+            document.getElementById('places')
+        );
+//        resolve()
+//    });
+//}
 
 

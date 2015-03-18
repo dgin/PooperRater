@@ -4,7 +4,7 @@ var converter = new Showdown.converter();
 var Rating = React.createClass({
   render: function() {
 
-      console.log(this.props.air_flow);
+      //console.log(this.props.air_flow);
 
     return (
         <div className="panel panel-default">
@@ -86,16 +86,14 @@ var RatingsBox = React.createClass({
         };
   },
   render: function() {
-
     if (this.state.data === null) {
           return (<span>loading ratings...</span>);
       }
       else {
         return (
             <div className="RatingsBox">
-    <RatingForm onRatingSubmit={this.handleRatingSubmit}/>
+                <RatingForm onRatingSubmit={this.handleRatingSubmit} />
                 <RatingList data={this.state.data} />
-
             </div>
         );
     }
@@ -103,52 +101,51 @@ var RatingsBox = React.createClass({
   }
 });
 
-//<RatingForm onRatingSubmit={this.handleRatingSubmit} />
 
-//var RatingList = React.createClass({
-//  render: function() {
-//
-//
-//
-//
-//    var ratingNodes = this.props.data.map(function(rating, index) {
-//
-//      return (
-//        <Rating key={index}
-//                air_flow = {rating.air_flow}
-//                cleanliness = {rating.cleanliness}
-//                available = {rating.available}
-//                quality = {rating.quality}
-//                other = {rating.other}>
-//        </Rating>
-//      );
-//    });
-//
-//    if (Array.isArray(this.props.data)){
-//        var ratingNodes = this.props.data.map(function(rating) {
-//            return (
-//            <Rating rating = {rating}></Rating>
-//          );
-//        });
-//    } else {
-//        var ratingNodes = [];
-//        ratingNodes.push(this.singleNode(this.props.data));
-//    }
-//
-//
-//    return (
-//      <div className="ratingList">
-//        {ratingNodes}
-//      </div>
-//    );
-//  },
-//
-//    singleNode: function(rating) {
-//        return (
-//            <Rating rating = {rating}></Rating>
-//        );
-//    }
-//});
+var RatingList = React.createClass({
+  render: function() {
+
+
+
+
+    var ratingNodes = this.props.data.map(function(rating, index) {
+
+      return (
+        <Rating key={index}
+                air_flow = {rating.air_flow}
+                cleanliness = {rating.cleanliness}
+                available = {rating.available}
+                quality = {rating.quality}
+                other = {rating.other}>
+        </Rating>
+      );
+    });
+
+    if (Array.isArray(this.props.data)){
+        var ratingNodes = this.props.data.map(function(rating) {
+            return (
+            <Rating rating = {rating}></Rating>
+          );
+        });
+    } else {
+        var ratingNodes = [];
+        ratingNodes.push(this.singleNode(this.props.data));
+    }
+
+
+    return (
+      <div className="ratingList">
+        {ratingNodes}
+      </div>
+    );
+  },
+
+    singleNode: function(rating) {
+        return (
+            <Rating rating = {rating}></Rating>
+        );
+    }
+});
 
 
 //var RatingForm = React.createClass({
