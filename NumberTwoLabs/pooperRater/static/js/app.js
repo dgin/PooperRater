@@ -30,6 +30,15 @@ var App = React.createClass({
 // Added promise here to get it to work.
 // Suggests that modularity is a viable standard to aim for;
 // Should refactor rest of code to clean up
+var userPositionCoords;
+
+function setUserLocation(position) {
+    return new Promise(function(resolve, reject) {
+        userPositionCoords = position.coords;
+        resolve(position);
+    });
+}
+
 function reactRenderAppPromise(position) {
     return new Promise(function(resolve, reject){
         React.render(<App/>, document.getElementById('places'));

@@ -19,7 +19,6 @@ urlpatterns = patterns('',
     url('', include('django.contrib.auth.urls', namespace='auth')),
 
     url(r'^api/v1/', include('pooperRater.api.urls')),
-    # url(r'^yelp/search/$', views.yelp_search, name='yelp_search'),
     url(r'^yelp/ajax/$', views.yelp_ajax, name='yelp_ajax'),
     url(r'^user/create', views.create_anon_user, name='create_anon_user'),
 
