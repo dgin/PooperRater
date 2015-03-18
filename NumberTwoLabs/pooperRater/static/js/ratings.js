@@ -7,18 +7,38 @@ var Rating = React.createClass({
       console.log(this.props.air_flow);
 
     return (
-      <div className="rating">
-        <div className="ratingBody">
-          <div>air flow: {this.props.air_flow}</div>
-          <div>cleanliness: {this.props.cleanliness}</div>
-          <div>availible: {this.props.available}</div>
-          <div>quality: {this.props.quality}</div>
-          <div>other: {this.props.other}</div>
-      </div>
-      </div>
+        <div className="panel panel-default">
+        <div className="panel-body">
+            <div className="rating">
+                <div className="ratingBody">
+                    <div className="row">
+                     <div className="col-lg-6 col-sm-12 col-xs-12">
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.air_flow}></SmallStarRating></div></div>
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean:  </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.cleanliness}></SmallStarRating></div></div>
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Availible: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.available}></SmallStarRating></div></div>
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.quality}></SmallStarRating></div></div>
+                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
+                     </div>
+                     <div className="col-lg-6 col-sm-12 col-xs-12">
+                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
+                     </div>
+                </div>
+                </div>
+                <div className="col-lg-12 col-sm-12 col-xs-12">
+                    <h1>&nbsp;</h1>
+                    <VoteBox url={"/api/v1/vote/" + this.props.rating.id + "/"} pollInterval={10000} ></VoteBox>
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+
     );
   }
 });
+
+//<CommentsBox url={"/api/v1/comments/" + this.props.rating.id + "/"}></CommentsBox>
 
 var RatingsBox = React.createClass({
   loadRatingsFromServer: function() {
@@ -60,51 +80,75 @@ var RatingsBox = React.createClass({
   },
   componentDidMount: function() {
     this.loadRatingsFromServer();
-    setInterval(this.loadRatingsFromServer, this.props.pollInterval);
+
+      if (this.props.pollInterval > 0){
+        setInterval(this.loadRatingsFromServer, this.props.pollInterval);
+        };
   },
   render: function() {
 
-    return (
-      <div className="RatingsBox">
-        <h1>Rating</h1>
+    if (this.state.data === null) {
+          return (<span>loading ratings...</span>);
+      }
+      else {
+        return (
+            <div className="RatingsBox">
+    <RatingForm onRatingSubmit={this.handleRatingSubmit}/>
+                <RatingList data={this.state.data} />
 
-          <RatingForm onRatingSubmit={this.handleRatingSubmit}/>
-        <RatingList data={this.state.data} />
+            </div>
+        );
+    }
 
-      </div>
-    );
   }
 });
 
-var RatingList = React.createClass({
-  render: function() {
+//<RatingForm onRatingSubmit={this.handleRatingSubmit} />
 
-      console.log("Ratings List")
-
-    var ratingNodes = this.props.data.map(function(rating, index) {
-
-      return (
-        <Rating key={index}
-                air_flow = {rating.air_flow}
-                cleanliness = {rating.cleanliness}
-                available = {rating.available}
-                quality = {rating.quality}
-                other = {rating.other}>
-        </Rating>
-      );
-    });
-    return (
-      <div className="ratingList">
-        {ratingNodes}
-      </div>
-    );
-  }
-});
-
-//air_flow_rating={comment.Rating.air_flow}
-//            cleanliness_rating = {comment.Rating.cleanliness}
-//            available_rating = {comment.Rating.available}
-//            quality_rating = {comment.Rating.quality}
+//var RatingList = React.createClass({
+//  render: function() {
+//
+//
+//
+//
+//    var ratingNodes = this.props.data.map(function(rating, index) {
+//
+//      return (
+//        <Rating key={index}
+//                air_flow = {rating.air_flow}
+//                cleanliness = {rating.cleanliness}
+//                available = {rating.available}
+//                quality = {rating.quality}
+//                other = {rating.other}>
+//        </Rating>
+//      );
+//    });
+//
+//    if (Array.isArray(this.props.data)){
+//        var ratingNodes = this.props.data.map(function(rating) {
+//            return (
+//            <Rating rating = {rating}></Rating>
+//          );
+//        });
+//    } else {
+//        var ratingNodes = [];
+//        ratingNodes.push(this.singleNode(this.props.data));
+//    }
+//
+//
+//    return (
+//      <div className="ratingList">
+//        {ratingNodes}
+//      </div>
+//    );
+//  },
+//
+//    singleNode: function(rating) {
+//        return (
+//            <Rating rating = {rating}></Rating>
+//        );
+//    }
+//});
 
 
 //var RatingForm = React.createClass({
@@ -299,7 +343,9 @@ var RatingForm = React.createClass({
             </div>
         )
     }
-});
+  });
+
+
 
 React.render(
     //<CommentsBox data={data}/>,

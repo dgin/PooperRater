@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets
+from requests import Response
+from rest_framework import viewsets, generics
 from pooperRater.models import Rating, Place, Comment, Restroom, User, AnonUserInfo, Vote
 from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, CommentSerializer, RestroomSerializer, UserSerializer, AnonUserInfoSerializer, VoteSerializer
 from pooperRater.permissions import IsOwnerOrReadOnly, IsAdminUserOrReadOnly, AnonInfoIsRelatedUserOrReadOnly, UserIsOwnerOrReadOnly, CommentIsOwnerOrReadOnly
@@ -12,10 +13,25 @@ class RatingViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
 
+class PlaceRatingViewSet(generics.ListAPIView):
+    serializer_class = RatingSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        return Rating.objects.filter(place__id=self.kwargs.get('pk'))
+
+
+class RatingCommentViewSet(generics.ListAPIView):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        return Comment.objects.filter(rating__id=self.kwargs.get('pk'))
+
+
 class PlaceViewSet(viewsets.ModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAdminUserOrReadOnly,)
+    permission_classes = ()
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAdminUserOrReadOnly,)
 
 
 class CommentViewSet(viewsets.ModelViewSet):

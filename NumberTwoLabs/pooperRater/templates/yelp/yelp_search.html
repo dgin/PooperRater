@@ -1,15 +1,18 @@
 {% extends 'index.html' %}
 
 {% block content2 %}
+    <script src="../../static/js/jquery-1.11.2.min.js"></script>
+    <script src="../../static/js/ajax.js"></script>
+    <!--
     <script type="text/jsx;harmony=true" src="../../static/js/yelp_place.js"></script>
     <div class="container">
     <div class="row">
         <div id="yelpPlace" class="col-lg-7 col-sm-6 col-xs-12"></div>
-        <div id="map-canvas" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 text-center">{% include 'tests/goog_place_snip.html' %}</div>
+{#        <div id="map-canvas" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 text-center">{% include 'tests/goog_place_snip.html' %}</div>#}
     </div>
+    -->
 
-    <h4>PoopeRater Yelp Search</h4>
-<br><br>
+<h3>Add a place from Yelp</h3>
 
 <input type="radio" name="inputAddress" value="no" onclick="returnUserPosition()"> Search near you?
 <input type="radio" name="inputAddress" value="yes" onclick="enableLocationSearch()"> Search near an address? <br>
@@ -19,26 +22,20 @@
     <span id="userLong" style="display:none;"></span></p>
 </div>
 
-
-<form method="post" name="yelpSearch">
+<form id="ajaxForm">
     {% csrf_token %}
     <!--Coordinates for use in search without provided location-->
-    <input id="yelpGeoCoordLat" type="text" name="geoCoordLat" style="display:none;" placeholder="Your coordinates here.">
-    <input id="yelpGeoCoordLong" type="text" name="geoCoordLong" style="display:none;" placeholder="Your coordinates here.">
-    <!--User provided location-->
-    <input id="yelpLocation" type="text" name='location' placeholder="Input an address near which you'd like to search!" style="width:300px;display:none;" value="{{ location }}"><br>
-    <input id="yelpInput" type="text" name='term' placeholder="Search terms here" style="width:200px;" value="{{ term }}"><br><br>
-    <input id="yelpSubmit" type="submit" value="Search on Yelp!" onclick="return empty();">
-</form>
 
-{% for business in businesses %}
-    <p id='{{ business.id }}'>
-        <span style="font-weight:bold;">{{ business.id }}</span><br>
-        {% for parameter, value in business.items %}
-            {{ parameter }}: {{ value }} <br>
-        {% endfor %}
-    </p>
-{% endfor %}
+    <!--User provided location-->
+    <input type="text" placeholder="Input an address" id="ajaxLocation">
+    <input type="text" placeholder="Search terms here!" id="ajaxTerm">
+    <input id="yelpGeoCoordLat" type="text" style="display:inline-block;visibility:hidden;">
+    <input id="yelpGeoCoordLong" type="text" style="display:inline-block;visibility:hidden;">
+    <!--<input onclick="yelp_ajax()" type="submit" value="workworkwork">-->
+</form>
+<button onclick="yelp_ajax();">Search on Yelp!</button>
+
+<div id="yelpOutput"></div>
 
 <script src="../../static/js/yelp_search.js"></script>
 {% endblock %}

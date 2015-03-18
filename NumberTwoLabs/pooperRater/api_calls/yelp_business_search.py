@@ -1,3 +1,4 @@
+import json
 import rauth
 import time
  
@@ -15,9 +16,8 @@ def main(term, locations):
     return get_results(params)
  
 def get_results(params):
- 
-    #From Yelp's manage access page
 
+    # API Keys here
 
     session = rauth.OAuth1Session(
         consumer_key = consumer_key
@@ -31,8 +31,8 @@ def get_results(params):
     # Use for testing, but disable for development version
     data = request.json()
     session.close()
-
     return data
+    # return json.dumps(request.json())
 
 def get_search_parameters(lat,long, term):
     #See the Yelp API for more details

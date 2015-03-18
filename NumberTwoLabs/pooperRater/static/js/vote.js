@@ -3,21 +3,17 @@ var converter = new Showdown.converter();
 var VoteListItem = React.createClass({
   render: function() {
     return (
-     <div className="panel panel-default">
-        <div className="panel-body">
-            <div className="place">
-                <div className="col-lg-4">
-                    <div className="col-lg-6 glyphicon glyphicon-thumbs-up"> {this.props.upvote}</div>
-                    <div className="col-lg-6 glyphicon glyphicon-thumbs-down"> {this.props.downvote}</div>
+            <div className="vote">
+                <div className="col-xs-12 col-sm-12 col-lg-12 text-center">
+                    <div className="col-xs-6 col-sm-3 col-lg-2 glyphicon glyphicon-thumbs-up"> {this.props.vote.upvote}</div>
+                    <div className="col-xs-6 col-sm-3 col-lg-2 glyphicon glyphicon-thumbs-down"> {this.props.vote.downvote}</div>
                 </div>
           </div>
-        </div>
-     </div>
     );
   }
 });
 
-var VotePage = React.createClass({
+var VoteBox = React.createClass({
   loadVotesFromServer: function() {
     $.ajax({
       url: this.props.url,
@@ -58,36 +54,54 @@ var VotePage = React.createClass({
   },
   componentDidMount: function() {
     this.loadVotesFromServer();
-    setInterval(this.loadVotesFromServer, this.props.pollInterval);
+
+    if (this.props.pollInterval > 0) {
+        setInterval(this.loadVotesFromServer, this.props.pollInterval);
+    };
   },
   render: function() {
-    return (
-      <div className="Vote">
-        <h1>Votes</h1>
-        <VoteForm onVoteSubmit={this.handleVoteSubmit} />
-        <VoteList data={this.state.data} />
+       if (this.state.data === null) {
+              return (<span>loading ratings...</span>);
+       }
+       else {
+           return (
+               <div className="Vote">
+                   <VoteList data={this.state.data} />
 
-      </div>
-    );
+               </div>
+           );
+       }
   }
 });
 
+//<VoteForm onVoteSubmit={this.handleVoteSubmit} />
+
 var VoteList = React.createClass({
   render: function() {
-    var voteNodes = this.props.data.map(function(vote) {
-      return (
-        <VoteListItem
-            comment_id = {vote.comment}
-            upvote = {vote.upvote}
-            downvote = {vote.downvote}></VoteListItem>
-      );
-    });
+    if (Array.isArray(this.props.data)){
+        var voteNodes = this.props.data.map(function(vote) {
+          return (
+            <VoteListItem vote = {vote} ></VoteListItem>
+          );
+        });
+    } else {
+        var voteNodes = [];
+        voteNodes.push(this.singleNode(this.props.data));
+    }
+
     return (
       <div className="voteList">
         {voteNodes}
       </div>
     );
-  }
+  },
+
+    singleNode: function(vote) {
+        return (
+            <VoteListItem vote = {vote}></VoteListItem>
+        );
+    }
+
 });
 
 
@@ -122,6 +136,6 @@ var VoteForm = React.createClass({
 });
 
 React.render(
-  <VotePage url="api/v1/vote/" pollInterval={10000} />,
+  <VoteBox url="/api/v1/vote/" pollInterval={10000} />,
   document.getElementById('votes')
 );

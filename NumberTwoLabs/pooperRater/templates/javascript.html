@@ -1,5 +1,9 @@
 {% load staticfiles %}
 
+<!--Note: we should only include libraries we need on each page, rather than importing them all
+on every page.
+Also, we should download the libraries ourselves in case the libraries are unavailable
+as has happened before-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/JSXTransformer.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -9,10 +13,13 @@
 
 <script type="text/jsx;harmony=true" src="{% static 'js/google_places.js' %}"></script>
 
-<!--
+<!--<script type="text/jsx;harmony=true" src="{% static 'js/google_our_places.js' %}"></script>-->
 <script type="text/jsx;harmony=true" src="{% static 'js/places.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/place.js' %}"></script>
+<script type="text/jsx;harmony=true" src="{% static 'js/comments.js' %}"></script>
+<script type="text/jsx;harmony=true" src="{% static 'js/ratings.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/vote.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/app.js' %}"></script>
-<script src="{% static 'js/router.js' %}"></script>-->
+<script src="{% static 'js/router.js' %}"></script>
+
 

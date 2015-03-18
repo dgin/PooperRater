@@ -7,7 +7,7 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ('owner', 'place', 'air_flow', 'cleanliness', 'available', 'quality', 'other',
+        fields = ('id', 'owner', 'place', 'air_flow', 'cleanliness', 'available', 'quality', 'other',
                   'created_at', 'updated_at')
 
 class PlaceSerializer(serializers.ModelSerializer):
@@ -15,16 +15,16 @@ class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
         fields = ('id', 'name', 'floor', 'unit', 'address', 'city', 'desc',
-                  'place_type', 'start_hours', 'end_hours', 'pic',
-                  'yelp_id', 'yelp_categories', 'google_id',
-                  'google_lat', 'google_long', 'created_at', 'updated_at',
+                  'place_type', 'start_hours', 'end_hours', 'pic', 'latitude', 'longitude',
+                  'yelp_id', 'yelp_categories', 'yelp_url', 'google_id',
+                  'created_at', 'updated_at',
                   'average_rating', 'overall_average_rating')
 
 class CommentSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('rating', 'body',
+        fields = ('id', 'rating', 'body',
                   'created_at', 'updated_at')
 
 
@@ -32,7 +32,7 @@ class VoteSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Vote
-        fields = ('comment', 'upvote', 'downvote',
+        fields = ('id', 'comment', 'upvote', 'downvote',
                   'created_at', 'updated_at')
 
 
@@ -40,7 +40,7 @@ class RestroomSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Restroom
-        fields = ('place', 'floor', 'local_identifier', 'type', 'feature',
+        fields = ('id', 'place', 'floor', 'local_identifier', 'type', 'feature',
                   'created_at', 'updated_at')
 
 

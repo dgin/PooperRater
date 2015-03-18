@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block content2 %}
+    <script src="../../static/js/jquery-1.11.2.min.js"></script>
+    <script src="../../static/js/ajax.js"></script>
+<div>
+    <h3>Add a place from Yelp</h3>
+        <form id="ajaxForm">
+            {% csrf_token %}
+            <input type="text" placeholder="Location here" id="ajaxLocation">
+            <input type="text" placeholder="search term" id="ajaxTerm">
+            <!--<input onclick="yelp_ajax()" type="submit" value="workworkwork">-->
+        </form>
+    <button onclick="yelp_ajax()">Search Yelp using ajax</button>
+</div>
+
+
+<div id="yelpOutput"></div>
+
+
+{% endblock %}
