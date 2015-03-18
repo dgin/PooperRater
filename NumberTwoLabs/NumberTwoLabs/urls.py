@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     url(r'^place/', 'pooperRater.views.place', name='place'),
     url(r'^comment/$', 'pooperRater.views.comment', name='comment'),
     url(r'^vote/$', 'pooperRater.views.vote', name='vote'),
-    url(r'^rating/$', 'pooperRater.views.rating', name='rating'),
+    url(r'^rating/', 'pooperRater.views.rating', name='rating'),
     url(r'^admin/', include(admin.site.urls)),
 
 
@@ -19,9 +19,11 @@ urlpatterns = patterns('',
     url('', include('django.contrib.auth.urls', namespace='auth')),
 
     # url(r'^logout/$', 'pooperRater.views.home', name='logout'),
-    url(r'^comment/api/v1/', include('pooperRater.api.urls')),
-    url(r'^vote/api/v1/', include('pooperRater.api.urls')),
-    url(r'^rating/api/v1/', include('pooperRater.api.urls')),
+    # url(r'^comment/api/v1/', include('pooperRater.api.urls')),
+    # url(r'^vote/api/v1/', include('pooperRater.api.urls')),
+    # url(r'^rating/api/v1/', include('pooperRater.api.urls')),
+
+
     url(r'^api/v1/', include('pooperRater.api.urls')),
     url(r'^$', views.googleplace, name='map'),
     url(r'^yelp/$', views.yelp_api, name='yelp_api'),
