@@ -58,3 +58,29 @@ p, ul {
 ul {
   padding-left: 30px;
 }
+
+.react-rater {
+  font-size: 25px;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  display: inline-block; }
+
+.react-rater a {
+    cursor: pointer;
+    color: #ccc; }
+
+.react-rater a:hover {
+      color: #ffdd99; }
+
+.react-rater a:hover ~ a {
+        color: #ffdd99; }
+
+.react-rater a.is-active {
+      color: #fc6 !important; }
+
+.react-rater a.is-active ~ a {
+        color: #fc6; }
+
+.react-rater a.is-disabled {
+      color: #ccc !important;
+      cursor: not-allowed; }

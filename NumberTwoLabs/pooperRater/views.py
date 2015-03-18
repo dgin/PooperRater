@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
 from psycopg2._psycopg import IntegrityError
-from pooperRater.api_calls import yelp_api_call, yelp_business_search
+from pooperRater.api_calls import yelp_business_search
 
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext

@@ -96,7 +96,6 @@ var PlacesPage = React.createClass({
 
 var PlaceList = React.createClass({
   render: function() {
-
     var placeNodes = this.props.data.map(function(place) {
 
         // Catches error in case user doesn't have position data
@@ -110,14 +109,14 @@ var PlaceList = React.createClass({
             return (
                 <PlaceListItem place = {place}></PlaceListItem>
             );
-            }
+            //}
         // If position data doesn't exist, return all places
         }
         //else {
         //    return (
         //        <PlaceListItem place = {place}></PlaceListItem>
         //    );
-        //}
+        }
       //return (
       //  <PlaceListItem place = {place}></PlaceListItem>
       //);
@@ -201,10 +200,3 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
-
-//function setUserLocation(position) {
-//    return new Promise(function(resolve, reject) {
-//        userPositionCoords = position.coords;
-//        resolve(position);
-//    });
-//}
