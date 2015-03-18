@@ -96,6 +96,7 @@ var PlacesPage = React.createClass({
 
 var PlaceList = React.createClass({
   render: function() {
+
     var placeNodes = this.props.data.map(function(place) {
 
         // Catches error in case user doesn't have position data
@@ -184,14 +185,14 @@ var OverallStarRating = React.createClass({
 //  <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
 //  document.getElementById('places')
 //);
-var userPositionCoords;
+//var userPositionCoords;
 
-getUserPosition()
-.then(setUserLocation)
-.then(reactRenderPromise)
-.catch(function(error) {
-        console.log(error);
-    });
+//getUserPosition()
+//.then(setUserLocation)
+//.then(reactRenderPromise)
+//.catch(function(error) {
+//        console.log(error);
+//    });
 
 //***************
 // Roughly calculating geodistance from geocoordinates
@@ -227,14 +228,20 @@ function setUserLocation(position) {
         resolve(position);
     });
 }
-//function reactRenderPromise(position) {
-//    return new Promise(function(resolve, reject){
-//        console.log(position);
-//        React.render(
-//            <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
-//            document.getElementById('places')
-//        );
-//        resolve()
-//    });
-//}
+
+
+function reactRenderPromise(position) {
+    return new Promise(function(resolve, reject){
+        console.log(position);
+
+        //*********
+        //SOMEHOW EVERYTHING WORKS WHEN THIS IS COMMENTED OUT ARGHHHHH
+        //React.render(
+        //    <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
+        //    document.getElementById('places')
+        //);
+        resolve()
+    });
+}
+
 

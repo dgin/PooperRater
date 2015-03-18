@@ -58,3 +58,28 @@ p, ul {
 ul {
   padding-left: 30px;
 }
+
+dd + dt {
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+  padding-top: 20px; }
+
+.react-rater {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  text-align: left;
+  display: inline-block; }
+  .react-rater a {
+    cursor: pointer;
+    color: #ccc; }
+    .react-rater a:hover {
+      color: #ffdd99; }
+      .react-rater a:hover ~ a {
+        color: #ffdd99; }
+    .react-rater a.is-active {
+      color: #fc6 !important; }
+      .react-rater a.is-active ~ a {
+        color: #fc6; }
+    .react-rater a.is-disabled {
+      color: #ccc !important;
+      cursor: not-allowed; }

@@ -114,8 +114,8 @@ function addPlaceToDatabase() {
             "name": document.getElementById("placeName").value,
             "address": document.getElementById("placeAddress").value,
             "city": document.getElementById("placeCity").value,
-            "start_hours": document.getElementById("placeStartHour").value,
-            "end_hours": document.getElementById("placeEndHour").value,
+            //"start_hours": document.getElementById("placeStartHour").value,
+            //"end_hours": document.getElementById("placeEndHour").value,
         };
         ajaxToDatabase(data);
     }
