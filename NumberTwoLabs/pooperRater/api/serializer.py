@@ -11,7 +11,6 @@ class RatingSerializer(serializers.ModelSerializer):
                   'created_at', 'updated_at')
 
 class PlaceSerializer(serializers.ModelSerializer):
-    ratings = RatingSerializer(many=True, read_only=True)
 
     class Meta:
         model = Place
@@ -19,7 +18,7 @@ class PlaceSerializer(serializers.ModelSerializer):
                   'place_type', 'start_hours', 'end_hours', 'pic', 'latitude', 'longitude',
                   'yelp_id', 'yelp_categories', 'yelp_url', 'google_id',
                   'created_at', 'updated_at',
-                  'average_rating', 'overall_average_rating', 'ratings')
+                  'average_rating', 'overall_average_rating')
 
 class CommentSerializer (serializers.ModelSerializer):
 

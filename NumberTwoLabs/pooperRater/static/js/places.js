@@ -15,7 +15,8 @@ var PlaceListItem = React.createClass({
                         <div>
                             <div>
                                     <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3> {this.props.place.name}</h3></div>
-                                    <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.place.rating}></OverallStarRating></div>
+                                    <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.place.overall_average_rating}></OverallStarRating></div>
+
                             </div>
                             <div>
                                     <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.place.desc}</div>
@@ -97,6 +98,7 @@ var PlaceList = React.createClass({
   render: function() {
 
     var placeNodes = this.props.data.map(function(place) {
+
         // Catches error in case user doesn't have position data
         // Here: if position data exists, then find nearby places
         if (userPositionCoords !== undefined) {

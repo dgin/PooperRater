@@ -18,8 +18,6 @@ def main(term, locations):
 def get_results(params):
 
     # API Keys here
-    
-
 
     session = rauth.OAuth1Session(
         consumer_key = consumer_key
