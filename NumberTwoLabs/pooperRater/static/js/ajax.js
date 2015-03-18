@@ -9,29 +9,25 @@ function yelp_ajax() {
         var geoCoordLat = document.getElementById("yelpGeoCoordLat").value;
         var geoCoordLong = document.getElementById("yelpGeoCoordLong").value;
         // If user is searching by location
+        var data;
         if (location !== '') {
-            $.ajax({
-                url: "/yelp/ajax/",
-                type: 'GET',
-                data: {"location": location, "term": term},
-                success: function(response) {
-                    createPostYelpButton(response);
-                    console.log(response);
-                }
-            });
-        // If user is searching by geolocation data
+            data = {"location": location, "term": term};
         } else {
-            $.ajax({
-                url: "/yelp/ajax/",
-                type: 'GET',
-                data: {"geoCoordLat": geoCoordLat, "geoCoordLong":geoCoordLong,
-                    "term": term},
-                success: function(response) {
-                    createPostYelpButton(response);
-                    console.log(response);
-                }
-            });
+            data = {"geoCoordLat": geoCoordLat, "geoCoordLong":geoCoordLong,
+                    "term": term};
         }
+        $.ajax({
+            url: "/yelp/ajax/",
+            type: 'GET',
+            data: data,
+            success: function(response) {
+                createPostYelpButton(response);
+                console.log(response);
+                if (response.length === 0) {
+                    document.getElementById("yelpOutput").innerHTML = "<br>Couldn't find any places with those search terms. Please try a different search!"
+                }
+            }
+        });
     }
 }
 

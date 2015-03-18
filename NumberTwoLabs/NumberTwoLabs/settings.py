@@ -110,6 +110,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, '/static')
 
 # LOGIN_REDIRECT_URL = '/'
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
 
 
 try:
