@@ -343,8 +343,8 @@ var RatingForm = React.createClass({
 
 
 
-React.render(
-    //<CommentsBox data={data}/>,
-    <RatingsBox url="/api/v1/ratings/" pollInterval={10000} />,
-  document.getElementById('ratings')
-);
+//React.render(
+//    //<CommentsBox data={data}/>,
+//    <RatingsBox url="/api/v1/ratings/" pollInterval={10000} />,
+//  document.getElementById('ratings')
+//);

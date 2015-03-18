@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
 from psycopg2._psycopg import IntegrityError
-from pooperRater.api_calls import yelp_api_call, yelp_business_search
+from pooperRater.api_calls import yelp_business_search
 from pooperRater.api_calls.aggregation import something
 
 from django.shortcuts import render_to_response
@@ -44,18 +44,6 @@ def googleplace(request):
 
 def home_page(request):
     return render(request, 'index.html')
-
-def yelp_api(request):
-    yelp_response = yelp_api_call.main()
-    # x = something(1)
-    # print x['quality__avg']
-    data = {
-        "one": "One",
-        "two": "Two",
-        'yelp_response': yelp_response,
-        'businesses' : yelp_response[0]['businesses']
-    }
-    return render(request, 'tests/yelp_api.html', data)
 
 def yelp_display(request):
     data={}
