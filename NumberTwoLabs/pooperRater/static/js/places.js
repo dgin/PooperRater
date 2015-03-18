@@ -104,6 +104,8 @@ var PlaceList = React.createClass({
             var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
                 userPositionCoords.longitude, place.latitude,place.longitude);
             if (distanceFromYou <= 1) {
+                // Puts marker on the map
+                createPlaceMarker(place);
             return (
                 <PlaceListItem place = {place}></PlaceListItem>
             );
@@ -177,21 +179,6 @@ var OverallStarRating = React.createClass({
 //    );
 //  }
 //});
-//
-//************
-// We actually render the page further down - this statement is unnecessary
-//React.render(
-//  <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
-//  document.getElementById('places')
-//);
-//var userPositionCoords;
-
-//getUserPosition()
-//.then(setUserLocation)
-//.then(reactRenderPromise)
-//.catch(function(error) {
-//        console.log(error);
-//    });
 
 //***************
 // Roughly calculating geodistance from geocoordinates
@@ -213,34 +200,3 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
-//***************
-
-// Obtains geolocation data for use with filtering
-function getUserPosition() {
-    return new Promise(function(resolve, reject) {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
-}
-function setUserLocation(position) {
-    return new Promise(function(resolve, reject) {
-        userPositionCoords = position.coords;
-        resolve(position);
-    });
-}
-
-
-//function reactRenderPromise(position) {
-//    return new Promise(function(resolve, reject){
-//        console.log(position);
-//
-//        //*********
-//        //SOMEHOW EVERYTHING WORKS WHEN THIS IS COMMENTED OUT ARGHHHHH
-        React.render(
-            <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
-            document.getElementById('places')
-        );
-//        resolve()
-//    });
-//}
-
-

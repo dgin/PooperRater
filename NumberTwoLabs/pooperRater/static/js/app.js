@@ -33,17 +33,31 @@ var App = React.createClass({
 // Added promise here to get it to work.
 // Suggests that modularity is a viable standard to aim for;
 // Should refactor rest of code to clean up
+var userPositionCoords;
+
+function setUserLocation(position) {
+    return new Promise(function(resolve, reject) {
+        userPositionCoords = position.coords;
+        resolve(position);
+    });
+}
+
 function reactRenderAppPromise(position) {
     return new Promise(function(resolve, reject){
         React.render(<App/>, document.getElementById('places'));
 
-        resolve()
+        resolve(position);
     });
 }
 
 getUserPosition()
 .then(setUserLocation)
-.then(reactRenderAppPromise);
+.then(reactRenderAppPromise)
+.then(initMapAndMarkers)
+.catch(function(err) {
+        console.log("Something broke!");
+        console.log(err);
+    });
 //React.render(<App/>, document.getElementById('places'));
 
 var geocoder;
