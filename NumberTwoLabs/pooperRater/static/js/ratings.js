@@ -310,34 +310,21 @@ var RatingForm = React.createClass({
     render: function() {
         return (
             <div>
-                <h1>Pooper Rater Ratings</h1>
-                <dl>
-                    <form className="ratingForm" onSubmit={this.handleSubmit}>
-                        <dt>Air_Flow</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="air_flow"/>
-                        </dd>
-                        <dt>Cleanliness</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="cleanliness" />
-                        </dd>
-                        <dt>Availability</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="available" />
-                        </dd>
-                        <dt>Quality</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="quality" />
-                        </dd>
-                        <dt>Other</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="other" />
-                        </dd>
-                        <input type="submit" value="Rate" />
-                    </form>
-                </dl>
-
+                <h1>Rate...</h1>
+                <div className="panel panel-default">
+                <div className="panel-body">
+                            <form className="ratingForm" onSubmit={this.handleSubmit}>
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left"><Rater total={5} rating={0} ref="air_flow"/></div>
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left"><Rater total={5} rating={0} ref="cleanliness" /></div>
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left"><Rater total={5} rating={0} ref="available" /></div>
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left"><Rater total={5} rating={0} ref="quality" /></div>
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left"><Rater total={5} rating={0} ref="other" /></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><input className="text-left" type="submit" value="Rate" /></div>
+                            </form>
             </div>
+                    </div>
+                </div>
+
         )
     }
   });

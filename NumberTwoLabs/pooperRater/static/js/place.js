@@ -39,6 +39,7 @@ var Place = React.createClass({
 
 
             </div>
+
         </div>
                 <div><RatingsBox url={"/api/v1/places/" + this.props.data.id + "/ratings/"} pollInterval={10000} /></div>
         </div>
