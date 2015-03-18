@@ -34,13 +34,18 @@ function reactRenderAppPromise(position) {
     return new Promise(function(resolve, reject){
         React.render(<App/>, document.getElementById('places'));
 
-        resolve()
+        resolve(position);
     });
 }
 
 getUserPosition()
 .then(setUserLocation)
-.then(reactRenderAppPromise);
+.then(reactRenderAppPromise)
+.then(initMapAndMarkers)
+.catch(function(err) {
+        console.log("Something broke!");
+        console.log(err);
+    });
 //React.render(<App/>, document.getElementById('places'));
 
 var geocoder;

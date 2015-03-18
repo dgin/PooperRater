@@ -19,10 +19,7 @@ urlpatterns = patterns('',
     url('', include('django.contrib.auth.urls', namespace='auth')),
 
     url(r'^api/v1/', include('pooperRater.api.urls')),
-    url(r'^$', views.googleplace, name='map'),
-    url(r'^yelp/$', views.yelp_api, name='yelp_api'),
-    url(r'^yelp/display/$', views.yelp_display, name='yelp_display'),
-    url(r'^yelp/search/$', views.yelp_search, name='yelp_search'),
+    # url(r'^yelp/search/$', views.yelp_search, name='yelp_search'),
     url(r'^yelp/ajax/$', views.yelp_ajax, name='yelp_ajax'),
     url(r'^user/create', views.create_anon_user, name='create_anon_user'),
 

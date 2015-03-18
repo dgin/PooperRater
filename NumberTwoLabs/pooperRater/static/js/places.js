@@ -105,6 +105,8 @@ var PlaceList = React.createClass({
             var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
                 userPositionCoords.longitude, place.latitude,place.longitude);
             if (distanceFromYou <= 1) {
+                // Puts marker on the map
+                createPlaceMarker(place);
             return (
                 <PlaceListItem place = {place}></PlaceListItem>
             );
