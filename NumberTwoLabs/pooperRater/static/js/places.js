@@ -107,14 +107,14 @@ var PlaceList = React.createClass({
             return (
                 <PlaceListItem place = {place}></PlaceListItem>
             );
-            }
+            //}
         // If position data doesn't exist, return all places
         }
         //else {
         //    return (
         //        <PlaceListItem place = {place}></PlaceListItem>
         //    );
-        //}
+        }
       //return (
       //  <PlaceListItem place = {place}></PlaceListItem>
       //);
@@ -227,14 +227,14 @@ function setUserLocation(position) {
         resolve(position);
     });
 }
-function reactRenderPromise(position) {
-    return new Promise(function(resolve, reject){
-        console.log(position);
-        React.render(
-            <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
-            document.getElementById('places')
-        );
-        resolve()
-    });
-}
+//function reactRenderPromise(position) {
+//    return new Promise(function(resolve, reject){
+//        console.log(position);
+//        React.render(
+//            <PlacesPage url="/api/v1/places/" pollInterval={10000} />,
+//            document.getElementById('places')
+//        );
+//        resolve()
+//    });
+//}
 
