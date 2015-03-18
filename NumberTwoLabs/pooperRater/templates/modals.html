@@ -1,0 +1,115 @@
+<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#yelpModal">
+  Add a Place
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addPlaceModal" tabindex="-1" role="dialog" aria-labelledby="addPlaceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="addPlaceModalLabel">Add a Business Manually</h4>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    <div class="text-left">
+                        <label>Business name</label><br>
+                        <input type="text" id ="placeName" placeholder="Number Two Labs"> The fields below are optional.<br>
+                        <ul id="nameRequired" style="display:none"><li>This business needs a name!</li></ul>
+                        <label>Address</label><br>
+                        <input type="text" id="placeAddress" placeholder="1234 Sesame Street"><br>
+                        <label>City</label><br>
+                        <input type="text" id="placeCity" placeholder="San Francisco"><br>
+                        <label>Opening Time</label><br>
+                        <input type="text" id="placeStartHour" placeholder="9:00"> Example: 8:00, 23:00<br>
+                        <label>Closing Time</label><br>
+                        <input type="text" id="placeEndHour" placeholder="22:00"><br>
+                    </div>
+{#                    {% csrf_token %}#}
+{#                    {{ form.as_p }}#}
+                    <div class ="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="Add place">
+                        <button type="button" class="btn btn-default" onclick="addPlaceToDatabase()">Add place!</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#newModal">Now rate it!</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Placeholder for ratings modal-->
+<div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="newModalLabel">Now rate it!</h4>
+            </div>
+            <div class="modal-body">
+                HELLO. I am a new modal.
+                Testing 1,2,3
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Yelp modal-->
+<div class="modal fade" id="yelpModal" tabindex="-1" role="dialog" aria-labelledby="yelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="yelpModalLabel">Add a Business</h4>
+            </div>
+            <div class="modal-body">
+                <script src="../static/js/jquery-1.11.2.min.js"></script>
+                <script src="../static/js/ajax.js"></script>
+
+                <h3>Add a place from Yelp</h3>
+
+                <input type="radio" name="inputAddress" value="no" onclick="returnUserPosition()"> Search near you?
+                <input type="radio" name="inputAddress" value="yes" onclick="enableLocationSearch()"> Search near an address? <br>
+                <div id="userCoord" style="display:block;">
+                    <p id="placeholderWhileGettingLocation"></p>
+                    <p><span id="userLat" style="display:none;"></span>
+                    <span id="userLong" style="display:none;"></span></p>
+                </div>
+
+                <form id="ajaxForm">
+                    {% csrf_token %}
+                    <!--User provided location-->
+                    <input type="text" placeholder="Input an address" id="ajaxLocation"><br>
+                    <input id="yelpGeoCoordLat" type="text" style="display:inline-block;visibility:hidden;">
+                    <input type="text" placeholder="Search terms here!" id="ajaxTerm">
+                    <!--Coordinates stay hidden-->
+                    <input id="yelpGeoCoordLong" type="text" style="display:inline-block;visibility:hidden;">
+                </form><br>
+                <button type="button" class="btn btn-default" onclick="yelp_ajax();">Search on Yelp!</button><br><br>
+                <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addPlaceModal">Can't find what you're looking for? Add it manually!</button>
+
+                <div id="yelpOutput"></div>
+
+                <script src="../static/js/yelp_search.js"></script>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#newModal">Done?</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>

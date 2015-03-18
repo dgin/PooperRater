@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% block content2 %}
+<div class="container">
+    <div class="row text-center">
+        <div id="searchagain" class="col-lg-7 col-sm-6 col-xs-12">
+            <button type="submit" class="btn btn-lg btn-default">Search Again</button>
+            <button type="submit" class="btn btn-lg btn-default">Add A Place</button>
+            <button type="submit" class="btn btn-lg btn-default">Add A Rating</button>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div id="place" class="col-lg-7 col-sm-6 col-xs-12"></div>
+        <div id="map-canvas" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 text-center">{% include 'tests/goog_place_snip.html' %}</div>
+    </div>
+</div>
+{% endblock content2 %}

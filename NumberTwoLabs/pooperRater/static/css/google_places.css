@@ -1,0 +1,22 @@
+html{
+    height: 100%;
+}
+body {
+    height: 100%;
+}
+
+#map-canvas {
+    height: 400px;
+    width: 350px;
+    top: 60px;
+    /*Commented out border because otherwise produces two overlapping borders
+    Remove comment if you can fix that bug.*/
+    /*border: solid;*/
+    display:inline-block;
+    /*height: auto;*/
+    /*width: auto;*/
+}
+
+#place-details {
+    display:inline-block;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PooperRator</title>
+
+
+  {% include 'stylesheet.html' %}
+</head>
+
+<body style="background-color:#fafafa">
+  {% include 'navbar.html' %}
+<div class="top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+          {% block content2 %}{% endblock content2 %}
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+          {% block content3 %}{% endblock content3 %}
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+          {% block content4 %}{% endblock content4 %}
+      </div>
+    </div>
+  </div>
+</div>
+
+    {% include 'javascript.html' %}
+</body>
+</html>
