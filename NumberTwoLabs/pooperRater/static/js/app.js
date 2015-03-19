@@ -38,7 +38,7 @@ var App = React.createClass({
         return this.state.page;
     }
 });
-
+React.render(<App/>, document.getElementById('places'));
 
 // Added promise here to get it to work.
 // Suggests that modularity is a viable standard to aim for;
@@ -68,7 +68,7 @@ getUserPosition()
         console.log("Something broke!");
         console.log(err);
     });
-//React.render(<App/>, document.getElementById('places'));
+
 
 var geocoder;
 geocoder = new google.maps.Geocoder();

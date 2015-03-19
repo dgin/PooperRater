@@ -402,6 +402,7 @@ var RatingForm = React.createClass({
     render: function() {
         return (
             <div>
+                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.url[this.props.onRatingSubmit.__reactBoundContext.props.url.indexOf("places/")+7]} ><button className="btn btn-lg btn-default text-left">Back</button></a></div>
                 <h1>Rate {this.props.id}</h1>
                 <div className="panel panel-default">
                 <div className="panel-body">
@@ -409,23 +410,23 @@ var RatingForm = React.createClass({
 
 
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.airFlowHandleRate} ref="air_flow"/>
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.cleanlinessHandleRate} ref="cleanliness" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.availableHandleRate} ref="available" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.qualityHandleRate} ref="quality" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.otherHandleRate} ref="other" />
                                 </div>
                                 <div>

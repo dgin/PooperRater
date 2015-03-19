@@ -29,7 +29,7 @@ var Place = React.createClass({
                                     <h1>&nbsp;</h1>
                                 </div>
                                 <div>
-                                    <div className="col-lg-12 col-sm-12 col-xs-12"><h3><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Overall Rating: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.overall_average_rating}></SmallStarRating></div></h3></div>
+                                    <div className="col-lg-12 col-sm-12 col-xs-12"><h4><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Average: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.overall_average_rating}></SmallStarRating></div></h4></div>
                                     <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.air_flow__avg}></SmallStarRating></div></div>
                                     <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.cleanliness__avg}></SmallStarRating></div></div>
                                     <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.available__avg}></SmallStarRating></div></div>
