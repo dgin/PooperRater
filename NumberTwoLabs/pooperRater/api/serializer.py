@@ -32,7 +32,7 @@ class VoteSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Vote
-        fields = ('id', 'comment', 'upvote', 'downvote',
+        fields = ('id', 'rating_vote', 'upvote', 'downvote',
                   'created_at', 'updated_at')
 
 

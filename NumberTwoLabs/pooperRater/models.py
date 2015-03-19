@@ -141,7 +141,7 @@ class Vote(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}, {}".format(self.comment)
+        return u"{}, {}".format(self.rating_vote)
 
 
 class Restroom(models.Model):

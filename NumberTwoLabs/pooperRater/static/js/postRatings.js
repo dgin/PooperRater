@@ -428,10 +428,16 @@ var RatingForm = React.createClass({
                                 <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
                                     <Rater total={5} rating={0} onRate={this.otherHandleRate} ref="other" />
                                 </div>
-
-                                <textarea rows="4" type="text" className="form-control .col-lg-10 .offset-lg-1" placeholder="Start writing your comment..." ref="comment" />
-
-                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><button className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button></div>
+                                <div>
+                                    <h1>&nbsp;</h1>
+                                </div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12">
+                                    <textarea rows="4" type="text" className="form-control" placeholder="Start writing your comment..." ref="comment" />
+                                </div>
+                                <div>
+                                    &nbsp;
+                                </div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.url[this.props.onRatingSubmit.__reactBoundContext.props.url.indexOf("places/")+7]} ><button className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button></a></div>
                             </form>
             </div>
                     </div>
