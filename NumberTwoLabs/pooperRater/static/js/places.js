@@ -7,10 +7,10 @@ var converter = new Showdown.converter();
 var PlaceListItem = React.createClass({
   render: function() {
     return (
-<a href={"#places/" + this.props.place.id}>
-    <div className="panel panel-default">
-        <div className="panel-body">
-            <div className="place">
+        <a href={"#place/" + this.props.place.id}>
+            <div className="panel panel-default">
+                <div className="panel-body">
+                    <div className="place">
 
                         <div>
                             <div>
@@ -21,18 +21,15 @@ var PlaceListItem = React.createClass({
                             <div>
                                     <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.place.desc}</div>
                                     <div className="col-lg-4 col-sm-12 col-xs-12">
-                                        <div><small className="glyphicon glyphicon-inbox"> {this.props.place.unit}</small></div>
-                                        <div><small className="glyphicon glyphicon-align-justify"> {this.props.place.floor}</small></div>
                                         <div><small className="glyphicon glyphicon-home"> {this.props.place.address}</small></div>
                                         <div><small className="glyphicon glyphicon-globe"> {this.props.place.city}</small></div></div>
                             </div>
                         </div>
 
-
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    </a>
+        </a>
     );
   }
 });
@@ -87,6 +84,8 @@ var PlacesPage = React.createClass({
   render: function() {
     return (
       <div className="PlaceBox">
+        <div className="col-lg-12"><AddPlaceButton /></div>
+        <div>&nbsp;</div>
         <h1>Places</h1>
         <PlaceList data={this.state.data} />
       </div>
@@ -103,14 +102,14 @@ var PlaceList = React.createClass({
         if (userPositionCoords !== undefined) {
             var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
                 userPositionCoords.longitude, place.latitude,place.longitude);
-            if (distanceFromYou <= 1) {
+            if (distanceFromYou <= 1) { // 1 kilometer
                 // Puts marker on the map
                 createPlaceMarker(place);
             return (
                 <PlaceListItem place = {place}></PlaceListItem>
             );
             //}
-        // If position data doesn't exist, return all places
+        // If position data doesn't exist, return no places
         }
         //else {
         //    return (

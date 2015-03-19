@@ -4,7 +4,7 @@ from pooperRater import views
 
 
 urlpatterns = patterns('',
-    url(r'^places/$', 'pooperRater.views.places', name='places'),
+    url(r'^places/', 'pooperRater.views.places', name='places'),
     url(r'^place/$', 'pooperRater.views.place', name='place'),
     url(r'^comment/$', 'pooperRater.views.comment', name='comment'),
     url(r'^vote/$', 'pooperRater.views.vote', name='vote'),

@@ -4,13 +4,14 @@
 function yelp_ajax() {
     // First check to ensure user has input a location
     if (isNotEmpty()) {
+        var locationSearchIsChecked = document.getElementById("yelpIsLocation").checked;
         var location = document.getElementById("ajaxLocation").value;
         var term = document.getElementById("ajaxTerm").value;
         var geoCoordLat = document.getElementById("yelpGeoCoordLat").value;
         var geoCoordLong = document.getElementById("yelpGeoCoordLong").value;
         // If user is searching by location
         var data;
-        if (location !== '') {
+        if (locationSearchIsChecked) {
             data = {"location": location, "term": term};
         } else {
             data = {"geoCoordLat": geoCoordLat, "geoCoordLong":geoCoordLong,

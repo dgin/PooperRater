@@ -10,39 +10,39 @@ var converter = new Showdown.converter();
 var Place = React.createClass({
   render: function() {
     return (
-    <div className="place">
-    <h1>{this.props.data.name}</h1>
-    <div className="panel panel-default">
-        <div className="panel-body">
+        <div className="place">
 
-                        <div>
-                            <div>
-                                    <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.data.desc}</div>
-                                    <div className="col-lg-4 col-sm-12 col-xs-12">
-                                        <div><small className="glyphicon glyphicon-inbox"> {this.props.data.unit}</small></div>
-                                        <div><small className="glyphicon glyphicon-align-justify"> {this.props.data.floor}</small></div>
-                                        <div><small className="glyphicon glyphicon-home"> {this.props.data.address}</small></div>
-                                        <div><small className="glyphicon glyphicon-globe"> {this.props.data.city}</small></div></div>
-                            </div>
-                            <div>
-                                <h1>&nbsp;</h1>
-                            </div>
-                            <div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><h3><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Overall Rating: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.overall_average_rating}></SmallStarRating></div></h3></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.air_flow__avg}></SmallStarRating></div></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.cleanliness__avg}></SmallStarRating></div></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.available__avg}></SmallStarRating></div></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.quality__avg}></SmallStarRating></div></div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.other__avg}></SmallStarRating></div></div>
-                            </div>
-                        </div>
+            <h1><a href="#places/" ><BackButton /></a>&nbsp; {this.props.data.name}</h1>
 
+            <div className="panel panel-default">
+                <div className="panel-body">
 
+                    <div>
+                                <div>
+                                        <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.data.desc}</div>
+                                        <div className="col-lg-4 col-sm-12 col-xs-12">
+                                            <div><small className="glyphicon glyphicon-home"> {this.props.data.address}</small></div>
+                                            <div><small className="glyphicon glyphicon-globe"> {this.props.data.city}</small></div>
+                                        </div>
+                                </div>
+                                <div>
+                                    <h1>&nbsp;</h1>
+                                </div>
+                                <div>
+                                    <div className="col-lg-12 col-sm-12 col-xs-12"><h3><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Overall Rating: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.overall_average_rating}></SmallStarRating></div></h3></div>
+                                    <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.air_flow__avg}></SmallStarRating></div></div>
+                                    <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.cleanliness__avg}></SmallStarRating></div></div>
+                                    <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.available__avg}></SmallStarRating></div></div>
+                                    <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.quality__avg}></SmallStarRating></div></div>
+                                    <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.other__avg}></SmallStarRating></div></div>
+                                </div>
+                    </div>
+                </div>
             </div>
-
-        </div>
-                <div><RatingsBox url={"/api/v1/places/" + this.props.data.id + "/ratings/"} pollInterval={10000} /></div>
-        </div>
+                    <div className="col-lg-12 col-sm-12 col-xs-12"><a href="#ratings/"><AddRatingButton/></a></div>
+                    <div>&nbsp;</div>
+                    <div><RatingsBox url={"/api/v1/places/" + this.props.data.id + "/ratings/"} pollInterval={10000} /></div>
+       </div>
 
     );
   }

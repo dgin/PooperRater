@@ -1,23 +1,18 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#togglebar">
         <span class="sr-only">Toggle Navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/places"><div class="glyphicon glyphicon-home"></div></a>
+      <a class="navbar-brand" href="/places/#places/"><div class="glyphicon glyphicon-home"></div></a>
     </div>
 
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="togglebar">
       <ul class="nav navbar-nav pull-right">
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search a toilet">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-          </form>
+
         {% if user.is_authenticated %}
           <li><a href="/{{ user.username }}">{{ user.username }}</a></li>
           <li><a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a></li>

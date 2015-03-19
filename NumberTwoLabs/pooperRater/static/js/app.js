@@ -13,12 +13,21 @@ var App = React.createClass({
     },
 
     componentDidMount: function() {
-        router.addRoute('', function() {
+        router.addRoute('places/', function() {
             this.setState({page: <PlacesPage url="/api/v1/places/" pollInterval={0} />});
         }.bind(this));
-        router.addRoute('places/:id', function(id) {
+        router.addRoute('place/:id', function(id) {
             this.setState({page: <PlacePage url={"/api/v1/places/" + id} pollInterval={0} />});
         }.bind(this));
+        router.addRoute('ratings/', function() {
+            this.setState({page: <RatingsBox url={"/api/v1/ratings/"} pollInterval={0} />});
+        }.bind(this));
+        //*******
+        // Dan's new stuff
+        //router.addRoute('search/', function() {
+        //    this.setState({page: <DatabaseSearch pollInterval={0} />});
+        //}.bind(this));
+        //*******
         router.start();
     },
     render: function() {
