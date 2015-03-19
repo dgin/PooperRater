@@ -13,7 +13,7 @@ class RatingViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
 
-class PlaceRatingViewSet(generics.ListAPIView):
+class PlaceRatingViewSet(generics.ListCreateAPIView):
     serializer_class = RatingSerializer
 
     def get_queryset(self, *args, **kwargs):
