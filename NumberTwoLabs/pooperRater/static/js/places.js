@@ -7,10 +7,10 @@ var converter = new Showdown.converter();
 var PlaceListItem = React.createClass({
   render: function() {
     return (
-<a href={"#place/" + this.props.place.id}>
-    <div className="panel panel-default">
-        <div className="panel-body">
-            <div className="place">
+        <a href={"#place/" + this.props.place.id}>
+            <div className="panel panel-default">
+                <div className="panel-body">
+                    <div className="place">
 
                         <div>
                             <div>
@@ -26,11 +26,10 @@ var PlaceListItem = React.createClass({
                             </div>
                         </div>
 
-
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    </a>
+        </a>
     );
   }
 });
@@ -103,14 +102,14 @@ var PlaceList = React.createClass({
         if (userPositionCoords !== undefined) {
             var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
                 userPositionCoords.longitude, place.latitude,place.longitude);
-            if (distanceFromYou <= 1) {
+            if (distanceFromYou <= 1) { // 1 kilometer
                 // Puts marker on the map
                 createPlaceMarker(place);
             return (
                 <PlaceListItem place = {place}></PlaceListItem>
             );
             //}
-        // If position data doesn't exist, return all places
+        // If position data doesn't exist, return no places
         }
         //else {
         //    return (

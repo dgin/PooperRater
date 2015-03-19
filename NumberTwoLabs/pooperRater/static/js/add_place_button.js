@@ -1,6 +1,6 @@
 var AddPlaceButton = React.createClass({
   render: function() {
-    return <button type="submit" className="btn btn-lg btn-default  col-lg-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#yelpModal">Add Place</button>;
+    return <button className="btn btn-lg btn-default  col-lg-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#yelpModal">Add Place</button>;
   }
 });
 

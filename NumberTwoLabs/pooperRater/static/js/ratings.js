@@ -38,7 +38,6 @@ var Rating = React.createClass({
   }
 });
 
-//<CommentsBox url={"/api/v1/comments/" + this.props.rating.id + "/"}></CommentsBox>
 
 //*************************
 function getCookie(name) {

@@ -1,42 +1,42 @@
 
 var converter = new Showdown.converter();
 
-var Rating = React.createClass({
-  render: function() {
-
-      //console.log(this.props.air_flow);
-
-    return (
-        <div className="panel panel-default">
-        <div className="panel-body">
-            <div className="rating">
-                <div className="ratingBody">
-                    <div className="row">
-                     <div className="col-lg-6 col-sm-12 col-xs-12">
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.air_flow}></SmallStarRating></div></div>
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean:  </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.cleanliness}></SmallStarRating></div></div>
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Availible: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.available}></SmallStarRating></div></div>
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.quality}></SmallStarRating></div></div>
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
-                     </div>
-                     <div className="col-lg-6 col-sm-12 col-xs-12">
-                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
-                     </div>
-                </div>
-                </div>
-                <div className="col-lg-12 col-sm-12 col-xs-12">
-                    <h1>&nbsp;</h1>
-                    <VoteBox url={"/api/v1/vote/" + this.props.rating.id + "/"} pollInterval={10000} ></VoteBox>
-                </div>
-            </div>
-
-        </div>
-        </div>
-
-
-    );
-  }
-});
+//var Rating = React.createClass({
+//  render: function() {
+//
+//      //console.log(this.props.air_flow);
+//
+//    return (
+//        <div className="panel panel-default">
+//        <div className="panel-body">
+//            <div className="rating">
+//                <div className="ratingBody">
+//                    <div className="row">
+//                     <div className="col-lg-6 col-sm-12 col-xs-12">
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.air_flow}></SmallStarRating></div></div>
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean:  </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.cleanliness}></SmallStarRating></div></div>
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Availible: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.available}></SmallStarRating></div></div>
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.quality}></SmallStarRating></div></div>
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
+//                     </div>
+//                     <div className="col-lg-6 col-sm-12 col-xs-12">
+//                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
+//                     </div>
+//                </div>
+//                </div>
+//                <div className="col-lg-12 col-sm-12 col-xs-12">
+//                    <h1>&nbsp;</h1>
+//                    <VoteBox url={"/api/v1/vote/" + this.props.rating.id + "/"} pollInterval={10000} ></VoteBox>
+//                </div>
+//            </div>
+//
+//        </div>
+//        </div>
+//
+//
+//    );
+//  }
+//});
 
 //<CommentsBox url={"/api/v1/comments/" + this.props.rating.id + "/"}></CommentsBox>
 
@@ -379,7 +379,7 @@ var RatingForm = React.createClass({
         //console.log('this state: ', this.state);
 
         var placeID = this.props.onRatingSubmit.__reactBoundContext.props.placeID;
-        var owner = 1;
+        var owner = 2;
 
         this.props.onRatingSubmit({
             place: placeID,
@@ -398,7 +398,7 @@ var RatingForm = React.createClass({
     render: function() {
         return (
             <div>
-                <h1>Rate...</h1>
+                <h1>Rate {this.props.id}</h1>
                 <div className="panel panel-default">
                 <div className="panel-body">
                             <form className="ratingForm" onSubmit={this.handleSubmit}>
@@ -425,7 +425,7 @@ var RatingForm = React.createClass({
                                     <Rater total={5} rating={0} onRate={this.otherHandleRate} ref="other" />
                                 </div>
 
-                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><input className="text-left" type="submit" value="Rate" /></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><button className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button></div>
                             </form>
             </div>
                     </div>
@@ -436,8 +436,8 @@ var RatingForm = React.createClass({
   });
 
 
-React.render(
-    //<CommentsBox data={data}/>
-    <PostRatingsBox url="/api/v1/ratings/" pollInterval={100000} />,
-  document.getElementById('ratings')
-);
+//React.render(
+//    //<CommentsBox data={data}/>
+//    <PostRatingsBox url="/api/v1/ratings/" pollInterval={100000} />,
+//  document.getElementById('ratings')
+//);

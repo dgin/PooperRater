@@ -4,34 +4,31 @@
 function yelp_ajax() {
     // First check to ensure user has input a location
     if (isNotEmpty()) {
+        var locationSearchIsChecked = document.getElementById("yelpIsLocation").value;
         var location = document.getElementById("ajaxLocation").value;
         var term = document.getElementById("ajaxTerm").value;
         var geoCoordLat = document.getElementById("yelpGeoCoordLat").value;
         var geoCoordLong = document.getElementById("yelpGeoCoordLong").value;
         // If user is searching by location
-        if (location !== '') {
-            $.ajax({
-                url: "/yelp/ajax/",
-                type: 'GET',
-                data: {"location": location, "term": term},
-                success: function(response) {
-                    createPostYelpButton(response);
-                    console.log(response);
-                }
-            });
-        // If user is searching by geolocation data
+        var data;
+        if (locationSearchIsChecked === "yes") {
+            data = {"location": location, "term": term};
         } else {
-            $.ajax({
-                url: "/yelp/ajax/",
-                type: 'GET',
-                data: {"geoCoordLat": geoCoordLat, "geoCoordLong":geoCoordLong,
-                    "term": term},
-                success: function(response) {
-                    createPostYelpButton(response);
-                    console.log(response);
-                }
-            });
+            data = {"geoCoordLat": geoCoordLat, "geoCoordLong":geoCoordLong,
+                    "term": term};
         }
+        $.ajax({
+            url: "/yelp/ajax/",
+            type: 'GET',
+            data: data,
+            success: function(response) {
+                createPostYelpButton(response);
+                console.log(response);
+                if (response.length === 0) {
+                    document.getElementById("yelpOutput").innerHTML = "<br>Couldn't find any places with those search terms. Please try a different search!"
+                }
+            }
+        });
     }
 }
 
@@ -44,19 +41,24 @@ function createPostYelpButton(listOfBusinesses) {
         var business = listOfBusinesses[i];
         // Populates page with information about the particular business
         var information = document.createElement("div");
-        information.class = "businessInfo";
+        information.className = "businessInfo panel panel-default";
+        information.ID
+        //var info2 = document.createELement("div")
         information.innerHTML = "<br>"+ "<h4>" + business['name'] + "</h4>" +
             business['location']['address'] + ", " + business['location']['city'] + ", "
-            + business['location']['state_code'];
-        document.getElementById("yelpOutput").appendChild(information);
-        // Creates the business button, which, when clicked, posts the business data to our API
+            + business['location']['state_code'] + "<br><br>";
         var newButton = document.createElement('button');
-        newButton.innerHTML = "Add " + business['name'] + " to our database!";
+        newButton.className = "btn btn-warning";
+        newButton.innerHTML = "Add " + business['name'];
+        // Creates the business button, which, when clicked, posts the business data to our API
         newButton.data = business;
         newButton.onclick = function() {
             postYelpPlaceToAPI(this.data)
         };
-        document.getElementById("yelpOutput").appendChild(newButton);
+        information.appendChild(newButton);
+        document.getElementById("yelpOutput").appendChild(information);
+
+        //document.getElementById("yelpOutput").appendChild(newButton);
     }
 }
 
