@@ -14,8 +14,10 @@ class RatingViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
 
-class PlaceRatingViewSet(generics.ListAPIView):
+class PlaceRatingViewSet(generics.ListCreateAPIView):
     serializer_class = RatingSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('username')
 
     def get_queryset(self, *args, **kwargs):
         return Rating.objects.filter(place__id=self.kwargs.get('pk'))
@@ -60,7 +62,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, UserIsOwnerOrReadOnly,)
 
-class AnonUserInfoVIewSet(viewsets.ModelViewSet):
+class AnonUserInfoViewSet(viewsets.ModelViewSet):
     queryset = AnonUserInfo.objects.all()
     serializer_class = AnonUserInfoSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, AnonInfoIsRelatedUserOrReadOnly,)

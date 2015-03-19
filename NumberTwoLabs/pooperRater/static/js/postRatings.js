@@ -1,46 +1,78 @@
+
 var converter = new Showdown.converter();
 
-var Rating = React.createClass({
-  render: function() {
-
-      //console.log(this.props.air_flow);
-
-    return (
-        <div className="panel panel-default">
-        <div className="panel-body">
-            <div className="rating">
-                <div className="ratingBody">
-                    <div className="row">
-                     <div className="col-lg-6 col-sm-12 col-xs-12">
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.air_flow}></SmallStarRating></div></div>
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean:  </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.cleanliness}></SmallStarRating></div></div>
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Availible: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.available}></SmallStarRating></div></div>
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.quality}></SmallStarRating></div></div>
-                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
-                     </div>
-                     <div className="col-lg-6 col-sm-12 col-xs-12">
-                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
-                     </div>
-                </div>
-                </div>
-                <div className="col-lg-12 col-sm-12 col-xs-12">
-                    <h1>&nbsp;</h1>
-                    <VoteBox url={"/api/v1/vote/" + this.props.rating.id + "/"} pollInterval={10000} ></VoteBox>
-                </div>
-            </div>
-
-        </div>
-        </div>
-
-
-    );
-  }
-});
+//var Rating = React.createClass({
+//  render: function() {
+//
+//      //console.log(this.props.air_flow);
+//
+//    return (
+//        <div className="panel panel-default">
+//        <div className="panel-body">
+//            <div className="rating">
+//                <div className="ratingBody">
+//                    <div className="row">
+//                     <div className="col-lg-6 col-sm-12 col-xs-12">
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.air_flow}></SmallStarRating></div></div>
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean:  </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.cleanliness}></SmallStarRating></div></div>
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Availible: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.available}></SmallStarRating></div></div>
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.quality}></SmallStarRating></div></div>
+//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
+//                     </div>
+//                     <div className="col-lg-6 col-sm-12 col-xs-12">
+//                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
+//                     </div>
+//                </div>
+//                </div>
+//                <div className="col-lg-12 col-sm-12 col-xs-12">
+//                    <h1>&nbsp;</h1>
+//                    <VoteBox url={"/api/v1/vote/" + this.props.rating.id + "/"} pollInterval={10000} ></VoteBox>
+//                </div>
+//            </div>
+//
+//        </div>
+//        </div>
+//
+//
+//    );
+//  }
+//});
 
 //<CommentsBox url={"/api/v1/comments/" + this.props.rating.id + "/"}></CommentsBox>
 
-var RatingsBox = React.createClass({
+//*************************
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+// Makes the ajax call to our database; first puts a csrf token in the header
+
+var PostRatingsBox = React.createClass({
   loadRatingsFromServer: function() {
+    var csrftoken = getCookie('csrftoken');
+    $.ajaxSetup({
+       beforeSend: function(xhr, settings) {
+           if (! csrfSafeMethod(settings.type) && !this.crossDomain) {
+               xhr.setRequestHeader("X-CSRFToken", csrftoken);
+           }
+       }
+    });
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -63,6 +95,7 @@ var RatingsBox = React.createClass({
         dataType: 'json',
         type: 'POST',
         data: rating,
+        //headers: {'X-CSRFToken': $.cookie('csrftoken')},
         success: function(data) {
           this.setState({data: data});
         }.bind(this),
@@ -80,9 +113,9 @@ var RatingsBox = React.createClass({
   componentDidMount: function() {
     this.loadRatingsFromServer();
 
-      if (this.props.pollInterval > 0){
-        setInterval(this.loadRatingsFromServer, this.props.pollInterval);
-        };
+      //if (this.props.pollInterval > 0){
+      //  setInterval(this.loadRatingsFromServer, this.props.pollInterval);
+      //  }
   },
   render: function() {
     if (this.state.data === null) {
@@ -90,9 +123,9 @@ var RatingsBox = React.createClass({
       }
       else {
         return (
-            <div className="RatingsBox">
+            <div className="PostRatingsBox">
                 <RatingForm onRatingSubmit={this.handleRatingSubmit} />
-                <RatingList data={this.state.data} />
+
             </div>
         );
     }
@@ -100,51 +133,52 @@ var RatingsBox = React.createClass({
   }
 });
 
+//<DjangoCSRFToken />
 
-var RatingList = React.createClass({
-  render: function() {
+//<RatingList data={this.state.data} />
 
-
-
-
-    var ratingNodes = this.props.data.map(function(rating, index) {
-
-      return (
-        <Rating key={index}
-                air_flow = {rating.air_flow}
-                cleanliness = {rating.cleanliness}
-                available = {rating.available}
-                quality = {rating.quality}
-                other = {rating.other}>
-        </Rating>
-      );
-    });
-
-    if (Array.isArray(this.props.data)){
-        var ratingNodes = this.props.data.map(function(rating) {
-            return (
-            <Rating rating = {rating}></Rating>
-          );
-        });
-    } else {
-        var ratingNodes = [];
-        ratingNodes.push(this.singleNode(this.props.data));
-    }
-
-
-    return (
-      <div className="ratingList">
-        {ratingNodes}
-      </div>
-    );
-  },
-
-    singleNode: function(rating) {
-        return (
-            <Rating rating = {rating}></Rating>
-        );
-    }
-});
+//var RatingList = React.createClass({
+//  render: function() {
+//
+//
+//    var ratingNodes = this.props.data.map(function(rating, index) {
+//
+//      return (
+//        <Rating key={index}
+//                air_flow = {rating.air_flow}
+//                cleanliness = {rating.cleanliness}
+//                available = {rating.available}
+//                quality = {rating.quality}
+//                other = {rating.other}>
+//        </Rating>
+//      );
+//    });
+//
+//    if (Array.isArray(this.props.data)){
+//        ratingNodes = this.props.data.map(function(rating) {
+//            return (
+//            <Rating rating = {rating}></Rating>
+//          );
+//        });
+//    } else {
+//        ratingNodes = [];
+//        ratingNodes.push(this.singleNode(this.props.data));
+//    }
+//
+//
+//    return (
+//      <div className="ratingList">
+//        {ratingNodes}
+//      </div>
+//    );
+//  },
+//
+//    singleNode: function(rating) {
+//        return (
+//            <Rating rating = {rating}></Rating>
+//        );
+//    }
+//});
 
 
 //var RatingForm = React.createClass({
@@ -184,6 +218,7 @@ var RatingList = React.createClass({
 //    );
 //  }
 //});
+
 
 var Star = React.createClass({
     getDefaultProps: function () {
@@ -253,6 +288,17 @@ var Rater = React.createClass({
         })
         callback && callback(Number(rating), Number(lastRating))
     },
+
+    getRatingFromDOMEvent: function(e, props) {
+        var star = e.target
+          , allStars = Array.prototype.slice.call(e.currentTarget.childNodes, 0)
+          , index = allStars.indexOf(star)
+          , rating = props.total - index
+          , limit = Number(props.limit)
+        limit = (props.limit === void 0)? props.total: limit
+        rating = rating < limit? rating: limit
+        return Number(rating)
+    },
     render: function () {
         var total = Number(this.props.total)
           , limit = Number(this.props.limit)
@@ -274,29 +320,70 @@ var Rater = React.createClass({
                 onClick={this.handleClick}>{nodes}</div>
         )
     }
+
+});
+
+var DjangoCSRFToken = React.createClass({
+
+  render: function() {
+
+    var csrfToken = Django.csrf_token();
+
+    return React.DOM.input(
+      {type:"hidden", name:"csrfmiddlewaretoken", value:csrfToken}
+      );
+  }
 });
 
 var RatingForm = React.createClass({
-    handleRate: function(rating, lastRating) {
-        //alert('You rated ' + rating)
+
+    airFlowHandleRate: function(rating, lastRating) {
+        this.refs.air_flow.props.rating = rating;
+    },
+    cleanlinessHandleRate: function(rating, lastRating) {
+        this.refs.cleanliness.props.rating = rating;
+    },
+    availableHandleRate: function(rating, lastRating) {
+        this.refs.available.props.rating = rating;
+    },
+    qualityHandleRate: function(rating, lastRating) {
+        this.refs.quality.props.rating = rating;
+    },
+    otherHandleRate: function(rating, lastRating) {
+        this.refs.other.props.rating = rating;
     },
 
     handleSubmit: function(e){
 
 
         e.preventDefault();
-        var air_flow = this.refs.air_flow.getDOMNode().value;
-        var cleanliness = this.refs.cleanliness.getDOMNode().value;
-        var available = this.refs.available.getDOMNode().value;
-        var quality = this .refs.quality.getDOMNode().value;
-        var other = this.refs.other.getDOMNode().value;
+
+        console.log("got to handlesubmit, not yet set variables");
+
+        var air_flow = this.refs.air_flow.props.rating;
+        var cleanliness = this.refs.cleanliness.props.rating;
+        var available = this.refs.available.props.rating;
+        var quality = this .refs.quality.props.rating;
+        var other = this.refs.other.props.rating;
+
+        console.log('airflow: ', air_flow, 'cleanliness: ', cleanliness, 'avail: ', available, 'qual: ', quality, 'oth: ', other);
+
         if (!air_flow || !cleanliness || !available || !quality || !other ) {
+            alert('you missed a rating');
             return;
         }
 
-        console.log("handle submit", air_flow)
+        console.log("have set rating variables");
+        console.log("handle submit", air_flow);
+        console.log('this props: ', this.props.onRatingSubmit.__reactBoundContext.props.placeID);
+        //console.log('this state: ', this.state);
+
+        var placeID = this.props.onRatingSubmit.__reactBoundContext.props.placeID;
+        var owner = 2;
 
         this.props.onRatingSubmit({
+            place: placeID,
+            owner: owner,
             air_flow: air_flow,
             cleanliness: cleanliness,
             available: available,
@@ -306,45 +393,51 @@ var RatingForm = React.createClass({
 
 
     },
+
+
     render: function() {
         return (
             <div>
-                <h1>Pooper Rater Ratings</h1>
-                <dl>
-                    <form className="ratingForm" onSubmit={this.handleSubmit}>
-                        <dt>Air_Flow</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="air_flow"/>
-                        </dd>
-                        <dt>Cleanliness</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="cleanliness" />
-                        </dd>
-                        <dt>Availability</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="available" />
-                        </dd>
-                        <dt>Quality</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="quality" />
-                        </dd>
-                        <dt>Other</dt>
-                        <dd>
-                            <Rater total={5} rating={0} ref="other" />
-                        </dd>
-                        <input type="submit" value="Rate" />
-                    </form>
-                </dl>
+                <h1>Rate {this.props.id}</h1>
+                <div className="panel panel-default">
+                <div className="panel-body">
+                            <form className="ratingForm" onSubmit={this.handleSubmit}>
 
+
+
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                    <Rater total={5} rating={0} onRate={this.airFlowHandleRate} ref="air_flow"/>
+                                </div>
+
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                    <Rater total={5} rating={0} onRate={this.cleanlinessHandleRate} ref="cleanliness" />
+                                </div>
+
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                    <Rater total={5} rating={0} onRate={this.availableHandleRate} ref="available" />
+                                </div>
+
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                    <Rater total={5} rating={0} onRate={this.qualityHandleRate} ref="quality" />
+                                </div>
+
+                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                    <Rater total={5} rating={0} onRate={this.otherHandleRate} ref="other" />
+                                </div>
+
+                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><button className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button></div>
+                            </form>
             </div>
+                    </div>
+                </div>
+
         )
     }
   });
 
 
-
 //React.render(
-//    //<CommentsBox data={data}/>,
-//    <RatingsBox url="/api/v1/ratings/" pollInterval={10000} />,
+//    //<CommentsBox data={data}/>
+//    <PostRatingsBox url="/api/v1/ratings/" pollInterval={100000} />,
 //  document.getElementById('ratings')
 //);

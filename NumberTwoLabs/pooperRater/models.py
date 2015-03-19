@@ -41,7 +41,7 @@ class Place(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}".format(self.name)\
+        return u"{}".format(self.name)
                # + " Types: {}.".format(self.type_conversion[self.place_type])
 
     @property
@@ -138,7 +138,7 @@ class Vote(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}".format(self.comment)
+        return u"{}, {}".format(self.comment)
 
 
 class Restroom(models.Model):
