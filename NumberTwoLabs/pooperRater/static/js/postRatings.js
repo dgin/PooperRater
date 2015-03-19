@@ -378,8 +378,10 @@ var RatingForm = React.createClass({
         //console.log("have set rating variables");
         //console.log("handle submit", air_flow);
         //console.log('this props: ', this.props.onRatingSubmit.__reactBoundContext.props.url);
+        console.log('new place id: ', this.props.onRatingSubmit.__reactBoundContext.props.placeID);
 
-        var placeID = this.props.onRatingSubmit.__reactBoundContext.props.url[this.props.onRatingSubmit.__reactBoundContext.props.url.indexOf("places/")+7];
+
+        var placeID = this.props.onRatingSubmit.__reactBoundContext.props.placeID;
 
         //manually setting owner id
         var owner = 1;
@@ -437,7 +439,11 @@ var RatingForm = React.createClass({
                                 <div>
                                     &nbsp;
                                 </div>
-                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.url[this.props.onRatingSubmit.__reactBoundContext.props.url.indexOf("places/")+7]} ><button className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button></a></div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right">
+                                    <a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.url[this.props.onRatingSubmit.__reactBoundContext.props.url.indexOf("places/")+7]} >
+                                        <button className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button>
+                                    </a>
+                                </div>
                             </form>
             </div>
                     </div>
