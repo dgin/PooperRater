@@ -44,19 +44,24 @@ function createPostYelpButton(listOfBusinesses) {
         var business = listOfBusinesses[i];
         // Populates page with information about the particular business
         var information = document.createElement("div");
-        information.class = "businessInfo";
+        information.className = "businessInfo panel panel-default";
+        information.ID
+        //var info2 = document.createELement("div")
         information.innerHTML = "<br>"+ "<h4>" + business['name'] + "</h4>" +
             business['location']['address'] + ", " + business['location']['city'] + ", "
-            + business['location']['state_code'];
-        document.getElementById("yelpOutput").appendChild(information);
-        // Creates the business button, which, when clicked, posts the business data to our API
+            + business['location']['state_code'] + "<br><br>";
         var newButton = document.createElement('button');
-        newButton.innerHTML = "Add " + business['name'] + " to our database!";
+        newButton.className = "btn btn-warning";
+        newButton.innerHTML = "Add " + business['name'];
+        // Creates the business button, which, when clicked, posts the business data to our API
         newButton.data = business;
         newButton.onclick = function() {
             postYelpPlaceToAPI(this.data)
         };
-        document.getElementById("yelpOutput").appendChild(newButton);
+        information.appendChild(newButton);
+        document.getElementById("yelpOutput").appendChild(information);
+
+        //document.getElementById("yelpOutput").appendChild(newButton);
     }
 }
 

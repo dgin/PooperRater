@@ -10,12 +10,12 @@ function returnUserPosition() {
     document.getElementById("placeholderWhileGettingLocation").style.display = "block";
 
     // Show placeholder while searching
-    document.getElementById("placeholderWhileGettingLocation").innerHTML = "Now finding where you are. Please enable location services.";
+    document.getElementById("placeholderWhileGettingLocation").innerHTML = "Now finding where you are. Please enable Geo-location services.";
      // Get geolocation data and output to field
      getUserPosition()
     .then(outputPosition)
     .catch(function(error){
-        console.log("Something went wrong. You may have to enable geolocation services.")
+        console.log("Oops! Something went wrong. You may have to enable Geo-location services.")
     });
 
 }
