@@ -22,6 +22,9 @@ var App = React.createClass({
         router.addRoute('ratings/', function() {
             this.setState({page: <RatingsBox url={"/api/v1/ratings/"} pollInterval={0} />});
         }.bind(this));
+        router.addRoute('anon/', function() {
+            this.setState({page: <UserBox url={"/api/v1/anon/"} pollInterval={0} />});
+        }.bind(this));
         router.start();
     },
     render: function() {

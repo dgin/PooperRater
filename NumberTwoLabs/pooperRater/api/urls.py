@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from pooperRater.api.views import RatingViewSet, PlaceViewSet, CommentViewSet, UserViewSet, AnonUserInfoVIewSet, VoteViewSet, PlaceRatingViewSet, RatingCommentViewSet
+from pooperRater.api.views import RatingViewSet, PlaceViewSet, CommentViewSet, UserViewSet, AnonUserInfoViewSet, VoteViewSet, PlaceRatingViewSet, RatingCommentViewSet
 from rest_framework import routers
 
 
@@ -9,7 +9,7 @@ router.register(r'places', PlaceViewSet)
 router.register(r'comments', CommentViewSet)
 router.register(r'vote', VoteViewSet)
 router.register(r'user', UserViewSet)
-router.register(r'anon', AnonUserInfoVIewSet)
+router.register(r'anon', AnonUserInfoViewSet)
 
 urlpatterns = patterns('',
     url(r'^', include(router.urls)),

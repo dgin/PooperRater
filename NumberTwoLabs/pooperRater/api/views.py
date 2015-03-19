@@ -57,7 +57,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, UserIsOwnerOrReadOnly,)
 
-class AnonUserInfoVIewSet(viewsets.ModelViewSet):
+class AnonUserInfoViewSet(viewsets.ModelViewSet):
     queryset = AnonUserInfo.objects.all()
     serializer_class = AnonUserInfoSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, AnonInfoIsRelatedUserOrReadOnly,)

@@ -92,7 +92,6 @@ var RatingsBox = React.createClass({
       else {
         return (
             <div className="RatingsBox">
-                <RatingForm onRatingSubmit={this.handleRatingSubmit} />
                 <RatingList data={this.state.data} />
             </div>
         );
@@ -101,6 +100,7 @@ var RatingsBox = React.createClass({
   }
 });
 
+//<RatingForm onRatingSubmit={this.handleRatingSubmit} />
 
 var RatingList = React.createClass({
   render: function() {
@@ -321,9 +321,9 @@ var RatingForm = React.createClass({
                                 <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left"><Rater total={5} rating={0} ref="other" /></div>
                                 <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><input className="text-left" type="submit" value="Rate" /></div>
                             </form>
-            </div>
-                    </div>
                 </div>
+                </div>
+            </div>
 
         )
     }
