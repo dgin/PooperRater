@@ -39,7 +39,7 @@ var Place = React.createClass({
                     </div>
                 </div>
             </div>
-                    <div className="col-lg-12 col-sm-12 col-xs-12"><a href="#ratings/"><AddRatingButton/></a></div>
+                    <div className="col-lg-12 col-sm-12 col-xs-12"><a href="#ratings/" placeID = {this.props.data.id}><AddRatingButton placeID = {this.props.data.id}/></a></div>
                     <div>&nbsp;</div>
                     <div><RatingsBox url={"/api/v1/places/" + this.props.data.id + "/ratings/"} pollInterval={10000} /></div>
        </div>
