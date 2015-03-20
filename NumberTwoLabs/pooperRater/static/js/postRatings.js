@@ -371,7 +371,7 @@ var RatingForm = React.createClass({
         console.log('comment: ', comment);
 
         if (!air_flow || !cleanliness || !available || !quality || !other ) {
-            alert('you missed a rating');
+            $('#ratingalert').show();
             return;
         }
 
@@ -404,8 +404,7 @@ var RatingForm = React.createClass({
     render: function() {
         return (
             <div>
-                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.url[this.props.onRatingSubmit.__reactBoundContext.props.url.indexOf("places/")+7]} ><button className="btn btn-lg btn-default text-left">Back</button></a></div>
-                <h1>Rate {this.props.id}</h1>
+                <h1><a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID}><BackButton /></a>&nbsp; Rate {this.props.id}</h1>
                 <div className="panel panel-default">
                 <div className="panel-body">
                             <form className="ratingForm" onSubmit={this.handleSubmit}>
@@ -440,15 +439,16 @@ var RatingForm = React.createClass({
                                 <div>
                                     &nbsp;
                                 </div>
+                                <div>
+                                    <div className="alert alert-danger" id="ratingalert" role="alert"><strong>Error!</strong> You missed a rating <a href="#" className="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
+                                </div>
                                 <div className="col-lg-12 col-sm-12 col-xs-12 text-right">
-                                    <a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.url[this.props.onRatingSubmit.__reactBoundContext.props.url.indexOf("places/")+7]} >
-                                        <button className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button>
-                                    </a>
+                                        <button href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID} className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button>
                                 </div>
                             </form>
-            </div>
-                    </div>
                 </div>
+                </div>
+            </div>
 
         )
     }
