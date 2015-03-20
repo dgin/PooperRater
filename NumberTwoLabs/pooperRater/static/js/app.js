@@ -55,7 +55,13 @@ function setUserLocation(position) {
 function reactRenderAppPromise(position) {
     return new Promise(function(resolve, reject){
         React.render(<App/>, document.getElementById('places'));
+        resolve(position);
+    });
+}
 
+function dataSearchPromise(position) {
+    return new Promise(function(resolve, reject){
+        React.render(<DatabaseSearch/>, document.getElementById('databaseSearch'));
         resolve(position);
     });
 }
@@ -63,6 +69,7 @@ function reactRenderAppPromise(position) {
 getUserPosition()
 .then(setUserLocation)
 .then(reactRenderAppPromise)
+//.then(dataSearchPromise)
 .then(initMapAndMarkers)
 .catch(function(err) {
         console.log("Something broke!");
@@ -71,8 +78,8 @@ getUserPosition()
 //React.render(<App/>, document.getElementById('places'));
 
 var geocoder;
-geocoder = new google.maps.Geocoder();
-geocode();
+//geocoder = new google.maps.Geocoder();
+//geocode();
 function geocode() {
     var address = "225 Bush Street, San Francisco";
     geocoder.geocode( {"address": address}, function(results, status) {
