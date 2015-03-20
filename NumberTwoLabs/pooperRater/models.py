@@ -45,6 +45,10 @@ class Place(models.Model):
                # + " Types: {}.".format(self.type_conversion[self.place_type])
 
     @property
+    def number_of_ratings(self):
+        return Rating.objects.filter(place__id=self.id).count()
+
+    @property
     def average_rating(self):
         empty_list = {}
 

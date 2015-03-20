@@ -18,7 +18,7 @@ class PlaceSerializer(serializers.ModelSerializer):
                   'place_type', 'start_hours', 'end_hours', 'pic', 'latitude', 'longitude',
                   'yelp_id', 'yelp_categories', 'yelp_url', 'google_id',
                   'created_at', 'updated_at',
-                  'average_rating', 'overall_average_rating')
+                  'average_rating', 'overall_average_rating', 'number_of_ratings')
 
 # class CommentSerializer (serializers.ModelSerializer):
 #
