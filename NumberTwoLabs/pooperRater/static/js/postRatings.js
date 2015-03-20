@@ -397,6 +397,7 @@ var RatingForm = React.createClass({
             rating_comment: comment
         });
 
+        window.history.back();
 
     },
 
