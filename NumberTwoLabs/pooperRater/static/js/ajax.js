@@ -93,6 +93,7 @@ function isNotEmpty() {
     var y = document.getElementById("yelpGeoCoordLat").value;
     if (x === "" && y === "") {
         alert("You have to actually enter a location!");
+        // Prevents form submit
         return false;
     }
     return true;

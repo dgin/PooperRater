@@ -1,5 +1,5 @@
 from rest_framework import serializers, permissions
-from pooperRater.models import Rating, Place, Comment, Restroom, Vote
+from pooperRater.models import Rating, Place, Restroom, Vote
 from pooperRater.permissions import IsOwnerOrReadOnly
 from pooperRater.models import User, AnonUserInfo
 
@@ -7,7 +7,7 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ('id', 'owner', 'place', 'air_flow', 'cleanliness', 'available', 'quality', 'other',
+        fields = ('id', 'owner', 'place', 'air_flow', 'cleanliness', 'available', 'quality', 'other','rating_comment',
                   'created_at', 'updated_at')
 
 class PlaceSerializer(serializers.ModelSerializer):
@@ -18,21 +18,21 @@ class PlaceSerializer(serializers.ModelSerializer):
                   'place_type', 'start_hours', 'end_hours', 'pic', 'latitude', 'longitude',
                   'yelp_id', 'yelp_categories', 'yelp_url', 'google_id',
                   'created_at', 'updated_at',
-                  'average_rating', 'overall_average_rating')
+                  'average_rating', 'overall_average_rating', 'number_of_ratings')
 
-class CommentSerializer (serializers.ModelSerializer):
-
-    class Meta:
-        model = Comment
-        fields = ('id', 'rating', 'body',
-                  'created_at', 'updated_at')
+# class CommentSerializer (serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Comment
+#         fields = ('id', 'rating', 'body',
+#                   'created_at', 'updated_at')
 
 
 class VoteSerializer (serializers.ModelSerializer):
 
     class Meta:
         model = Vote
-        fields = ('id', 'comment', 'upvote', 'downvote',
+        fields = ('id', 'rating_vote', 'upvote', 'downvote',
                   'created_at', 'updated_at')
 
 

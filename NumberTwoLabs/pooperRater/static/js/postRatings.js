@@ -275,7 +275,7 @@ var Rater = React.createClass({
           , rating = this.props.total - index
           , limit = Number(this.props.limit)
           , lastRating = Number(this.state.lastRating)
-          , callback = this.props.onRate
+          , callback = this.props.onRate;
         if (star.getAttribute('class').indexOf('is-disabled') > -1) {
             return
         }
@@ -285,7 +285,7 @@ var Rater = React.createClass({
         this.setState({
             lastRating: rating,
             rating: rating
-        })
+        });
         callback && callback(Number(rating), Number(lastRating))
     },
 
@@ -294,9 +294,9 @@ var Rater = React.createClass({
           , allStars = Array.prototype.slice.call(e.currentTarget.childNodes, 0)
           , index = allStars.indexOf(star)
           , rating = props.total - index
-          , limit = Number(props.limit)
-        limit = (props.limit === void 0)? props.total: limit
-        rating = rating < limit? rating: limit
+          , limit = Number(props.limit);
+        limit = (props.limit === void 0)? props.total: limit;
+        rating = rating < limit? rating: limit;
         return Number(rating)
     },
     render: function () {
@@ -365,21 +365,26 @@ var RatingForm = React.createClass({
         var available = this.refs.available.props.rating;
         var quality = this .refs.quality.props.rating;
         var other = this.refs.other.props.rating;
+        var comment = this.refs.comment.getDOMNode().value.trim();
 
-        console.log('airflow: ', air_flow, 'cleanliness: ', cleanliness, 'avail: ', available, 'qual: ', quality, 'oth: ', other);
+        //console.log('airflow: ', air_flow, 'cleanliness: ', cleanliness, 'avail: ', available, 'qual: ', quality, 'oth: ', other);
+        console.log('comment: ', comment);
 
         if (!air_flow || !cleanliness || !available || !quality || !other ) {
-            alert('you missed a rating');
+            $('#ratingalert').show();
             return;
         }
 
-        console.log("have set rating variables");
-        console.log("handle submit", air_flow);
-        console.log('this props: ', this.props.onRatingSubmit.__reactBoundContext.props.placeID);
-        //console.log('this state: ', this.state);
+        //console.log("have set rating variables");
+        //console.log("handle submit", air_flow);
+        //console.log('this props: ', this.props.onRatingSubmit.__reactBoundContext.props.url);
+        console.log('new place id: ', this.props.onRatingSubmit.__reactBoundContext.props.placeID);
+
 
         var placeID = this.props.onRatingSubmit.__reactBoundContext.props.placeID;
-        var owner = 2;
+
+        //manually setting owner id
+        var owner = 1;
 
         this.props.onRatingSubmit({
             place: placeID,
@@ -388,9 +393,11 @@ var RatingForm = React.createClass({
             cleanliness: cleanliness,
             available: available,
             quality: quality,
-            other:other
+            other:other,
+            rating_comment: comment
         });
 
+        window.history.back();
 
     },
 
@@ -398,38 +405,51 @@ var RatingForm = React.createClass({
     render: function() {
         return (
             <div>
-                <h1>Rate {this.props.id}</h1>
+                <h1><a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID}><BackButton /></a>&nbsp; Rate {this.props.id}</h1>
                 <div className="panel panel-default">
                 <div className="panel-body">
                             <form className="ratingForm" onSubmit={this.handleSubmit}>
 
 
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.airFlowHandleRate} ref="air_flow"/>
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.cleanlinessHandleRate} ref="cleanliness" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.availableHandleRate} ref="available" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.qualityHandleRate} ref="quality" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.otherHandleRate} ref="other" />
                                 </div>
-
-                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><button className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button></div>
+                                <div>
+                                    <h1>&nbsp;</h1>
+                                </div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12">
+                                    <textarea rows="4" type="text" className="form-control" placeholder="Start writing your comment..." ref="comment" />
+                                </div>
+                                <div>
+                                    &nbsp;
+                                </div>
+                                <div>
+                                    <div className="alert alert-danger" id="ratingalert" role="alert"><strong>Error!</strong> You missed a rating <a href="#" className="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
+                                </div>
+                                <div className="col-lg-12 col-sm-12 col-xs-12 text-right">
+                                        <button href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID} className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button>
+                                </div>
                             </form>
-            </div>
-                    </div>
                 </div>
+                </div>
+            </div>
 
         )
     }

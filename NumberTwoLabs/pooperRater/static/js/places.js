@@ -15,7 +15,7 @@ var PlaceListItem = React.createClass({
                         <div>
                             <div>
                                     <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3> {this.props.place.name}</h3></div>
-                                    <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.place.overall_average_rating}></OverallStarRating></div>
+                                    <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.place.overall_average_rating}></OverallStarRating> <small>({this.props.place.number_of_ratings})</small></div>
 
                             </div>
                             <div>
@@ -218,7 +218,15 @@ var DatabaseSearch = React.createClass({
     handleChange: function(event) {
         this.setState({message: event.target.value});
         if (event.target.value.length >= 3) {
-            this.handleSearchSubmit();
+            //this.handleSearchSubmit();
+            // UI add-ons
+            setTimeout(this.handleSearchSubmit,2000);
+            document.getElementById("noResults").innerHTML = "Now searching..."
+        } else {
+            // Cleanup the search section
+            this.setState({results: ""});
+            document.getElementById("noResults").innerHTML = "";
+            document.getElementById("searchTitle").innerHTML = "";
         }
     },
     handleSearchSubmit: function() {
@@ -230,12 +238,14 @@ var DatabaseSearch = React.createClass({
             success: function(response) {
                 if (response.length === 0) {
                     this.setState({results: response});
-
+                    document.getElementById("noResults").innerHTML = "No toilets found! " +
+                    "Maybe you should add some?";
                 } else {
                     this.setState({results: response});
+                    document.getElementById("noResults").innerHTML = "";
                 }
                 document.getElementById("searchTitle").innerHTML = "<h1>Search Results</h1>";
-                document.getElementByClass("placeList").style.display = 'none';
+                //document.getElementsByClassName("placeList").style.display = 'none';
             }.bind(this)
 
         });
@@ -250,6 +260,7 @@ var DatabaseSearch = React.createClass({
                 <div id="searchTitle"></div>
                 <div id="searchResults">
                     <DataList test="test" data={results} />
+                    <div id="noResults"></div>
                 </div>
             </div>);
     }

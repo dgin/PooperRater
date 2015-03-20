@@ -2,8 +2,8 @@
 from django.contrib.auth.models import User
 from requests import Response
 from rest_framework import viewsets, generics, filters
-from pooperRater.models import Rating, Place, Comment, Restroom, User, AnonUserInfo, Vote
-from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, CommentSerializer, RestroomSerializer, UserSerializer, AnonUserInfoSerializer, VoteSerializer
+from pooperRater.models import Rating, Place, Restroom, User, AnonUserInfo, Vote
+from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, RestroomSerializer, UserSerializer, AnonUserInfoSerializer, VoteSerializer
 from pooperRater.permissions import IsOwnerOrReadOnly, IsAdminUserOrReadOnly, AnonInfoIsRelatedUserOrReadOnly, UserIsOwnerOrReadOnly, CommentIsOwnerOrReadOnly
 from rest_framework import permissions
 
@@ -23,11 +23,11 @@ class PlaceRatingViewSet(generics.ListCreateAPIView):
         return Rating.objects.filter(place__id=self.kwargs.get('pk'))
 
 
-class RatingCommentViewSet(generics.ListAPIView):
-    serializer_class = CommentSerializer
-
-    def get_queryset(self, *args, **kwargs):
-        return Comment.objects.filter(rating__id=self.kwargs.get('pk'))
+# class RatingCommentViewSet(generics.ListAPIView):
+#     serializer_class = CommentSerializer
+#
+#     def get_queryset(self, *args, **kwargs):
+#         return Comment.objects.filter(rating__id=self.kwargs.get('pk'))
 
 
 class PlaceViewSet(viewsets.ModelViewSet):
@@ -39,10 +39,10 @@ class PlaceViewSet(viewsets.ModelViewSet):
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAdminUserOrReadOnly,)
 
 
-class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, CommentIsOwnerOrReadOnly,)
+# class CommentViewSet(viewsets.ModelViewSet):
+#     queryset = Comment.objects.all()
+#     serializer_class = CommentSerializer
+#     permission_classes = (permissions.IsAuthenticatedOrReadOnly, CommentIsOwnerOrReadOnly,)
 
 
 class VoteViewSet(viewsets.ModelViewSet):

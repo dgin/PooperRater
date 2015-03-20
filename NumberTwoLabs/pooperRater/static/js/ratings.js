@@ -19,9 +19,7 @@ var Rating = React.createClass({
                           <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.quality}></SmallStarRating></div></div>
                           <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
                      </div>
-                     <div className="col-lg-6 col-sm-12 col-xs-12">
-                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
-                     </div>
+                          <div className="col-lg-6 col-sm-12 col-xs-12">{this.props.rating.rating_comment}</div>
                 </div>
                 </div>
                 <div className="col-lg-12 col-sm-12 col-xs-12">
@@ -38,7 +36,9 @@ var Rating = React.createClass({
   }
 });
 
-
+//<div className="col-lg-6 col-sm-12 col-xs-12">
+//                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
+//                     </div>
 //*************************
 function getCookie(name) {
     var cookieValue = null;
@@ -148,7 +148,8 @@ var RatingList = React.createClass({
                 cleanliness = {rating.cleanliness}
                 available = {rating.available}
                 quality = {rating.quality}
-                other = {rating.other}>
+                other = {rating.other}
+                comment = {rating.rating_comment}>
         </Rating>
       );
     });

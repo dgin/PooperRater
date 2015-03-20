@@ -13,6 +13,10 @@ a {
   text-decoration: none;
 }
 
+#ratingalert {
+ display: none;
+
+}
 
 code {
   background-color: #f8f8f8;

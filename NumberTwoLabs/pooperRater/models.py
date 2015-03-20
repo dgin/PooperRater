@@ -45,6 +45,10 @@ class Place(models.Model):
                # + " Types: {}.".format(self.type_conversion[self.place_type])
 
     @property
+    def number_of_ratings(self):
+        return Rating.objects.filter(place__id=self.id).count()
+
+    @property
     def average_rating(self):
         empty_list = {}
 
@@ -107,30 +111,33 @@ class Rating(models.Model):
     quality = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
     other = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
 
+    rating_comment = models.TextField(null=True, blank=True, max_length=1000)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return u"{}, {}".format(self.place, self.owner)
 
-
-class Comment(models.Model):
-    rating = models.OneToOneField(Rating)
-    body = models.TextField(null=True, blank=True, max_length=500)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return u"{}, {}".format(self.rating.place.name, self.rating.owner.username)
-
     def save(self, **kwargs):
-        super(Comment, self).save(**kwargs)
-        vote = Vote(comment=self)
+        super(Rating, self).save(**kwargs)
+        vote = Vote(rating_vote=self)
         vote.save()
 
+# class Comment(models.Model):
+#     rating = models.OneToOneField(Rating)
+#     body = models.TextField(null=True, blank=True, max_length=500)
+#
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#
+#     def __unicode__(self):
+#         return u"{}, {}".format(self.rating.place.name, self.rating.owner.username)
+
+
+
 class Vote(models.Model):
-    comment = models.ForeignKey(Comment)
+    rating_vote = models.ForeignKey(Rating)
     upvote = models.SmallIntegerField(null=True, blank=True, default=0)
     downvote = models.SmallIntegerField(null=True, blank=True, default=0)
 
@@ -138,7 +145,7 @@ class Vote(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}, {}".format(self.comment)
+        return u"{}".format(self.rating_vote)
 
 
 class Restroom(models.Model):
