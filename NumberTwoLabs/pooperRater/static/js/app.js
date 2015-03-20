@@ -18,13 +18,13 @@ var App = React.createClass({
             this.setState({page: <PlacesPage url="/api/v1/places/" pollInterval={0} />});
         }.bind(this));
         router.addRoute('place/:id', function(id) {
-            this.setState({page: <PlacePage url={"/api/v1/places/" + id} pollInterval={0} />});
+            this.setState({page: <PlacePage url={"/api/v1/places/" + id} pollInterval={1000} />});
         }.bind(this));
         router.addRoute('ratings/:id', function(id) {
             this.setState({page: <PostRatingsBox url={"/api/v1/places/" + id + "/ratings/"} placeID = {id} pollInterval={0} />});
         }.bind(this));
         router.addRoute('anon/', function(id) {
-            this.setState({page: <UserBox url={"/api/v1/anon/" + id} pollInterval={0} />});
+            this.setState({page: <UserBox url={"/api/v1/ratings/1/owner/"} pollInterval={0} />});
         }.bind(this));
         //*******
         // Dan's new stuff
@@ -38,7 +38,7 @@ var App = React.createClass({
         return this.state.page;
     }
 });
-React.render(<App/>, document.getElementById('places'));
+//React.render(<App/>, document.getElementById('places'));
 
 // Added promise here to get it to work.
 // Suggests that modularity is a viable standard to aim for;

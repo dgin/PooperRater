@@ -384,7 +384,7 @@ var RatingForm = React.createClass({
         var placeID = this.props.onRatingSubmit.__reactBoundContext.props.placeID;
 
         //manually setting owner id
-        var owner = 1;
+        var owner = 2;
 
         this.props.onRatingSubmit({
             place: placeID,
@@ -405,7 +405,7 @@ var RatingForm = React.createClass({
     render: function() {
         return (
             <div>
-                <h1><a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID}><BackButton /></a>&nbsp; Rate {this.props.id}</h1>
+                <h1><a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID}><BackButton /></a>&nbsp; Rate </h1>
                 <div className="panel panel-default">
                 <div className="panel-body">
                             <form className="ratingForm" onSubmit={this.handleSubmit}>

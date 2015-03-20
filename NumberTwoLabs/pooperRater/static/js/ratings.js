@@ -20,10 +20,11 @@ var Rating = React.createClass({
                           <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
                      </div>
                           <div className="col-lg-6 col-sm-12 col-xs-12">{this.props.rating.rating_comment}</div>
+                          <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><UserBox url={"/api/v1/ratings/" + this.props.rating.id + "/owner/"} pollInterval={10000} /></div>
                 </div>
                 </div>
                 <div className="col-lg-12 col-sm-12 col-xs-12">
-                    <h1>&nbsp;</h1>
+                    <div className="lineBreak">&nbsp;</div>
                     <VoteBox url={"/api/v1/vote/" + this.props.rating.id + "/"} pollInterval={10000} ></VoteBox>
                 </div>
             </div>
