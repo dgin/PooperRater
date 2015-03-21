@@ -85,26 +85,26 @@ var RatingsBox = React.createClass({
       }.bind(this)
     });
   },
-  handleRatingSubmit: function(rating) {
-    var ratings = this.state.data;
-    ratings.push(rating);
-    this.setState({data: ratings}, function() {
-
-      $.ajax({
-        url: this.props.url,
-        dataType: 'json',
-        type: 'POST',
-        data: rating,
-        //headers: {'X-CSRFToken': $.cookie('csrftoken')},
-        success: function(data) {
-          this.setState({data: data});
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-        }.bind(this)
-      });
-    });
-  },
+  //handleRatingSubmit: function(rating) {
+  //  var ratings = this.state.data;
+  //  ratings.push(rating);
+  //  this.setState({data: ratings}, function() {
+  //
+  //    $.ajax({
+  //      url: this.props.url,
+  //      dataType: 'json',
+  //      type: 'POST',
+  //      data: rating,
+  //      //headers: {'X-CSRFToken': $.cookie('csrftoken')},
+  //      success: function(data) {
+  //        this.setState({data: data});
+  //      }.bind(this),
+  //      error: function(xhr, status, err) {
+  //        console.error(this.props.url, status, err.toString());
+  //      }.bind(this)
+  //    });
+  //  });
+  //},
 
 
   getInitialState: function() {
