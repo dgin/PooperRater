@@ -30,7 +30,8 @@ function enableLocationSearch() {
     document.getElementById("yelpGeoCoordLong").disabled = true;
     document.getElementById("ajaxLocation").style.visibility = "visible";
     //document.getElementById("yelpGeoCoordLong").style.display = "none";
-    document.getElementById("placeholderWhileGettingLocation").style.display = "none";
+    document.getElementById("placeholderWhileGettingLocation").innerHTML = "";
+    //document.getElementById("placeholderWhileGettingLocation").style.display = "none";
     //document.getElementById("placeholderWhileGettingLocation").style.visibility = "hidden";
 }
 

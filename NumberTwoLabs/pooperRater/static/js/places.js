@@ -220,8 +220,9 @@ var DatabaseSearch = React.createClass({
         if (event.target.value.length >= 3) {
             //this.handleSearchSubmit();
             // UI add-ons
-            setTimeout(this.handleSearchSubmit,2000);
+            //setTimeout(this.handleSearchSubmit,2000);
             document.getElementById("noResults").innerHTML = "Now searching..."
+            this.handleSearchSubmit()
         } else {
             // Cleanup the search section
             this.setState({results: ""});
@@ -233,15 +234,17 @@ var DatabaseSearch = React.createClass({
         var searchTerm = document.getElementById("databaseSearchbar").value;
         //console.log('/api/v1/places/?search='+searchTerm);
         $.ajax({
-            url: '/api/v1/places/?search='+searchTerm,
+            url: '/api/v1/place_search/?search='+searchTerm,
             type: 'GET',
             success: function(response) {
                 if (response.length === 0) {
-                    this.setState({results: response});
+                    window.setTimeout(function(){this.setState({results: response})}, 2000);
+                    //this.setState({results: response});
                     document.getElementById("noResults").innerHTML = "No toilets found! " +
                     "Maybe you should add some?";
                 } else {
-                    this.setState({results: response});
+                    window.setTimeout(function(){this.setState({results: response})}, 2000);
+                    //this.setState({results: response});
                     document.getElementById("noResults").innerHTML = "";
                 }
                 document.getElementById("searchTitle").innerHTML = "<h1>Search Results</h1>";
@@ -256,10 +259,9 @@ var DatabaseSearch = React.createClass({
             return (<div id="searchDataComponents">
                 <input id="databaseSearchbar" type="text" placeholder="Search a toilet!"
                     value={message} onChange={this.handleChange} />
-                <button className="btn btn-default">Search it</button>
                 <div id="searchTitle"></div>
                 <div id="searchResults">
-                    <DataList test="test" data={results} />
+                    <DataList data={results} />
                     <div id="noResults"></div>
                 </div>
             </div>);

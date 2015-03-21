@@ -24,8 +24,11 @@ function yelp_ajax() {
             success: function(response) {
                 createPostYelpButton(response);
                 console.log(response);
+                document.getElementById("placeholderWhileGettingLocation").innerHTML =
+                    "Done Searching!<br>Results below";
                 if (response.length === 0) {
-                    document.getElementById("yelpOutput").innerHTML = "<br>Couldn't find any places with those search terms. Please try a different search!"
+                    document.getElementById("yelpOutput").innerHTML = "<br>Couldn't find any places" +
+                    " with those search terms. Please try a different search!";
                 }
             }
         });
@@ -51,20 +54,21 @@ function createPostYelpButton(listOfBusinesses) {
         newButton.innerHTML = "Add " + business['name'];
         // Creates the business button, which, when clicked, posts the business data to our API
         newButton.data = business;
+        //newButton.setAttribute("id", "yelpButton"+i);
+        //newButton.setAttribute("data-dismiss", "modal");
         newButton.onclick = function() {
             postYelpPlaceToAPI(this.data);
         };
         information.appendChild(newButton);
-        var brk = document.createElement("p");
-        information.appendChild(brk);
+        var addResponse = document.createElement("p");
+        addResponse.setAttribute("id", "yelpButton"+business['id']);
+        information.appendChild(addResponse);
         document.getElementById("yelpOutput").appendChild(information);
     }
 }
 
-
 function postYelpPlaceToAPI(businessData) {
     // Using Yelp categories for description of business
-    console.log(this);
     var categories = businessData['categories'];
     var desc = [];
     var i;
@@ -160,24 +164,57 @@ function ajaxToDatabase (placeData) {
        }
     });
 
+    var resultMessage = document.getElementById("yelpButton"+placeData['yelp_id']);
+
     $.ajax({
         url: '/api/v1/places/',
         type: 'POST',
         dataType: 'json',
         data: placeData,
         success: function (response) {
+            console.log(response);
+            var placeDatabaseId = response['id'];
             console.log("Added a place.");
-            alert("You added a business! Go you! Now rate it!");
+            resultMessage.innerHTML = "You added a business! Go you! Redirecting to it's page!";
+            resultMessage.className = "alert alert-success";
+            // Timeout allows user to see result message before redirect
+            //setTimeout(function(){window.location.href = "#place/"+placeDatabaseId}, 3000);
+            setTimeout(function(){redirectToPlacePagePromise(placeDatabaseId)},2000);
         },
         error: function (err) {
-            console.log(err);
             if (err.responseText === '{"yelp_id":["This field must be unique."]}') {
-                alert("Place already exists! Find it in our database!");
+                resultMessage.innerHTML = "Place already exists! Redirecting...";
+                resultMessage.className = "alert alert-warning";
+                //findPlaceIdPromise(placeData)
+                //.then(redirectToPlacePagePromise);
+                // Timeout allows user to see result message before redirect
+                window.setTimeout(function(){findPlaceId(placeData)}, 2000);
+
             }
             else {
                 console.log(err.responseText);
-                alert("Something went wrong! Please try again!");
+                resultMessage.innerHTML = "Something went wrong! Please try again!";
+                resultMessage.className = "alert alert-danger";
             }
         }
     });
 }
+
+redirectToPlacePage = function(placeId) {
+    window.location.href = "#place/"+placeId;
+    $('#yelpModal').modal('hide');
+};
+
+findPlaceId = function(placeData) {
+    $.ajax({
+            url: '/api/v1/places/?search='+placeData['yelp_id'],
+            type: 'GET',
+            success: function(response) {
+                //return response[0]['id'];
+                redirectToPlacePage(response[0]['id'])
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+};
