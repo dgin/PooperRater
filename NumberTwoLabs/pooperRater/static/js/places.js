@@ -85,8 +85,10 @@ var PlacesPage = React.createClass({
     return (
       <div className="PlaceBox">
         <div className="col-lg-12"><AddPlaceButton /></div>
+          <div>&nbsp;</div>
+        <div className="col-lg-12"><DatabaseSearch /></div>
         <div>&nbsp;</div>
-        <h1>Places</h1>
+        <h1>Places Near You</h1>
         <PlaceList data={this.state.data} />
       </div>
     );
@@ -95,31 +97,43 @@ var PlacesPage = React.createClass({
 
 var PlaceList = React.createClass({
   render: function() {
-    var placeNodes = this.props.data.map(function(place) {
-
-        // Catches error in case user doesn't have position data
-        // Here: if position data exists, then find nearby places
-        if (userPositionCoords !== undefined) {
-            var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
-                userPositionCoords.longitude, place.latitude,place.longitude);
-            if (distanceFromYou <= 1) { // 1 kilometer
-                // Puts marker on the map
-                createPlaceMarker(place);
-            return (
-                <PlaceListItem place = {place}></PlaceListItem>
-            );
-            //}
-        // If position data doesn't exist, return no places
-        }
-        //else {
-        //    return (
-        //        <PlaceListItem place = {place}></PlaceListItem>
-        //    );
-        }
-      //return (
-      //  <PlaceListItem place = {place}></PlaceListItem>
-      //);
+    //  Catches error in case no data passed
+    if (this.props.data) {
+        var placeNodes = this.props.data.map(function(place) {
+            // Catches error in case user doesn't have position coordinates
+            // Here: if position data exists, then find nearby places
+            if (userPositionCoords !== undefined) {
+                var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
+                    userPositionCoords.longitude, place.latitude,place.longitude);
+                if (distanceFromYou <= 1) { // 1 kilometer
+                    // Puts marker on the map
+                    createPlaceMarker(place);
+                return (
+                    <PlaceListItem place = {place}></PlaceListItem>
+                );
+                }
+            // If position data doesn't exist, return no places
+            }
     });
+    }
+    //var placeNodes = this.props.data.map(function(place) {
+    //
+    //    // Catches error in case user doesn't have position data
+    //    // Here: if position data exists, then find nearby places
+    //    if (userPositionCoords !== undefined) {
+    //        var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
+    //            userPositionCoords.longitude, place.latitude,place.longitude);
+    //        if (distanceFromYou <= 1) { // 1 kilometer
+    //            // Puts marker on the map
+    //            createPlaceMarker(place);
+    //        return (
+    //            <PlaceListItem place = {place}></PlaceListItem>
+    //        );
+    //        }
+    //    // If position data doesn't exist, return no places
+    //    }
+    //});
+
     return (
       <div className="placeList">
         {placeNodes}
@@ -178,6 +192,85 @@ var OverallStarRating = React.createClass({
 //    );
 //  }
 //});
+
+var DataList = React.createClass({
+  render: function() {
+    if (this.props.data) {
+        var placeNodes = this.props.data.map(function(place) {
+            return (
+                <PlaceListItem place = {place}></PlaceListItem>
+            );
+    });
+    }
+    return (
+      <div className="placeList">
+        {placeNodes}
+      </div>
+    );
+  }
+});
+
+var DatabaseSearch = React.createClass({
+    getInitialState: function() {
+        return {message: '', results: "" };
+    },
+    //componentDidMount: function() {
+    //},
+    handleChange: function(event) {
+        this.setState({message: event.target.value});
+        if (event.target.value.length >= 3) {
+            //this.handleSearchSubmit();
+            // UI add-ons
+            setTimeout(this.handleSearchSubmit,2000);
+            document.getElementById("noResults").innerHTML = "Now searching..."
+        } else {
+            // Cleanup the search section
+            this.setState({results: ""});
+            document.getElementById("noResults").innerHTML = "";
+            document.getElementById("searchTitle").innerHTML = "";
+        }
+    },
+    handleSearchSubmit: function() {
+        var searchTerm = document.getElementById("databaseSearchbar").value;
+        //console.log('/api/v1/places/?search='+searchTerm);
+        $.ajax({
+            url: '/api/v1/places/?search='+searchTerm,
+            type: 'GET',
+            success: function(response) {
+                if (response.length === 0) {
+                    this.setState({results: response});
+                    document.getElementById("noResults").innerHTML = "No toilets found! " +
+                    "Maybe you should add some?";
+                } else {
+                    this.setState({results: response});
+                    document.getElementById("noResults").innerHTML = "";
+                }
+                document.getElementById("searchTitle").innerHTML = "<h1>Search Results</h1>";
+                //document.getElementsByClassName("placeList").style.display = 'none';
+            }.bind(this)
+
+        });
+    },
+    render: function() {
+        var message = this.state.message;
+            var results = this.state.results;
+            return (
+
+                <div id="searchDataComponents">
+                    <div className="col-lg-12">
+                        <div className="col-lg-10"><input id="databaseSearchbar" aria-describedby="sizing-addon1" className="form-control" type="text" placeholder="Search a toilet!" value={message} onChange={this.handleChange} /></div>
+                        <div className="col-lg-2"><button className="btn btn-lg btn-default">Search it</button></div>
+                    </div>
+                    <div id="searchTitle"></div>
+                    <div id="searchResults">
+                        <DataList test="test" data={results} />
+                        <div id="noResults"></div>
+                    </div>
+                </div>
+
+            );
+    }
+});
 
 //***************
 // Roughly calculating geodistance from geocoordinates

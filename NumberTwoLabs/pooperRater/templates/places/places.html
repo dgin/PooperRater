@@ -3,11 +3,24 @@
 {% include 'modals.html' %}
 <div class="container">
     <div class="row">
-        <div id="places" class="col-lg-7 col-sm-6 col-xs-12"></div>
-        <div id="map-canvas" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 hidden-xs text-center">{% include 'tests/goog_place_snip.html' %}</div>
+        <!--DAN TEST-->
+        <div class="span7">
+            <div id="places" class="col-lg-7 col-sm-6 col-xs-12"></div>
+        </div>
+        <div class="span5">
+            <div id="map-canvas" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 hidden-xs text-center">{% include 'tests/goog_place_snip.html' %}</div>
+            <div id="databaseSearch" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 hidden-xs text-center"></div>
+        </div>
+        <!--END TEST-->
+        <!--<div id="places" class="col-lg-7 col-sm-6 col-xs-12"></div>-->
+        <!--<div id="map-canvas" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 hidden-xs text-center">{% include 'tests/goog_place_snip.html' %}</div>-->
     </div>
 
 </div>
+    <script>
+        var x = {{ user.id }};
+    console.log(x);
+    </script>
 
 {% endblock content2 %}
 
@@ -15,7 +28,7 @@
 <div class="container">
     <div class="row text-center">
         <div id="searchagain" class="col-lg-7 col-sm-6 col-xs-12">
-            {% include 'modals.html' %}
+
         </div>
     </div>
 </div>
