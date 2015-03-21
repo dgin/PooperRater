@@ -45,6 +45,10 @@ class Place(models.Model):
                # + " Types: {}.".format(self.type_conversion[self.place_type])
 
     @property
+    def number_of_ratings(self):
+        return Rating.objects.filter(place__id=self.id).count()
+
+    @property
     def average_rating(self):
         empty_list = {}
 
@@ -76,9 +80,8 @@ class Place(models.Model):
         return overall_average / len(self.average_rating)
 
 
-
 class AnonUserInfo(models.Model):
-    related_user = models.OneToOneField(User)
+    related_user = models.OneToOneField(User, related_name='anon_user')
     anonymous_name = models.CharField(max_length=80, default='Anonymous')
     user_img = models.ImageField(null=True, blank=True)
 
@@ -120,17 +123,6 @@ class Rating(models.Model):
         vote = Vote(rating_vote=self)
         vote.save()
 
-# class Comment(models.Model):
-#     rating = models.OneToOneField(Rating)
-#     body = models.TextField(null=True, blank=True, max_length=500)
-#
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#
-#     def __unicode__(self):
-#         return u"{}, {}".format(self.rating.place.name, self.rating.owner.username)
-
-
 
 class Vote(models.Model):
     rating_vote = models.ForeignKey(Rating)
@@ -141,7 +133,7 @@ class Vote(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}, {}".format(self.rating_vote)
+        return u"{}".format(self.rating_vote)
 
 
 class Restroom(models.Model):

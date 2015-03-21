@@ -19,13 +19,13 @@ var App = React.createClass({
             this.setState({page: <PlacesPage url="/api/v1/places/" pollInterval={0} />});
         }.bind(this));
         router.addRoute('place/:id', function(id) {
-            this.setState({page: <PlacePage url={"/api/v1/places/" + id} pollInterval={0} />});
+            this.setState({page: <PlacePage url={"/api/v1/places/" + id} pollInterval={1000} />});
         }.bind(this));
         router.addRoute('ratings/:id', function(id) {
             this.setState({page: <PostRatingsBox url={"/api/v1/places/" + id + "/ratings/"} placeID = {id} pollInterval={0} />});
         }.bind(this));
         router.addRoute('anon/', function(id) {
-            this.setState({page: <UserBox url={"/api/v1/anon/" + id} pollInterval={0} />});
+            this.setState({page: <UserBox url={"/api/v1/ratings/1/owner/"} pollInterval={0} />});
         }.bind(this));
         //*******
         // Dan's new stuff
@@ -39,7 +39,7 @@ var App = React.createClass({
         return this.state.page;
     }
 });
-
+//React.render(<App/>, document.getElementById('places'));
 
 // Added promise here to get it to work.
 // Suggests that modularity is a viable standard to aim for;
@@ -61,11 +61,19 @@ function reactRenderAppPromise(position) {
     //this.props.data.userID = userID;
     //var localuserID = userID._store.props.userID;
     return new Promise(function(resolve, reject){
+
         //userID = usrID;
         //console.log(GlobalUserID);
         var appUserID = GlobalUserID;
         React.render(<App userID ={appUserID}/>, document.getElementById('places'));
+        resolve(position);
+    });
+}
 
+
+function dataSearchPromise(position) {
+    return new Promise(function(resolve, reject){
+        React.render(<DatabaseSearch/>, document.getElementById('databaseSearch'));
         resolve(position);
     });
 }
@@ -73,16 +81,17 @@ function reactRenderAppPromise(position) {
 getUserPosition()
 .then(setUserLocation)
 .then(reactRenderAppPromise)
+//.then(dataSearchPromise)
 .then(initMapAndMarkers)
 .catch(function(err) {
         console.log("Something broke!");
         console.log(err);
     });
-//React.render(<App/>, document.getElementById('places'));
+
 
 var geocoder;
-geocoder = new google.maps.Geocoder();
-geocode();
+//geocoder = new google.maps.Geocoder();
+//geocode();
 function geocode() {
     var address = "225 Bush Street, San Francisco";
     geocoder.geocode( {"address": address}, function(results, status) {

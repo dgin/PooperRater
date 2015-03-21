@@ -8,3 +8,4 @@ pooperRater/migrations/*
 DO_NOT_PUSH.txt
 jquery*
 pooperRater/api_calls/yelp_business_search.py
+pooperRater/static/node_modules/react-paginate/*

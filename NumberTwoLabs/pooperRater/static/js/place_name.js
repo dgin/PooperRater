@@ -8,7 +8,7 @@ var User = React.createClass({
   render: function() {
     return (
 
-    <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><h5>- {this.props.user.anonymous_name}</h5></div>
+    <div className="col-lg-12 col-sm-12 col-xs-12 text-right"><h5> {this.props.place.name}</h5></div>
 
     );
   }

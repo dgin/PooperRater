@@ -12,7 +12,6 @@ urlpatterns = patterns('',
     url(r'^rating/', 'pooperRater.views.rating', name='rating'),
     url(r'^admin/', include(admin.site.urls)),
 
-
     url(r'^index/$', views.home_page, name='index'),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': 'successful_logout'}, name='logout'),

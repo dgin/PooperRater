@@ -1,7 +1,6 @@
 from rest_framework import serializers, permissions
-from pooperRater.models import Rating, Place, Restroom, Vote
-from pooperRater.permissions import IsOwnerOrReadOnly
-from pooperRater.models import User, AnonUserInfo
+from pooperRater.models import Rating, Place, Restroom, Vote, AnonUserInfo
+from django.contrib.auth.models import User
 
 class RatingSerializer(serializers.ModelSerializer):
 
@@ -18,14 +17,7 @@ class PlaceSerializer(serializers.ModelSerializer):
                   'place_type', 'start_hours', 'end_hours', 'pic', 'latitude', 'longitude',
                   'yelp_id', 'yelp_categories', 'yelp_url', 'google_id',
                   'created_at', 'updated_at',
-                  'average_rating', 'overall_average_rating')
-
-# class CommentSerializer (serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = Comment
-#         fields = ('id', 'rating', 'body',
-#                   'created_at', 'updated_at')
+                  'average_rating', 'overall_average_rating', 'number_of_ratings')
 
 
 class VoteSerializer (serializers.ModelSerializer):
@@ -59,4 +51,4 @@ class AnonUserInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnonUserInfo
-        fields = ('id', 'anonymous_name', 'user_img', 'related_user')
+        fields = ('id', 'anonymous_name', 'related_user')

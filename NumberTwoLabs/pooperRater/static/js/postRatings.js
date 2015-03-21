@@ -350,7 +350,7 @@ var RatingForm = React.createClass({
         //console.log('comment: ', comment);
 
         if (!air_flow || !cleanliness || !available || !quality || !other ) {
-            alert('you missed a rating');
+            $('#ratingalert').show();
             return;
         }
 
@@ -363,8 +363,10 @@ var RatingForm = React.createClass({
         var placeID = this.props.onRatingSubmit.__reactBoundContext.props.placeID;
 
 
+
         var owner = GlobalUserID;
         //console.log('owner: ', GlobalUserID);
+
 
         this.props.onRatingSubmit({
             place: placeID,
@@ -377,6 +379,7 @@ var RatingForm = React.createClass({
             rating_comment: comment
         });
 
+        window.history.back();
 
     },
 
@@ -384,30 +387,31 @@ var RatingForm = React.createClass({
     render: function() {
         return (
             <div>
-                <h1>Rate {this.props.id}</h1>
-                    <div className="panel panel-default">
-                        <div className="panel-body">
+                <h1><a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID}><BackButton /></a>&nbsp; Rate </h1>
+                <div className="panel panel-default">
+                <div className="panel-body">
+
                             <form className="ratingForm" onSubmit={this.handleSubmit}>
 
 
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.airFlowHandleRate} ref="air_flow"/>
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.cleanlinessHandleRate} ref="cleanliness" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.availableHandleRate} ref="available" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.qualityHandleRate} ref="quality" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.otherHandleRate} ref="other" />
                                 </div>
                                 <div>
@@ -419,15 +423,17 @@ var RatingForm = React.createClass({
                                 <div>
                                     &nbsp;
                                 </div>
+                                <div>
+                                    <div className="alert alert-danger" id="ratingalert" role="alert"><strong>Error!</strong> You missed a rating <a href="#" className="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
+                                </div>
                                 <div className="col-lg-12 col-sm-12 col-xs-12 text-right">
-                                    <a href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.url[this.props.onRatingSubmit.__reactBoundContext.props.url.indexOf("places/")+7]} >
-                                        <button className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button>
-                                    </a>
+                                        <button href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID} className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button>
                                 </div>
                             </form>
-                        </div>
-                    </div>
+
                 </div>
+                </div>
+            </div>
 
         )
     }

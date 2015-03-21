@@ -16,18 +16,19 @@ class RatingViewSet(viewsets.ModelViewSet):
 
 class PlaceRatingViewSet(generics.ListCreateAPIView):
     serializer_class = RatingSerializer
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('username')
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
     def get_queryset(self, *args, **kwargs):
         return Rating.objects.filter(place__id=self.kwargs.get('pk'))
 
 
-# class RatingCommentViewSet(generics.ListAPIView):
-#     serializer_class = CommentSerializer
-#
-#     def get_queryset(self, *args, **kwargs):
-#         return Comment.objects.filter(rating__id=self.kwargs.get('pk'))
+class RatingOwnerViewSet(generics.ListCreateAPIView):
+    serializer_class = AnonUserInfoSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, AnonInfoIsRelatedUserOrReadOnly,)
+
+    def get_queryset(self, *args, **kwargs):
+        u = User.objects.get(rating__id=self.kwargs.get('pk'))
+        return AnonUserInfo.objects.filter(related_user=u)
 
 
 class PlaceViewSet(viewsets.ModelViewSet):
@@ -37,12 +38,6 @@ class PlaceViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'address', 'city')
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAdminUserOrReadOnly,)
-
-
-# class CommentViewSet(viewsets.ModelViewSet):
-#     queryset = Comment.objects.all()
-#     serializer_class = CommentSerializer
-#     permission_classes = (permissions.IsAuthenticatedOrReadOnly, CommentIsOwnerOrReadOnly,)
 
 
 class VoteViewSet(viewsets.ModelViewSet):
@@ -61,6 +56,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, UserIsOwnerOrReadOnly,)
+
 
 class AnonUserInfoViewSet(viewsets.ModelViewSet):
     queryset = AnonUserInfo.objects.all()

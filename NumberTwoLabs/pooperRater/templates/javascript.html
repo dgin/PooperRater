@@ -2,16 +2,12 @@
 
 <!--Note: we should only include libraries we need on each page, rather than importing them all
 on every page.
-Also, we should download the libraries ourselves in case the libraries are unavailable
-as has happened before-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/JSXTransformer.js"></script>
-<!--<script src="{% static 'js/react/react.js' %}"></script>
-<script src="{% static 'js/react/JSXTransformer.js' %}"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+Don't use minified react. It breaks the routes-->
+<script src="{% static 'src/jquery-2.1.3.min.js' %}"></script>
 <script src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
-
+<script src="{% static 'src/react/react.js' %}"></script>
+<script src="{% static 'src/react/JSXTransformer.js' %}"></script>
+<script src="{% static 'src/Showdown.min.js' %}"></script>
 
 <script type="text/jsx;harmony=true" src="{% static 'js/place_map.js' %}"></script>
 
@@ -27,8 +23,9 @@ as has happened before-->
 <script type="text/jsx;harmony=true" src="{% static 'js/add_place_button.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/database_search.js' %}"></script>
 <script>GlobalUserID = {{ user.id }}</script>
-<script type="text/jsx;harmony=true" src="{% static 'js/app.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/button_control.js' %}"></script>
+<script type="text/jsx;harmony=true" src="{% static 'js/app.js' %}"></script>
+
 <script src="{% static 'js/router.js' %}"></script>
 
 
