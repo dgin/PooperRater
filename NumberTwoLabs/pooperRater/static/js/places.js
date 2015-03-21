@@ -85,9 +85,10 @@ var PlacesPage = React.createClass({
     return (
       <div className="PlaceBox">
         <div className="col-lg-12"><AddPlaceButton /></div>
-          <DatabaseSearch />
+          <div>&nbsp;</div>
+        <div className="col-lg-12"><DatabaseSearch /></div>
         <div>&nbsp;</div>
-        <h1>Places</h1>
+        <h1>Places Near You</h1>
         <PlaceList data={this.state.data} />
       </div>
     );
@@ -256,15 +257,19 @@ var DatabaseSearch = React.createClass({
     render: function() {
         var message = this.state.message;
             var results = this.state.results;
-            return (<div id="searchDataComponents">
-                <input id="databaseSearchbar" type="text" placeholder="Search a toilet!"
-                    value={message} onChange={this.handleChange} />
-                <div id="searchTitle"></div>
-                <div id="searchResults">
-                    <DataList data={results} />
-                    <div id="noResults"></div>
+            return (
+                <div id="searchDataComponents">
+                    <div className="col-lg-12">
+                        <input id="databaseSearchbar" aria-describedby="sizing-addon1" className="form-control input-lg" type="text" placeholder="Search for a toilet..." value={message} onChange={this.handleChange} />
+                    </div>
+                    <div id="searchTitle"></div>
+                    <div id="searchResults">
+                        <DataList test="test" data={results} />
+                        <div id="noResults"></div>
+                    </div>
                 </div>
-            </div>);
+
+            );
     }
 });
 

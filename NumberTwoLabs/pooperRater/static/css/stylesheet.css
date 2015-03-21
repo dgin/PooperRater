@@ -34,6 +34,15 @@ h1, h2, h3, h4 {
   padding: 0;
 }
 
+.lineBreak {
+  border-bottom: 1px solid #ddd;
+  font-size: 0em;
+  font-weight: bold;
+  margin: 0 0 15px;
+  padding: 0;
+}
+
+
 h1 {
   border-bottom: 1px solid #ddd;
   font-size: 2.2em;
@@ -88,3 +97,17 @@ ul {
 .react-rater a.is-disabled {
       color: #ccc !important;
       cursor: not-allowed; }
+
+#react-paginate ul {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#react-paginate li {
+    display: inline-block;
+}
+
+#react-paginate .break a {
+    cursor: default;
+}
