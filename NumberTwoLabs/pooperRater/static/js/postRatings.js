@@ -289,16 +289,6 @@ var Rater = React.createClass({
         callback && callback(Number(rating), Number(lastRating))
     },
 
-    getRatingFromDOMEvent: function(e, props) {
-        var star = e.target
-          , allStars = Array.prototype.slice.call(e.currentTarget.childNodes, 0)
-          , index = allStars.indexOf(star)
-          , rating = props.total - index
-          , limit = Number(props.limit);
-        limit = (props.limit === void 0)? props.total: limit;
-        rating = rating < limit? rating: limit;
-        return Number(rating)
-    },
     render: function () {
         var total = Number(this.props.total)
           , limit = Number(this.props.limit)
@@ -323,17 +313,6 @@ var Rater = React.createClass({
 
 });
 
-var DjangoCSRFToken = React.createClass({
-
-  render: function() {
-
-    var csrfToken = Django.csrf_token();
-
-    return React.DOM.input(
-      {type:"hidden", name:"csrfmiddlewaretoken", value:csrfToken}
-      );
-  }
-});
 
 var RatingForm = React.createClass({
 
@@ -352,13 +331,13 @@ var RatingForm = React.createClass({
     otherHandleRate: function(rating, lastRating) {
         this.refs.other.props.rating = rating;
     },
-
+//handle setting the variables to the DOM event and setting the POST info
     handleSubmit: function(e){
 
 
         e.preventDefault();
 
-        console.log("got to handlesubmit, not yet set variables");
+        //console.log("got to handlesubmit, not yet set variables");
 
         var air_flow = this.refs.air_flow.props.rating;
         var cleanliness = this.refs.cleanliness.props.rating;
@@ -368,7 +347,7 @@ var RatingForm = React.createClass({
         var comment = this.refs.comment.getDOMNode().value.trim();
 
         //console.log('airflow: ', air_flow, 'cleanliness: ', cleanliness, 'avail: ', available, 'qual: ', quality, 'oth: ', other);
-        console.log('comment: ', comment);
+        //console.log('comment: ', comment);
 
         if (!air_flow || !cleanliness || !available || !quality || !other ) {
             alert('you missed a rating');
@@ -378,13 +357,14 @@ var RatingForm = React.createClass({
         //console.log("have set rating variables");
         //console.log("handle submit", air_flow);
         //console.log('this props: ', this.props.onRatingSubmit.__reactBoundContext.props.url);
-        console.log('new place id: ', this.props.onRatingSubmit.__reactBoundContext.props.placeID);
+        //console.log('new place id: ', this.props.onRatingSubmit.__reactBoundContext.props.placeID);
 
 
         var placeID = this.props.onRatingSubmit.__reactBoundContext.props.placeID;
 
-        //manually setting owner id
-        var owner = 1;
+
+        var owner = GlobalUserID;
+        //console.log('owner: ', GlobalUserID);
 
         this.props.onRatingSubmit({
             place: placeID,
@@ -405,8 +385,8 @@ var RatingForm = React.createClass({
         return (
             <div>
                 <h1>Rate {this.props.id}</h1>
-                <div className="panel panel-default">
-                <div className="panel-body">
+                    <div className="panel panel-default">
+                        <div className="panel-body">
                             <form className="ratingForm" onSubmit={this.handleSubmit}>
 
 
@@ -445,7 +425,7 @@ var RatingForm = React.createClass({
                                     </a>
                                 </div>
                             </form>
-            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -453,6 +433,8 @@ var RatingForm = React.createClass({
     }
   });
 
+//var UserID = React.createElement('div', { userID: '{{ user.id }}' });
+//React.render(root);
 
 //React.render(
 //    //<CommentsBox data={data}/>
