@@ -179,7 +179,7 @@ function ajaxToDatabase (placeData) {
             resultMessage.className = "alert alert-success";
             // Timeout allows user to see result message before redirect
             //setTimeout(function(){window.location.href = "#place/"+placeDatabaseId}, 3000);
-            setTimeout(function(){redirectToPlacePagePromise(placeDatabaseId)},2000);
+            setTimeout(function(){redirectToPlacePage(placeDatabaseId)},2000);
         },
         error: function (err) {
             if (err.responseText === '{"yelp_id":["This field must be unique."]}') {

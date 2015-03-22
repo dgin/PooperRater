@@ -221,9 +221,9 @@ var DatabaseSearch = React.createClass({
         if (event.target.value.length >= 3) {
             //this.handleSearchSubmit();
             // UI add-ons
-            //setTimeout(this.handleSearchSubmit,2000);
-            document.getElementById("noResults").innerHTML = "Now searching..."
-            this.handleSearchSubmit()
+            setTimeout(this.handleSearchSubmit,1000);
+            document.getElementById("noResults").innerHTML = "Now searching...";
+            //this.handleSearchSubmit();
         } else {
             // Cleanup the search section
             this.setState({results: ""});
@@ -233,26 +233,28 @@ var DatabaseSearch = React.createClass({
     },
     handleSearchSubmit: function() {
         var searchTerm = document.getElementById("databaseSearchbar").value;
-        //console.log('/api/v1/places/?search='+searchTerm);
-        $.ajax({
-            url: '/api/v1/place_search/?search='+searchTerm,
-            type: 'GET',
-            success: function(response) {
-                if (response.length === 0) {
-                    window.setTimeout(function(){this.setState({results: response})}, 2000);
-                    //this.setState({results: response});
-                    document.getElementById("noResults").innerHTML = "No toilets found! " +
-                    "Maybe you should add some?";
-                } else {
-                    window.setTimeout(function(){this.setState({results: response})}, 2000);
-                    //this.setState({results: response});
-                    document.getElementById("noResults").innerHTML = "";
-                }
-                document.getElementById("searchTitle").innerHTML = "<h1>Search Results</h1>";
-                //document.getElementsByClassName("placeList").style.display = 'none';
-            }.bind(this)
+        // Requiring a length here prevents "Return all" errors if user
+        // rapidly empties search input during search
+        if (searchTerm.length >= 3) {
+            $.ajax({
+                url: '/api/v1/place_search/?search='+searchTerm,
+                type: 'GET',
+                success: function(response) {
+                    if (response.length === 0) {
+                        this.setState({results: response});
+                        document.getElementById("noResults").innerHTML = "No toilets found! " +
+                        "Maybe you should <b>add some</b>?<br>" +
+                        "(You can always add one using the button above)";
+                    } else {
+                        this.setState({results: response});
+                        document.getElementById("noResults").innerHTML = "";
+                    }
+                    document.getElementById("searchTitle").innerHTML = "<h1>Search Results</h1>";
+                    //document.getElementsByClassName("placeList").style.display = 'none';
+                }.bind(this)
 
-        });
+            });
+        }
     },
     render: function() {
         var message = this.state.message;
@@ -260,7 +262,7 @@ var DatabaseSearch = React.createClass({
             return (
                 <div id="searchDataComponents">
                     <div className="col-lg-12">
-                        <input id="databaseSearchbar" aria-describedby="sizing-addon1" className="form-control input-lg" type="text" placeholder="Search for a toilet..." value={message} onChange={this.handleChange} />
+                        <input id="databaseSearchbar" aria-describedby="sizing-addon1" className="form-control input-lg" type="text" placeholder="Search for a toilet...(e.g Rocketspace 225 Bush)" value={message} onChange={this.handleChange} />
                     </div>
                     <div id="searchTitle"></div>
                     <div id="searchResults">
