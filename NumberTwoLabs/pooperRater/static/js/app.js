@@ -62,6 +62,13 @@ function reactRenderAppPromise(position) {
     });
 }
 
+function setGoNowButtonLocation(position) {
+    return new Promise(function(resolve, reject) {
+        document.getElementById('goNowButton').value = [position.coords.latitude,
+            position.coords.longitude];
+        resolve(position);
+    });
+}
 
 //function dataSearchPromise(position) {
 //    return new Promise(function(resolve, reject){
@@ -75,11 +82,11 @@ getUserPosition()
 .then(reactRenderAppPromise)
 //.then(dataSearchPromise)
 .then(initMapAndMarkers)
+.then(setGoNowButtonLocation)
 .catch(function(err) {
         console.log("Something broke!");
         console.log(err);
     });
-
 
 //var geocoder;
 //geocoder = new google.maps.Geocoder();

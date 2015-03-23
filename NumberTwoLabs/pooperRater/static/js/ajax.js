@@ -121,11 +121,10 @@ function addPlaceToDatabase() {
         data = {
             "name": document.getElementById("placeName").value,
             "address": document.getElementById("placeAddress").value,
-            "city": document.getElementById("placeCity").value,
-            //"start_hours": document.getElementById("placeStartHour").value,
-            //"end_hours": document.getElementById("placeEndHour").value,
+            "city": document.getElementById("placeCity").value
         };
         ajaxToDatabase(data);
+        resolveOtherManual();
     }
 }
 
@@ -175,7 +174,7 @@ function ajaxToDatabase (placeData) {
             console.log(response);
             var placeDatabaseId = response['id'];
             console.log("Added a place.");
-            resultMessage.innerHTML = "You added a business! Go you! Redirecting to it's page!";
+            resultMessage.innerHTML = "You added a business! Go you! Redirecting to its page!";
             resultMessage.className = "alert alert-success";
             // Timeout allows user to see result message before redirect
             //setTimeout(function(){window.location.href = "#place/"+placeDatabaseId}, 3000);
@@ -217,4 +216,21 @@ findPlaceId = function(placeData) {
                 console.log(err);
             }
         });
+};
+
+//findPlaceIdNotYelp = function(fullSearchTerm) {
+//    $.ajax({
+//        url: '/api/v1/places_search/?search='+fullSearchTerm,
+//        type: 'GET',
+//        success: function(response) {
+//            redirectToPlacePage(response[0]['id'])
+//        }
+//    })
+//};
+
+resolveOtherManual = function() {
+    var result = document.getElementById('manualResult');
+    result.innerHTML = 'Successfully added a place. Find it in our search bar!';
+    result.className = 'alert alert-success';
+    setTimeout(function(){$('#addPlaceModal').modal('hide')},2000);
 };

@@ -116,23 +116,6 @@ var PlaceList = React.createClass({
             }
     });
     }
-    //var placeNodes = this.props.data.map(function(place) {
-    //
-    //    // Catches error in case user doesn't have position data
-    //    // Here: if position data exists, then find nearby places
-    //    if (userPositionCoords !== undefined) {
-    //        var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
-    //            userPositionCoords.longitude, place.latitude,place.longitude);
-    //        if (distanceFromYou <= 1) { // 1 kilometer
-    //            // Puts marker on the map
-    //            createPlaceMarker(place);
-    //        return (
-    //            <PlaceListItem place = {place}></PlaceListItem>
-    //        );
-    //        }
-    //    // If position data doesn't exist, return no places
-    //    }
-    //});
 
     return (
       <div className="placeList">

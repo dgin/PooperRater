@@ -16,12 +16,13 @@
                         <input type="text" id="placeAddress" placeholder="1234 Sesame Street"><br>
                         <label>City</label><br>
                         <input type="text" id="placeCity" placeholder="San Francisco"><br>
+                        <div id="manualResult">Beep Hello</div>
                     </div>
 
                     <div class ="modal-footer">
-                        <button type="button" class="btn btn-default" onclick="addPlaceToDatabase()">Add place</button>
+                        <button type="button" class="btn btn-warning" onclick="addPlaceToDatabase()">Add place</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#newModal">Now rate it!</button>
+                        <!--<button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#newModal">Now rate it!</button>-->
                     </div>
 
                 </form>
@@ -31,6 +32,7 @@
 </div>
 
 <!--Placeholder for ratings modal-->
+<!--
 <div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -49,6 +51,7 @@
         </div>
     </div>
 </div>
+-->
 
 <!--Yelp modal-->
 <div class="modal fade" id="yelpModal" tabindex="-1" role="dialog" aria-labelledby="yelpModalLabel" aria-hidden="true">
@@ -59,7 +62,7 @@
                 <h4 class="modal-title" id="yelpModalLabel">Add a Business</h4>
             </div>
             <div class="modal-body text-center">
-                <script src="../static/js/jquery-1.11.2.min.js"></script>
+                <script src="../static/src/jquery-1.11.2.min.js"></script>
                 <script src="../static/js/ajax.js"></script>
 
                 <h3>Add a place from Yelp</h3>
@@ -76,7 +79,7 @@
                 </div>
 
                 <form id="ajaxForm">
-                    {% csrf_token %}
+{#                    {% csrf_token %}#}
                     <!--User provided location-->
                     <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
                         <input type="text" class="form-control" placeholder="E.g. 200 California St" id="ajaxLocation"><br>
