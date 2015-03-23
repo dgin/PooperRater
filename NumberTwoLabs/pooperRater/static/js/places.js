@@ -96,11 +96,16 @@ var PlacesPage = React.createClass({
 });
 
 var PlaceList = React.createClass({
-  render: function() {
+    render: function() {
           var placeNodes = [];
-      //  Catches error in case no data passed
+          //Catches error in case no data passed
           if (this.props.data) {
               //if (document.readyState === "complete") {
+              console.log(this.props.data);
+              // finds closest highly-rated toilet for use with Gotta Go Now button
+              var closestDistance = 99999;
+              var goNowButton = document.getElementById("goNowButton");
+              // Sets placeNodes, which populate placeList
               placeNodes = this.props.data.map(function (place) {
                   // Catches error in case user doesn't have position coordinates
                   // Here: if position data exists, then find nearby places
@@ -108,6 +113,12 @@ var PlaceList = React.createClass({
                       var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
                           userPositionCoords.longitude, place.latitude, place.longitude);
                       if (distanceFromYou <= 1) { // 1 kilometer
+
+                          if (distanceFromYou <= closestDistance && place.overall_average_rating > 3){
+                              closestDistance = distanceFromYou;
+                              goNowButton.value = place;
+                              goNowButton.href = '#place/'+place.id;
+                          }
                           // Puts marker on the map
                           createPlaceMarker(place);
                           return (
@@ -118,15 +129,13 @@ var PlaceList = React.createClass({
                   }
 
               });
-                console.log("3", placeNodes);
-              if (placeNodes){
-                  console.log("4", placeNodes);
               return (
                   <div className="placeList">
+                  {placeNodes}
                       <ItemPaginator items={placeNodes}/>
                   </div>
               );
-          }}
+          }
           else {
               return (
                   <div className="placeList">
@@ -134,7 +143,7 @@ var PlaceList = React.createClass({
                   </div>
               );
           }
-  }
+    }
 });
 
 

@@ -32,7 +32,7 @@ var ItemPaginator = React.createClass({
         var pageSize = 5;
         console.log("2", this.props.items);
 		for (var i = 0; i < this.props.items.length; i++) {
-			if (i % pageSize == 0){
+			if (i % pageSize === 0){
                 items = [];
                 this.pages.push({
                     id: "page-"+ (pageId),
