@@ -1,10 +1,22 @@
 {% extends 'index.html' %}
 
 {% block content2 %}
-    Hello
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-    <input type="submit" value="Create your anonymous profile">
-    </form>
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+        <h4>Hi and welcome to PooperRater! We hope you'll have a great time.</h4>
+            {{ welcome_message }}
+            <br><br>
+            <h4>Modify your anonymous profile</h4>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+            <input class="btn btn-default" type="submit" value="Save changes">
+            </form>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+            <h4>Your recent ratings</h4>
+
+        </div>
+    </div>
+
 {% endblock %}

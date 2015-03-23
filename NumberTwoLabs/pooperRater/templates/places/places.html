@@ -4,10 +4,15 @@
 <div class="container">
     <div class="row">
         <!--DAN TEST-->
+        <!--Added Now Loading text which disappears on place load
+        explanation: sometimes the page takes a disproportionate amount of time to load-->
         <div class="span7">
-            <div id="places" class="col-lg-7 col-sm-6 col-xs-12"></div>
+            <div id="places" class="col-lg-7 col-sm-6 col-xs-12">Now Loading...</div>
         </div>
         <div class="span5">
+            <!--ANOTHER TEST-->
+            <div id="butt"><button class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 hidden-xs text-center btn btn-danger">Gotta Go Now?</button></div>
+            <!--END TEST-->
             <div id="map-canvas" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 hidden-xs text-center">{% include 'tests/goog_place_snip.html' %}</div>
             <div id="databaseSearch" class="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 hidden-xs text-center"></div>
         </div>
@@ -17,10 +22,6 @@
     </div>
 
 </div>
-    <script>
-        var x = {{ user.id }};
-    console.log(x);
-    </script>
 
 {% endblock content2 %}
 

@@ -36,9 +36,15 @@ class PlaceViewSet(viewsets.ModelViewSet):
     serializer_class = PlaceSerializer
     permission_classes = ()
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('name', 'address', 'city')
+    search_fields = ('yelp_id',)
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAdminUserOrReadOnly,)
 
+class PlaceSearchViewSet(viewsets.ModelViewSet):
+    queryset = Place.objects.all()
+    serializer_class = PlaceSerializer
+    permission_classes = ()
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'address', 'city',)
 
 class VoteViewSet(viewsets.ModelViewSet):
     queryset = Vote.objects.all()

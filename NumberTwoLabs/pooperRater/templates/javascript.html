@@ -8,6 +8,7 @@ Don't use minified react. It breaks the routes-->
 <script src="{% static 'src/react/react.js' %}"></script>
 <script src="{% static 'src/react/JSXTransformer.js' %}"></script>
 <script src="{% static 'src/Showdown.min.js' %}"></script>
+<script src="{% static 'src/bootstrap/js/bootstrap.min.js' %}"></script>
 
 <script type="text/jsx;harmony=true" src="{% static 'js/scrollPaginator.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/pagination_scroll.js' %}"></script>
@@ -23,7 +24,13 @@ Don't use minified react. It breaks the routes-->
 <script type="text/jsx;harmony=true" src="{% static 'js/back_button.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/add_place_button.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/database_search.js' %}"></script>
-<script>GlobalUserID = {{ user.id }}</script>
+
+<script>
+    // "Fixed" error with GlobalUserID by passing in a placeholder
+    // Perhaps we should refactor to pass GlobalUserID another way?
+    GlobalUserID = 0;
+    GlobalUserID = {{ user.id }};
+</script>
 <script type="text/jsx;harmony=true" src="{% static 'js/button_control.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/app.js' %}"></script>
 
