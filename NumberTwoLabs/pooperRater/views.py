@@ -68,7 +68,15 @@ def yelp_ajax(request):
     return JsonResponse(businesses,safe=False, status=200)
 
 def create_anon_user(request):
+    data = {}
 
+    # For first time users only
+    first_login_time = str(request.user.date_joined)[:18]
+    last_login_time = str(request.user.last_login)[:18]
+    if first_login_time == last_login_time:
+        data['welcome_message'] = "Since this is your first time, maybe you'd like to customize " \
+                                  "your anonymous username. Remember: no personally identifiable " \
+                                  "information!"
     if request.method == "POST":
         has_anon = AnonUserInfo.objects.filter(related_user=request.user)
         if has_anon:
@@ -80,20 +88,21 @@ def create_anon_user(request):
         new_anon_user = form.save(commit=False)
         # Sets related user to whoever is signed in
         new_anon_user.related_user = request.user
-        if new_anon_user.save():
-            return HttpResponse("All went well", status=200)
-        else:
-            return HttpResponse("Something went wrong with your submission. Please try again.", status=400)
+        new_anon_user.save()
+        return redirect('/places/#places/')
+        # if new_anon_user.save():
+        #     return HttpResponse("All went well", status=200)
+        # else:
+        #     return HttpResponse("Something went wrong with your submission. Please try again.", status=400)
 
     # If method is not post
+    # Get will error out if no anon user, so use filter and return the first
     has_anon = AnonUserInfo.objects.filter(related_user=request.user)
     if has_anon:
         form = AnonUserInfoCreationForm(instance=has_anon[0])
     else:
         form = AnonUserInfoCreationForm()
-    data = {
-        'form': form
-    }
+    data['form'] = form
     return render(request, 'registration/create_anon_user.html', data)
 
 def place_add(request):
@@ -109,6 +118,15 @@ def place_add(request):
         'form': form
     }
     return render(request, 'places/place_add.html', data)
+
+def login_redirect(request):
+    # To check if first time login, compare the first and last login
+    first_login_time = str(request.user.date_joined)[:18]
+    last_login_time = str(request.user.last_login)[:18]
+    if first_login_time == last_login_time:
+        return redirect('/user/create/')
+    else:
+        return redirect('/places/#places/')
 ########################## user profiles ##########################
 # @login_required
 # def profile(request):

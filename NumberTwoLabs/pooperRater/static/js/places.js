@@ -262,7 +262,7 @@ var DatabaseSearch = React.createClass({
             return (
                 <div id="searchDataComponents">
                     <div className="col-lg-12">
-                        <input id="databaseSearchbar" aria-describedby="sizing-addon1" className="form-control input-lg" type="text" placeholder="Search for a toilet...(e.g Rocketspace 225 Bush)" value={message} onChange={this.handleChange} />
+                        <input id="databaseSearchbar" aria-describedby="sizing-addon1" className="form-control input-lg" type="text" placeholder="Search for a toilet... (e.g Number Two Labs 123 Sesame St)" value={message} onChange={this.handleChange} />
                     </div>
                     <div id="searchTitle"></div>
                     <div id="searchResults">

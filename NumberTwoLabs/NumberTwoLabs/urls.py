@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': 'successful_logout'}, name='logout'),
     url(r'^successful_logout/$', 'pooperRater.views.successful_logout', name='successful_logout'),
+    url(r'^login_redirect/$', 'pooperRater.views.login_redirect', name='login_redirect'),
     url('', include('django.contrib.auth.urls', namespace='auth')),
 
 
