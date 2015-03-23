@@ -88,8 +88,8 @@ def profile(request):
         new_anon_user = form.save(commit=False)
         # Sets related user to whoever is signed in
         new_anon_user.related_user = request.user
-        new_anon_user.save()
         return redirect('/places/#places/')
+        #     return redirect('/profile/')
         # if new_anon_user.save():
         #     return HttpResponse("All went well", status=200)
         # else:
@@ -101,7 +101,7 @@ def profile(request):
     if has_anon:
         form = AnonUserInfoCreationForm(instance=has_anon[0])
     else:
-        form = AnonUserInfoCreationForm()
+        form = AnonUserInfoCreationForm({'anonymous_name': "Anonymous"+str(request.user.id)})
     data['form'] = form
     return render(request, 'registration/profile.html', data)
 

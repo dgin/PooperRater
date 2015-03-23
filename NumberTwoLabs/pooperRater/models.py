@@ -82,7 +82,7 @@ class Place(models.Model):
 
 class AnonUserInfo(models.Model):
     related_user = models.OneToOneField(User, related_name='anon_user')
-    anonymous_name = models.CharField(max_length=80, default='Anonymous')
+    anonymous_name = models.CharField(max_length=80, default='Anonymous', unique=True)
     user_img = models.ImageField(null=True, blank=True)
 
     # REQUIRED_FIELDS = ['username', 'anon_name']
