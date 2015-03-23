@@ -299,7 +299,7 @@ var RatingForm = React.createClass({
                                     &nbsp;
                                 </div>
                                 <div>
-                                    <div className="alert alert-danger" id="ratingalert" role="alert"><strong>Error!</strong> You missed a rating <a href="#" className="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
+                                    <div className="alert alert-danger" id="ratingalert" role="alert"><strong>Oops!</strong> You missed a rating <a href="#" className="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
                                 </div>
                                 <div className="col-lg-12 col-sm-12 col-xs-12 text-right">
                                         <button href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID} className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button>

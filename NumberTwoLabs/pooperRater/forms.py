@@ -6,6 +6,7 @@ class AnonUserInfoCreationForm(forms.ModelForm):
     class Meta:
         model = AnonUserInfo
         fields = ('anonymous_name',)
+        labels = {'anonymous_name': 'Anonymous Name'}
 
 class ManualPlaceCreationForm(forms.ModelForm):
     class Meta:

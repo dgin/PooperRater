@@ -2,20 +2,27 @@
 
 {% block content2 %}
     <div class="row">
-        <div class="col-lg-6 col-sm-6 col-xs-12">
-        <h4>Hi and welcome to PooperRater! We hope you'll have a great time.</h4>
-            {{ welcome_message }}
-            <br><br>
-            <h4>Modify your anonymous profile</h4>
+        <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <h2>Welcome!</h2>
+            <br>
+            <div class="text-center alert alert-info">{{ welcome_message }}</div>
+            <br>
+            <div class="text-center">
+            <h4>Edit anonymous username</h4>
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-            <input class="btn btn-default" type="submit" value="Save changes">
+            <div>
+                <div class="alert alert-danger text-left fade in collapse" id="profilealert" role="alert"><strong>Oops!</strong> This anonymous username is already taken, please try another name <a href="#" class="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
+            </div>
+            <div>
+                <div class="alert alert-success text-left fade in collapse" id="profilesuccess" role="alert"><strong>Yay!</strong> You have updated your anonymous username <a href="#" class="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
+            </div>
+            <div class="text-right">
+                <input class="btn btn-default" type="submit" id="submit_anon" value="Save changes">
+            </div>
             </form>
-        </div>
-        <div class="col-lg-6 col-sm-6 col-xs-12">
-            <h4>Your recent ratings</h4>
-
+            </div>
         </div>
     </div>
 
