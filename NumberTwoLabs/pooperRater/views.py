@@ -67,7 +67,7 @@ def yelp_ajax(request):
         # data['businesses'] = json.loads(businesses)
     return JsonResponse(businesses,safe=False, status=200)
 
-def create_anon_user(request):
+def profile(request):
     data = {}
 
     # For first time users only
@@ -103,7 +103,7 @@ def create_anon_user(request):
     else:
         form = AnonUserInfoCreationForm()
     data['form'] = form
-    return render(request, 'registration/create_anon_user.html', data)
+    return render(request, 'registration/profile.html', data)
 
 def place_add(request):
 
@@ -124,7 +124,7 @@ def login_redirect(request):
     first_login_time = str(request.user.date_joined)[:18]
     last_login_time = str(request.user.last_login)[:18]
     if first_login_time == last_login_time:
-        return redirect('/user/create/')
+        return redirect('/profile/')
     else:
         return redirect('/places/#places/')
 ########################## user profiles ##########################

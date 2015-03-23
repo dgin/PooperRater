@@ -12,4 +12,9 @@ var AddPlaceButton = React.createClass({
   }
 });
 
-React.render(<AddPlaceButton />);
+var GoNowButton = React.createClass({
+    render: function() {
+        return <a id="goNowButton" className="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 hidden-xs
+            text-center btn btn-danger">GET ME A TOILET NOW</a>
+    }
+});

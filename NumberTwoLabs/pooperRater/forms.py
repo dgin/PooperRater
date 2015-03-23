@@ -5,7 +5,7 @@ from pooperRater.models import AnonUserInfo, Place
 class AnonUserInfoCreationForm(forms.ModelForm):
     class Meta:
         model = AnonUserInfo
-        fields = ('anonymous_name', 'user_img')
+        fields = ('anonymous_name',)
 
 class ManualPlaceCreationForm(forms.ModelForm):
     class Meta:

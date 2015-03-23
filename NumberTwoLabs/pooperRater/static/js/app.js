@@ -70,23 +70,17 @@ function setGoNowButtonLocation(position) {
     });
 }
 
-//function dataSearchPromise(position) {
-//    return new Promise(function(resolve, reject){
-//        React.render(<DatabaseSearch/>, document.getElementById('databaseSearch'));
-//        resolve(position);
-//    });
-//}
-
 getUserPosition()
 .then(setUserLocation)
 .then(reactRenderAppPromise)
-//.then(dataSearchPromise)
 .then(initMapAndMarkers)
 .then(setGoNowButtonLocation)
 .catch(function(err) {
         console.log("Something broke!");
         console.log(err);
     });
+
+React.render(<GoNowButton />, document.getElementById("buttonDiv"));
 
 //var geocoder;
 //geocoder = new google.maps.Geocoder();

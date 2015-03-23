@@ -116,7 +116,6 @@ var PlaceList = React.createClass({
 
                           if (distanceFromYou <= closestDistance && place.overall_average_rating > 3){
                               closestDistance = distanceFromYou;
-                              goNowButton.value = place;
                               goNowButton.href = '#place/'+place.id;
                           }
                           // Puts marker on the map
@@ -220,16 +219,12 @@ var DatabaseSearch = React.createClass({
     getInitialState: function() {
         return {message: '', results: "" };
     },
-    //componentDidMount: function() {
-    //},
     handleChange: function(event) {
         this.setState({message: event.target.value});
         if (event.target.value.length >= 3) {
-            //this.handleSearchSubmit();
             // UI add-ons
             setTimeout(this.handleSearchSubmit,1000);
             document.getElementById("noResults").innerHTML = "Now searching...";
-            //this.handleSearchSubmit();
         } else {
             // Cleanup the search section
             this.setState({results: ""});

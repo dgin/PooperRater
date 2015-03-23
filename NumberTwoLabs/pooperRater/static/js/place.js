@@ -151,10 +151,12 @@ var SmallStarRating = React.createClass({
             placeRating.push(<span><small>no rating</small></span>)
         }
         else {
-            for (var i = 0; i < ratingProp; i++){
+            var i;
+            var j;
+            for (i = 0; i < ratingProp; i++){
                 placeRating.push(<span className="glyphicon glyphicon-star"></span>);
             }
-            for (var i = ratingProp; i < 5; i++){
+            for (j = ratingProp; j < 5; j++){
                 placeRating.push(<span className="glyphicon glyphicon-star-empty"></span>);
             }
         }

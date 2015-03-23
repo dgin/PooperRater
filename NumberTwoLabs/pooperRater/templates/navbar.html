@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="togglebar">
       <ul class="nav navbar-nav pull-right">
         {% if user.is_authenticated %}
-          <li><a>{{ user.username }}</a></li>
+          <li><a href="/profile/">{{ user.username }}</a></li>
           <li><a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a></li>
         {% else %}
           <li><a href="/login">Login</a></li>
