@@ -97,34 +97,48 @@ var PlacesPage = React.createClass({
 
 var PlaceList = React.createClass({
   render: function() {
-    //  Catches error in case no data passed
-    if (this.props.data) {
-        var placeNodes = this.props.data.map(function(place) {
-            // Catches error in case user doesn't have position coordinates
-            // Here: if position data exists, then find nearby places
-            if (userPositionCoords !== undefined) {
-                var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
-                    userPositionCoords.longitude, place.latitude,place.longitude);
-                if (distanceFromYou <= 1) { // 1 kilometer
-                    // Puts marker on the map
-                    createPlaceMarker(place);
-                return (
-                    <PlaceListItem place = {place}></PlaceListItem>
-                );
-                }
-            // If position data doesn't exist, return no places
-            }
-    });
-    }
+          var placeNodes = [];
+      //  Catches error in case no data passed
+          if (this.props.data) {
+              //if (document.readyState === "complete") {
+              placeNodes = this.props.data.map(function (place) {
+                  // Catches error in case user doesn't have position coordinates
+                  // Here: if position data exists, then find nearby places
+                  if (userPositionCoords !== undefined) {
+                      var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
+                          userPositionCoords.longitude, place.latitude, place.longitude);
+                      if (distanceFromYou <= 1) { // 1 kilometer
+                          // Puts marker on the map
+                          createPlaceMarker(place);
+                          return (
+                              <PlaceListItem place = {place}></PlaceListItem>
+                          );
+                      }
+                      // If position data doesn't exist, return no places
+                  }
 
-    return (
-      <div className="placeList">
-        {placeNodes}
-      </div>
-    );
+              });
+                console.log("3", placeNodes);
+              if (placeNodes){
+                  console.log("4", placeNodes);
+              return (
+                  <div className="placeList">
+                      <ItemPaginator items={placeNodes}/>
+                  </div>
+              );
+          }}
+          else {
+              return (
+                  <div className="placeList">
+                      loading...
+                  </div>
+              );
+          }
   }
 });
 
+
+//<ItemPaginator items={placeNodes}/>
 
 // overallRating - expecting number
 var OverallStarRating = React.createClass({
