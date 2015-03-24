@@ -108,7 +108,7 @@ def login_redirect(request):
     if first_login_time == last_login_time:
         return redirect('/profile/')
     else:
-        return redirect('/places/#places/')
+        return redirect('/#')
 ########################## user profiles ##########################
 # @login_required
 # def profile(request):
