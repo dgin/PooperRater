@@ -122,7 +122,7 @@ var RatingsBox = React.createClass({
       //  setInterval(this.loadRatingsFromServer, this.props.pollInterval);
       //  }
   },
-  componentWillUpdate: function(){
+  componentWillReceiveProps: function(){
       this.loadRatingsFromServer();
   },
 
