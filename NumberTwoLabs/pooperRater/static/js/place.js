@@ -1,10 +1,3 @@
-// PlacePage
-//      Place
-//      Comments
-//      Ratings
-
-
-
 var converter = new Showdown.converter();
 
 var Place = React.createClass({
@@ -34,7 +27,7 @@ var Place = React.createClass({
                                     <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.cleanliness__avg}></SmallStarRating></div></div>
                                     <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.available__avg}></SmallStarRating></div></div>
                                     <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.quality__avg}></SmallStarRating></div></div>
-                                    <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.other__avg}></SmallStarRating></div></div>
+                                    <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Ammenities: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.other__avg}></SmallStarRating></div></div>
                                 </div>
                     </div>
                 </div>
@@ -43,7 +36,7 @@ var Place = React.createClass({
                     <div className="col-lg-12 col-sm-12 col-xs-12"><a href={"#ratings/" + this.props.data.id}><AddRatingButton/></a></div>
 
                     <div>&nbsp;</div>
-                    <div><RatingsBox url={"/api/v1/places/" + this.props.data.id + "/ratings/"} placeID = {this.props.data.id} pollInterval={10000} /></div>
+                    <div><RatingsBox url={"/api/v1/places/" + this.props.data.id + "/ratings/"} placeID = {this.props.data.id} /></div>
        </div>
     );
   }
@@ -63,28 +56,6 @@ var PlacePage = React.createClass({
       }.bind(this)
     });
   },
-  //handleVoteSubmit: function(comment) {
-  //  var comments = this.state.data;
-  //  comments.push(comment);
-  //  this.setState({data: comments}, function() {
-  //    // `setState` accepts a callback. To avoid (improbable) race condition,
-  //    // `we'll send the ajax request right after we optimistically set the new
-  //    // `state.
-  //    $.ajax({
-  //      url: this.props.url,
-  //      dataType: 'json',
-  //      type: 'POST',
-  //      data: comment,
-  //      success: function(data) {
-  //        this.setState({data: data});
-  //      }.bind(this),
-  //      error: function(xhr, status, err) {
-  //        console.error(this.props.url, status, err.toString());
-  //      }.bind(this)
-  //    });
-  //  });
-  //},
-  // <VoteForm onCommentSubmit={this.handleVoteSubmit} />
 
   getInitialState: function() {
     return {data: []};
@@ -108,33 +79,6 @@ var PlacePage = React.createClass({
       }
   }
 });
-
-//var PlaceList = React.createClass({
-//  render: function() {
-//    var placeNodes = this.props.data.map(function(place, index) {
-//      return (
-//        <Place name={place.name}
-//            desc={place.desc}
-//            placeType={place.place_type}
-//            rating={place.overall_average_rating}
-//            air_rating={place.average_rating.air_flow__avg}
-//            clean_rating={place.average_rating.cleanliness__avg}
-//            available_rating={place.average_rating.available__avg}
-//            quality_rating={place.average_rating.quality__avg}
-//            other_rating={place.average_rating.other__avg}
-//            unit={place.unit} floor={place.floor}
-//            address={place.address}
-//            city={place.city}
-//            key={index}></Place>
-//      );
-//    });
-//    return (
-//      <div className="placeList">
-//        {placeNodes}
-//      </div>
-//    );
-//  }
-//});
 
 var SmallStarRating = React.createClass({
 
@@ -165,33 +109,4 @@ var SmallStarRating = React.createClass({
         );
     }
 });
-
-//var VoteForm = React.createClass({
-//  handleSubmit: function(e) {
-//    e.preventDefault();
-//    var author = this.refs.author.getDOMNode().value.trim();
-//    var text = this.refs.text.getDOMNode().value.trim();
-//    if (!text || !author) {
-//      return;
-//    }
-//    this.props.onCommentSubmit({author: author, text: text});
-//    this.refs.author.getDOMNode().value = '';
-//    this.refs.text.getDOMNode().value = '';
-//  },
-//  render: function() {
-//    return (
-//      <form className="commentForm" onSubmit={this.handleSubmit}>
-//        <input type="text" placeholder="Your name" ref="author" />
-//        <input type="text" placeholder="Say something..." ref="text" />
-//        <input type="submit" value="Post" />
-//      </form>
-//    );
-//  }
-//});
-
-//React.render(
-//  <PlacePage url="api/v1/places/" pollInterval={10000} />,
-//  document.getElementById('place')
-//);
-//
 

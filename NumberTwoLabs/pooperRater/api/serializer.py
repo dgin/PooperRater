@@ -1,5 +1,5 @@
-from rest_framework import serializers, permissions
-from pooperRater.models import Rating, Place, Restroom, Vote, AnonUserInfo
+from rest_framework import serializers
+from pooperRater.models import Rating, Place, Vote, AnonUserInfo
 from django.contrib.auth.models import User
 
 class RatingSerializer(serializers.ModelSerializer):
@@ -14,11 +14,9 @@ class PlaceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Place
-        fields = ('id', 'name', 'floor', 'unit', 'address', 'city', 'desc',
-                  'place_type', 'start_hours', 'end_hours', 'pic', 'latitude', 'longitude',
-                  'yelp_id', 'yelp_categories', 'yelp_url', 'google_id',
-                  'created_at', 'updated_at',
-                  'average_rating', 'overall_average_rating', 'number_of_ratings')
+        fields = ('id', 'name', 'address', 'city', 'desc',
+                  'latitude', 'longitude', 'yelp_id', 'yelp_categories', 'yelp_url', 'google_id',
+                  'created_at', 'updated_at', 'average_rating', 'overall_average_rating', 'number_of_ratings')
 
 
 class VoteSerializer (serializers.ModelSerializer):
@@ -26,14 +24,6 @@ class VoteSerializer (serializers.ModelSerializer):
     class Meta:
         model = Vote
         fields = ('id', 'rating_vote', 'upvote', 'downvote',
-                  'created_at', 'updated_at')
-
-
-class RestroomSerializer (serializers.ModelSerializer):
-
-    class Meta:
-        model = Restroom
-        fields = ('id', 'place', 'floor', 'local_identifier', 'type', 'feature',
                   'created_at', 'updated_at')
 
 

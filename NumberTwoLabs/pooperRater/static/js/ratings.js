@@ -26,7 +26,6 @@ var Rating = React.createClass({
                 <div className="col-lg-12 col-sm-12 col-xs-12">
                     <div className="lineBreak">&nbsp;</div>
                     <VoteBox url="/api/v1/vote/"
-                        pollInterval={10000}
                         ratingID = {this.props.rating.id}
                         upVoteCount = {this.props.rating.number_of_upvotes}
                         downVoteCount = {this.props.rating.number_of_downvotes}></VoteBox>
@@ -123,6 +122,10 @@ var RatingsBox = React.createClass({
       //  setInterval(this.loadRatingsFromServer, this.props.pollInterval);
       //  }
   },
+  componentWillUpdate: function(){
+      this.loadRatingsFromServer();
+  },
+
   render: function() {
 
       //console.log(this.props.url);
