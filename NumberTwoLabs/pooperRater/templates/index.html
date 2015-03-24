@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PooperRator</title>
+  <title>PooperRater</title>
 
   {% include 'stylesheet.html' %}
 </head>
@@ -11,14 +11,15 @@
 
 <div class="top">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-12">
+    <!--<div class="row">-->
+      <!--<div class="col-xs-12">-->
           {% block content2 %}{% endblock content2 %}
-      </div>
-    </div>
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </div>
 
+  <!--
   <div class="top">
   <div class="container-fluid">
     <div class="row">
@@ -38,22 +39,13 @@
     </div>
   </div>
 </div>
-
+-->
 
 
     {% include 'javascript.html' %}
 </body>
 
-<!--<script>
-React.render(React.createElement('div', {
-    userId: "{{ user.id }}"
-}), child);
-</script>-->
 
-<script>
-//var child = React.createElement('li', null, 'UserID ul');
-var root = React.createElement('div', { userID: '{{ user.id }}' });
-React.render(root);
-</script>
+
 
 </html>

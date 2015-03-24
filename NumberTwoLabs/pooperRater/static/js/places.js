@@ -62,12 +62,14 @@ var PlacesPage = React.createClass({
   render: function() {
     return (
       <div className="PlaceBox">
-        <div className="col-lg-12"><AddPlaceButton /></div>
+        <AddPlaceButton />
           <div>&nbsp;</div>
-        <div className="col-lg-12"><DatabaseSearch /></div>
+        <DatabaseSearch />
         <div>&nbsp;</div>
         <h1>Toilets Near You</h1>
+          <div className="pre-scrollable">
         <PlaceList data={this.state.data} />
+          </div>
       </div>
     );
   }
@@ -79,8 +81,7 @@ var PlaceList = React.createClass({
           //Catches error in case no data passed
         console.log("5", this.props.data);
           if (this.props.data) {
-              console.log("6", this.props.data);
-              // finds closest highly-rated toilet for use with Gotta Go Now button
+              // finds closest highly-rated toilet for use with Bathroom Emergency button
               var closestDistance = 99999;
               var goNowButton = document.getElementById("goNowButton");
               // Sets placeNodes, which populate placeList
@@ -92,7 +93,7 @@ var PlaceList = React.createClass({
                           userPositionCoords.longitude, place.latitude, place.longitude);
                       if (distanceFromYou <= 1) { // 1 kilometer
 
-                          if (distanceFromYou <= closestDistance && place.overall_average_rating > 3){
+                          if (distanceFromYou <= closestDistance && place.overall_average_rating >= 3){
                               closestDistance = distanceFromYou;
                               goNowButton.href = '#place/'+place.id;
                           }
@@ -218,7 +219,13 @@ var DatabaseSearch = React.createClass({
             return (
                 <div id="searchDataComponents">
                     <div className="col-lg-12">
-                        <input id="databaseSearchbar" aria-describedby="sizing-addon1" className="form-control input-lg" type="text" placeholder="Search for a toilet... (e.g Number Two Labs 123 Sesame St)" value={message} onChange={this.handleChange} />
+                        <input id="databaseSearchbar"
+                            aria-describedby="sizing-addon1"
+                            className="form-control input-lg"
+                            type="text"
+                            placeholder="Search for a toilet... (e.g Number Two Labs 123 Sesame St)"
+                            value={message}
+                            onChange={this.handleChange} />
                     </div>
                     <div id="searchTitle"></div>
                     <div id="searchResults">

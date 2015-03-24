@@ -25,7 +25,11 @@ var Rating = React.createClass({
                 </div>
                 <div className="col-lg-12 col-sm-12 col-xs-12">
                     <div className="lineBreak">&nbsp;</div>
-                    <VoteBox url={"/api/v1/vote/" + this.props.rating.id + "/"} pollInterval={10000} ></VoteBox>
+                    <VoteBox url="/api/v1/vote/"
+                        pollInterval={10000}
+                        ratingID = {this.props.rating.id}
+                        upVoteCount = {this.props.rating.number_of_upvotes}
+                        downVoteCount = {this.props.rating.number_of_downvotes}></VoteBox>
                 </div>
             </div>
 
@@ -36,6 +40,8 @@ var Rating = React.createClass({
     );
   }
 });
+
+// + this.props.rating.id + "/"
 
 //<div className="col-lg-6 col-sm-12 col-xs-12">
 //                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
@@ -118,13 +124,16 @@ var RatingsBox = React.createClass({
       //  }
   },
   render: function() {
+
+      //console.log(this.props.url);
+
     if (this.state.data === null) {
           return (<span>loading ratings...</span>);
       }
       else {
         return (
             <div className="RatingsBox">
-                <RatingList data={this.state.data} />
+                <RatingList data={this.state.data} ratingURL={this.props.url}/>
             </div>
         );
     }

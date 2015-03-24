@@ -66,7 +66,7 @@ getUserPosition()
 .then(setUserLocation)
 .then(reactRenderAppPromise)
 .then(initMapAndMarkers)
-.then(setGoNowButtonLocation)
+//.then(setGoNowButtonLocation)
 .catch(function(err) {
         console.log("Something broke!");
         console.log(err);

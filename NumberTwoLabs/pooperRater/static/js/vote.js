@@ -27,13 +27,40 @@ var VoteBox = React.createClass({
       }.bind(this)
     });
   },
+
+  loadRatingVoteCountsFromServer: function(rating) {
+      var ratingData = this.state.data;
+      console.log("rating1: ", rating['url']);
+      //console.log("rating2: ",rating.key("url"));
+      var ratingURL = rating['url'].toString() + rating['rating'].toString();
+      console.log("ratingData: ", ratingData);
+
+    this.setState({data: ratingData}, function() {
+        $.ajax({
+            url: ratingURL,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                this.setState({data: data});
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(ratingURL, status, err.toString());
+            }.bind(this)
+        });
+        console.log("get rating ajax call returned", ratingData);
+    });
+  },
+
   handleVoteSubmit: function(vote) {
     var votes = this.state.data;
-    votes.push(vote);
+    //  console.log(vote);
+    //votes.push(vote);
     this.setState({data: votes}, function() {
       // `setState` accepts a callback. To avoid (improbable) race condition,
       // `we'll send the ajax request right after we optimistically set the new
       // `state.
+        console.log("before post ajax call: ", this.props.upVoteCount);
+
       $.ajax({
         url: this.props.url,
         dataType: 'json',
@@ -47,6 +74,8 @@ var VoteBox = React.createClass({
         }.bind(this)
       });
     });
+      console.log("after post ajax call: ",this.props.upVoteCount);
+      //console.log("data: ", {data});
   },
 
   getInitialState: function() {
@@ -60,21 +89,22 @@ var VoteBox = React.createClass({
     };
   },
   render: function() {
+
        if (this.state.data === null) {
               return (<span>loading ratings...</span>);
        }
        else {
            return (
                <div className="Vote">
-                   <VoteList data={this.state.data} />
-
+                   <VoteForm onVoteSubmit={this.handleVoteSubmit}
+                            loadVoteCount = {this.loadRatingVoteCountsFromServer}/>
                </div>
            );
        }
   }
 });
 
-//<VoteForm onVoteSubmit={this.handleVoteSubmit} />
+//<VoteList data={this.state.data} />
 
 var VoteList = React.createClass({
   render: function() {
@@ -99,6 +129,7 @@ var VoteList = React.createClass({
     singleNode: function(vote) {
         return (
             <VoteListItem vote = {vote}></VoteListItem>
+
         );
     }
 
@@ -106,27 +137,62 @@ var VoteList = React.createClass({
 
 
 var VoteForm = React.createClass({
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var upvote = this.refs.upvote.getDOMNode().value.trim();
-    var downvote = this.refs.downvote.getDOMNode().value.trim();
-    if (!upvote || !downvote) {
-      return;
-    }
-    this.props.onVoteSubmit({   upvote: upvote,
-                                downvote: downvote });
-    this.refs.upvote.getDOMNode().value = '';
-    this.refs.downvote.getDOMNode().value = '';
+
+  handleUpvote: function(e) {
+      e.preventDefault();
+      var upvote = true;
+      var downvote = false;
+      var ratingID = this.props.onVoteSubmit.__reactBoundContext.props.ratingID;
+
+      this.props.onVoteSubmit({
+          rating_vote: ratingID,
+          upvote: upvote,
+          downvote: downvote
+      });
+
+      //var url = "/api/v1/ratings/";
+      //console.log("it got here");
+      //
+      //this.props.laodVoteCount({
+      //    url: url,
+      //    ratingL: ratingID
+      //})
+
+
   },
+
+    //this.
+
+
+  handleDownvote: function(e) {
+    e.preventDefault();
+    var upvote = false;
+    var downvote = true;
+    var ratingID = this.props.onVoteSubmit.__reactBoundContext.props.ratingID;
+
+    this.props.onVoteSubmit({   rating_vote: ratingID,
+                                upvote: upvote,
+                                downvote: downvote });
+
+
+
+  },
+
   render: function() {
     return (
       <div className="panel panel-default">
         <div className="panel-body">
               <form className="voteForm" onSubmit={this.handleSubmit}>
                 <div class="row">
-                    <div className="col-lg-4"><input type="text" placeholder="upvote" ref="upvote" /></div>
-                    <div className="col-lg-4"><input type="text" placeholder="downvote" ref="downvote" /></div>
-                    <div className="col-lg-4 text-right"><input type="submit" value="Post" /></div>
+                    <div className="col-lg-4"><button type="text"
+                                                    placeholder="upvote"
+                                                    ref="upvote"
+                                                    onClick = {this.handleUpvote}>Like</button></div>
+
+                    <div className="col-lg-4"><button type="text"
+                                                    placeholder="downvote"
+                                                    ref="downvote"
+                                                    onClick = {this.handleDownvote}>Dislike</button></div>
                 </div>
               </form>
         </div>
@@ -134,6 +200,15 @@ var VoteForm = React.createClass({
     );
   }
 });
+
+//var VoteCount = React.createClass({
+//    render: function(){
+//        <p>this is a count of the votes</p>
+//    }
+//});
+
+//<div>{this.children._owner._owner.props.upVoteCount}</div>
+//<div className="col-lg-4 text-right"><input type="submit" value="Post" /></div>
 
 React.render(
   <VoteBox url="/api/v1/vote/" pollInterval={10000} />,

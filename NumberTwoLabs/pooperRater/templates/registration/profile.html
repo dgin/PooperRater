@@ -12,6 +12,7 @@
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
+
             <div>
                 <div class="alert alert-danger text-left in collapse" id="profilealert" role="alert"><strong>Oops!</strong> This anonymous username is already taken, please try another name <a href="#" class="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
             </div>
@@ -19,6 +20,8 @@
                 <div class="alert alert-success text-left collapse" id="profilesuccess" role="alert"><strong>Yay!</strong> You have updated your anonymous username <a href="#" class="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
             </div>
             <div class="text-right">
+                <!--<input class="btn btn-default" type="submit" onclick="return false;"
+                value="Save changes">-->
                 <input class="btn btn-default" type="submit" id="submit_anon" value="Save changes">
             </div>
             </form>
