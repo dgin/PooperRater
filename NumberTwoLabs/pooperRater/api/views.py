@@ -1,8 +1,9 @@
+
 from django.contrib.auth.models import User
 from requests import Response
-from rest_framework import viewsets, generics
-from pooperRater.models import Rating, Place, Comment, Restroom, User, AnonUserInfo, Vote
-from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, CommentSerializer, RestroomSerializer, UserSerializer, AnonUserInfoSerializer, VoteSerializer
+from rest_framework import viewsets, generics, filters
+from pooperRater.models import Rating, Place, Restroom, User, AnonUserInfo, Vote
+from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, RestroomSerializer, UserSerializer, AnonUserInfoSerializer, VoteSerializer
 from pooperRater.permissions import IsOwnerOrReadOnly, IsAdminUserOrReadOnly, AnonInfoIsRelatedUserOrReadOnly, UserIsOwnerOrReadOnly, CommentIsOwnerOrReadOnly
 from rest_framework import permissions
 
@@ -13,26 +14,37 @@ class RatingViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
 
-class PlaceRatingViewSet(generics.ListAPIView):
+class PlaceRatingViewSet(generics.ListCreateAPIView):
+    serializer_class = RatingSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
-     def get(self, request, pk):
-         queryset = Rating.objects.filter(place__id=self.kwargs.get(id))
-         serializer = RatingSerializer(queryset)
-         return Response(serializer.data)
+    def get_queryset(self, *args, **kwargs):
+        return Rating.objects.filter(place__id=self.kwargs.get('pk'))
+
+
+class RatingOwnerViewSet(generics.ListCreateAPIView):
+    serializer_class = AnonUserInfoSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, AnonInfoIsRelatedUserOrReadOnly,)
+
+    def get_queryset(self, *args, **kwargs):
+        u = User.objects.get(rating__id=self.kwargs.get('pk'))
+        return AnonUserInfo.objects.filter(related_user=u)
 
 
 class PlaceViewSet(viewsets.ModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
     permission_classes = ()
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('yelp_id',)
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsAdminUserOrReadOnly,)
 
-
-class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, CommentIsOwnerOrReadOnly,)
-
+class PlaceSearchViewSet(viewsets.ModelViewSet):
+    queryset = Place.objects.all()
+    serializer_class = PlaceSerializer
+    permission_classes = ()
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'address', 'city',)
 
 class VoteViewSet(viewsets.ModelViewSet):
     queryset = Vote.objects.all()
@@ -51,7 +63,8 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, UserIsOwnerOrReadOnly,)
 
-class AnonUserInfoVIewSet(viewsets.ModelViewSet):
+
+class AnonUserInfoViewSet(viewsets.ModelViewSet):
     queryset = AnonUserInfo.objects.all()
     serializer_class = AnonUserInfoSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, AnonInfoIsRelatedUserOrReadOnly,)

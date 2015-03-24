@@ -3,8 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
 from psycopg2._psycopg import IntegrityError
-from pooperRater.api_calls import yelp_api_call, yelp_business_search
-from pooperRater.api_calls.aggregation import something
+from pooperRater.api_calls import yelp_business_search
 
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
@@ -37,75 +36,8 @@ def rating(request):
                            {'user': request.user})
    return render_to_response('ratings/ratings.html', context_instance=context)
 
-
-
-def googleplace(request):
-    return render(request, 'tests/google_places_snippet.html')
-
 def home_page(request):
     return render(request, 'index.html')
-
-def yelp_api(request):
-    yelp_response = yelp_api_call.main()
-    # x = something(1)
-    # print x['quality__avg']
-    data = {
-        "one": "One",
-        "two": "Two",
-        'yelp_response': yelp_response,
-        'businesses' : yelp_response[0]['businesses']
-    }
-    return render(request, 'tests/yelp_api.html', data)
-
-def yelp_display(request):
-    data={}
-    # If user makes a search
-    if request.method == "POST":
-        term=request.POST['term']
-        data['term'] = term
-
-        # If user inputs an address
-        # Checks whether location was input
-        try:
-            location = request.POST["location"]
-            data['location']=location
-            yelp_response = yelp_business_search.main(term, location)
-        # If user is searching by automatically generated location instead
-        except MultiValueDictKeyError:
-            geoCoordLat = float(request.POST["geoCoordLat"])
-            geoCoordLong = float(request.POST["geoCoordLong"])
-            yelp_response = yelp_business_search.main(term, (geoCoordLat, geoCoordLong))
-
-        data['yelp'] = yelp_response # Unused, but helpful for debugging
-        businesses = yelp_response['businesses']
-        data['businesses'] = businesses
-
-    # Re-render/render page
-    return render(request, 'yelp/yelp_display.html', data)
-
-def yelp_search(request):
-    data={}
-    # If user makes a search
-    if request.method == "POST":
-        term=request.POST['term']
-        data['term'] = term
-
-        # If user inputs an address
-        # Checks whether location was input
-        try:
-            location = request.POST["location"]
-            data['location']=location
-            yelp_response = yelp_business_search.main(term, location)
-        # If user is searching by automatically generated location instead
-        except MultiValueDictKeyError:
-            geoCoordLat = float(request.POST["geoCoordLat"])
-            geoCoordLong = float(request.POST["geoCoordLong"])
-            yelp_response = yelp_business_search.main(term, (geoCoordLat, geoCoordLong))
-
-        data['yelp'] = yelp_response # Unused, but helpful for debugging
-        businesses = yelp_response['businesses']
-        data['businesses'] = businesses
-    return render(request, 'yelp/yelp_search.html', data)
 
 def successful_logout(request):
     return render(request, 'registration/successful_logout.html')
@@ -135,8 +67,16 @@ def yelp_ajax(request):
         # data['businesses'] = json.loads(businesses)
     return JsonResponse(businesses,safe=False, status=200)
 
-def create_anon_user(request):
+def profile(request):
+    data = {}
 
+    # For first time users only
+    first_login_time = str(request.user.date_joined)[:18]
+    last_login_time = str(request.user.last_login)[:18]
+    if first_login_time == last_login_time:
+        data['welcome_message'] = "Since this is your first time, maybe you'd like to customize " \
+                                  "your anonymous username. Remember: no personally identifiable " \
+                                  "information!"
     if request.method == "POST":
         has_anon = AnonUserInfo.objects.filter(related_user=request.user)
         if has_anon:
@@ -148,21 +88,22 @@ def create_anon_user(request):
         new_anon_user = form.save(commit=False)
         # Sets related user to whoever is signed in
         new_anon_user.related_user = request.user
-        if new_anon_user.save():
-            return HttpResponse("All went well", status=200)
-        else:
-            return HttpResponse("Something went wrong with your submission. Please try again.", status=400)
+        return redirect('/places/#places/')
+        #     return redirect('/profile/')
+        # if new_anon_user.save():
+        #     return HttpResponse("All went well", status=200)
+        # else:
+        #     return HttpResponse("Something went wrong with your submission. Please try again.", status=400)
 
     # If method is not post
+    # Get will error out if no anon user, so use filter and return the first
     has_anon = AnonUserInfo.objects.filter(related_user=request.user)
     if has_anon:
         form = AnonUserInfoCreationForm(instance=has_anon[0])
     else:
-        form = AnonUserInfoCreationForm()
-    data = {
-        'form': form
-    }
-    return render(request, 'registration/create_anon_user.html', data)
+        form = AnonUserInfoCreationForm({'anonymous_name': "Anonymous"+str(request.user.id)})
+    data['form'] = form
+    return render(request, 'registration/profile.html', data)
 
 def place_add(request):
 
@@ -177,6 +118,15 @@ def place_add(request):
         'form': form
     }
     return render(request, 'places/place_add.html', data)
+
+def login_redirect(request):
+    # To check if first time login, compare the first and last login
+    first_login_time = str(request.user.date_joined)[:18]
+    last_login_time = str(request.user.last_login)[:18]
+    if first_login_time == last_login_time:
+        return redirect('/profile/')
+    else:
+        return redirect('/places/#places/')
 ########################## user profiles ##########################
 # @login_required
 # def profile(request):

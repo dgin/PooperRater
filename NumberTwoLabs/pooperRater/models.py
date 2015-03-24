@@ -41,8 +41,12 @@ class Place(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}".format(self.name)\
+        return u"{}".format(self.name)
                # + " Types: {}.".format(self.type_conversion[self.place_type])
+
+    @property
+    def number_of_ratings(self):
+        return Rating.objects.filter(place__id=self.id).count()
 
     @property
     def average_rating(self):
@@ -76,10 +80,9 @@ class Place(models.Model):
         return overall_average / len(self.average_rating)
 
 
-
 class AnonUserInfo(models.Model):
-    related_user = models.OneToOneField(User)
-    anonymous_name = models.CharField(max_length=80, default='Anonymous')
+    related_user = models.OneToOneField(User, related_name='anon_user')
+    anonymous_name = models.CharField(max_length=80, default='Anonymous', unique=True)
     user_img = models.ImageField(null=True, blank=True)
 
     # REQUIRED_FIELDS = ['username', 'anon_name']
@@ -91,7 +94,7 @@ class AnonUserInfo(models.Model):
 class Rating(models.Model):
     # links
     owner = models.ForeignKey(User)
-    place = models.ForeignKey(Place, related_name='ratings')
+    place = models.ForeignKey(Place)
 
     # Stars
     STAR_CONVERSION = (
@@ -107,34 +110,30 @@ class Rating(models.Model):
     quality = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
     other = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return u"{}, {}".format(self.owner, self.place)
-
-
-class Comment(models.Model):
-    rating = models.OneToOneField(Rating)
-    body = models.TextField(null=True, blank=True, max_length=500)
+    rating_comment = models.TextField(null=True, blank=True, max_length=1000)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}".format(self.rating.owner.username)
+        return u"{}, {}".format(self.place, self.owner)
+
+    def save(self, **kwargs):
+        super(Rating, self).save(**kwargs)
+        vote = Vote(rating_vote=self)
+        vote.save()
 
 
 class Vote(models.Model):
-    comment = models.ForeignKey(Comment)
-    upvote = models.SmallIntegerField(null=True, blank=True)
-    downvote = models.SmallIntegerField(null=True, blank=True)
+    rating_vote = models.ForeignKey(Rating)
+    upvote = models.SmallIntegerField(null=True, blank=True, default=0)
+    downvote = models.SmallIntegerField(null=True, blank=True, default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return u"{}, {}".format(self.comment.rating.owner.username, self.comment.id)
+        return u"{}".format(self.rating_vote)
 
 
 class Restroom(models.Model):
