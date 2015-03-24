@@ -97,7 +97,9 @@ var VoteBox = React.createClass({
            return (
                <div className="Vote">
                    <VoteForm onVoteSubmit={this.handleVoteSubmit}
-                            loadVoteCount = {this.loadRatingVoteCountsFromServer}/>
+                            loadVoteCount = {this.loadRatingVoteCountsFromServer}
+                            upVoteCount = {this.props.upVoteCount}
+                            downVoteCount = {this.props.downVoteCount}/>
                </div>
            );
        }
@@ -188,11 +190,13 @@ var VoteForm = React.createClass({
                                                     placeholder="upvote"
                                                     ref="upvote"
                                                     onClick = {this.handleUpvote}>Like</button></div>
+                    <div>{this.props.upVoteCount}</div>
 
                     <div className="col-lg-4"><button type="text"
                                                     placeholder="downvote"
                                                     ref="downvote"
                                                     onClick = {this.handleDownvote}>Dislike</button></div>
+                    <div>{this.props.downVoteCount}</div>
                 </div>
               </form>
         </div>

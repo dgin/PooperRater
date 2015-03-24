@@ -34,7 +34,7 @@ var Place = React.createClass({
                                     <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.cleanliness__avg}></SmallStarRating></div></div>
                                     <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.available__avg}></SmallStarRating></div></div>
                                     <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.quality__avg}></SmallStarRating></div></div>
-                                    <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.other__avg}></SmallStarRating></div></div>
+                                    <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Ammenities: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.data.average_rating.other__avg}></SmallStarRating></div></div>
                                 </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@ var Place = React.createClass({
                     <div className="col-lg-12 col-sm-12 col-xs-12"><a href={"#ratings/" + this.props.data.id}><AddRatingButton/></a></div>
 
                     <div>&nbsp;</div>
-                    <div><RatingsBox url={"/api/v1/places/" + this.props.data.id + "/ratings/"} placeID = {this.props.data.id} pollInterval={10000} /></div>
+                    <div><RatingsBox url={"/api/v1/places/" + this.props.data.id + "/ratings/"} placeID = {this.props.data.id} /></div>
        </div>
     );
   }
