@@ -1,6 +1,12 @@
 var ItemPaginator = React.createClass({
 		displayName: "Main",
 
+        getInitialState: function(){
+            return {
+                pages: []
+            };
+        },
+
 		render: function () {
 			return React.createElement(ScrollPagination, {
 				ref: "scrollPagination",
@@ -9,8 +15,8 @@ var ItemPaginator = React.createClass({
 				unloadPage: this.unloadPage,
 				hasNextPage: this.hasNextPage,
 				hasPrevPage: this.hasPrevPage,
-			}, this.pages.map(function (page, index) {
-				return React.createElement(Page, { key: page.id, id: page.id, onPageEvent: this.__handlePageEvent }, page.items.map(function (item) {
+			}, this.loadedPages.map(function (page, index) {
+				return React.createElement(this.Page, { key: page.id, id: page.id, onPageEvent: this.__handlePageEvent }, page.items.map(function (item) {
 					return React.createElement('div', { key: item.id, style: { paddingTop: index + "px" } }, item.text);
 				}.bind(this)));
 			}.bind(this)));
@@ -71,63 +77,56 @@ var ItemPaginator = React.createClass({
 	},
 
 	loadNextPage: function () {
-		setTimeout(function () {
-			var lastLoadedPage = this.loadedPages[this.loadedPages.length-1];
-			var index = this.pages.indexOf(lastLoadedPage);
-			var page = this.pages[index+1];
-			if (page) {
-				this.loadedPages.push(page);
-			} else {
-				throw new Error("Invalid attempt to load next page!");
-			}
+        var lastLoadedPage = this.loadedPages[this.loadedPages.length-1];
+        var index = this.pages.indexOf(lastLoadedPage);
+        var page = this.pages[index+1];
+        if (page) {
+            this.loadedPages.push(page);
+        } else {
+            throw new Error("Invalid attempt to load next page!");
+        }
 
-			this.view.setProps({
-				pages: this.loadedPages,
-				hasNextPage: this.hasNextPage()
-			});
-		}, 0);
+        this.props.pages = this.loadedPages;
+        this.props.hasNextPage = this.hasNextPage();
+        this.forceUpdate();
 	},
 
 	loadPrevPage: function () {
-		setTimeout(function () {
-			var firstLoadedPage = this.loadedPages[0];
-			var index = this.pages.indexOf(firstLoadedPage);
-			var page = this.pages[index-1];
-			if (page) {
-				this.loadedPages.unshift(page);
-			} else {
-				throw new Error("Invalid attempt to load prev page!");
-			}
+        var firstLoadedPage = this.loadedPages[0];
+        var index = this.pages.indexOf(firstLoadedPage);
+        var page = this.pages[index-1];
+        console.log("index", index);
+        if (page) {
+            this.loadedPages.unshift(page);
+        } else {
+            throw new Error("Invalid attempt to load prev page!");
+        }
 
-			view.setProps({
-				pages: this.loadedPages,
-				hasPrevPage: this.hasPrevPage()
-			});
-		}, 0);
+        this.props.pages = this.loadedPages;
+        this.props.hasPrevPage = this.hasPrevPage();
+        this.forceUpdate();
 	},
 
 	unloadPage: function (pageId) {
-		setTimeout(function () {
-			var page = null;
-			var index = null;
-			for (var i = 0, len = this.loadedPages.length; i < len; i++) {
-				if (this.loadedPages[i].id === pageId) {
-					page = this.loadedPages[i];
-					index = i;
-					break;
-				}
-			}
+        var page = null;
+        var index = null;
+        for (var i = 0, len = this.loadedPages.length; i < len; i++) {
+            if (this.loadedPages[i].id === pageId) {
+                page = this.loadedPages[i];
+                index = i;
+                break;
+            }
+        }
 
-			if (page === null) {
-				throw new Error("Invalid attempt to unload page: "+ pageId +"\n"+ JSON.stringify(this.loadedPages.map(function (p) { return p.id; })));
-			}
+        if (page === null) {
+            throw new Error("Invalid attempt to unload page: "+ pageId +"\n"+ JSON.stringify(this.loadedPages.map(function (p) { return p.id; })));
+        }
 
-			this.loadedPages = this.loadedPages.slice(0, index).concat(this.loadedPages.slice(index+1, this.loadedPages.length));
-			view.setProps({
-				pages: this.loadedPages,
-				hasNextPage: this.hasNextPage(),
-				hasPrevPage: this.hasPrevPage()
-			});
-		}, 0);
+        this.loadedPages = this.loadedPages.slice(0, index).concat(this.loadedPages.slice(index+1, this.loadedPages.length));
+
+        this.props.pages = this.loadedPages;
+        this.props.hasNextPage = this.hasNextPage();
+        this.props.hasPrevPage = this.hasPrevPage();
+        this.forceUpdate();
 	}
 });

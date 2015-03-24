@@ -1,10 +1,7 @@
-import json
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
-from psycopg2._psycopg import IntegrityError
 from pooperRater.api_calls import yelp_business_search
-
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from pooperRater.forms import AnonUserInfoCreationForm, ManualPlaceCreationForm
@@ -21,23 +18,9 @@ def place(request):
                            {'user': request.user})
    return render_to_response('places/place.html', context_instance=context)
 
-def comment(request):
-   context = RequestContext(request,
-                           {'user': request.user})
-   return render_to_response('comments/comments.html', context_instance=context)
-
-def vote(request):
-   context = RequestContext(request,
-                           {'user': request.user})
-   return render_to_response('comments/vote.html', context_instance=context)
-
-def rating(request):
-   context = RequestContext(request,
-                           {'user': request.user})
-   return render_to_response('ratings/ratings.html', context_instance=context)
-
 def home_page(request):
-    return render(request, 'index.html')
+    context = RequestContext(request, {'user': request.user})
+    return render_to_response('places/places.html', context_instance=context)
 
 def successful_logout(request):
     return render(request, 'registration/successful_logout.html')
@@ -87,8 +70,8 @@ def profile(request):
         new_anon_user = form.save(commit=False)
         # Sets related user to whoever is signed in
         new_anon_user.related_user = request.user
-        new_anon_user.save()
         return redirect('/places/#places/')
+        #     return redirect('/profile/')
         # if new_anon_user.save():
         #     return HttpResponse("All went well", status=200)
         # else:
@@ -100,7 +83,7 @@ def profile(request):
     if has_anon:
         form = AnonUserInfoCreationForm(instance=has_anon[0])
     else:
-        form = AnonUserInfoCreationForm()
+        form = AnonUserInfoCreationForm({'anonymous_name': "Anonymous"+str(request.user.id)})
     data['form'] = form
     return render(request, 'registration/profile.html', data)
 
@@ -125,7 +108,7 @@ def login_redirect(request):
     if first_login_time == last_login_time:
         return redirect('/profile/')
     else:
-        return redirect('/places/#places/')
+        return redirect('/#')
 ########################## user profiles ##########################
 # @login_required
 # def profile(request):

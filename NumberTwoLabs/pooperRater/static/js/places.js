@@ -48,28 +48,6 @@ var PlacesPage = React.createClass({
       }.bind(this)
     });
   },
-  //handleVoteSubmit: function(comment) {
-  //  var comments = this.state.data;
-  //  comments.push(comment);
-  //  this.setState({data: comments}, function() {
-  //    // `setState` accepts a callback. To avoid (improbable) race condition,
-  //    // `we'll send the ajax request right after we optimistically set the new
-  //    // `state.
-  //    $.ajax({
-  //      url: this.props.url,
-  //      dataType: 'json',
-  //      type: 'POST',
-  //      data: comment,
-  //      success: function(data) {
-  //        this.setState({data: data});
-  //      }.bind(this),
-  //      error: function(xhr, status, err) {
-  //        console.error(this.props.url, status, err.toString());
-  //      }.bind(this)
-  //    });
-  //  });
-  //},
-  // <VoteForm onCommentSubmit={this.handleVoteSubmit} />
 
   getInitialState: function() {
     return {data: []};
@@ -84,12 +62,14 @@ var PlacesPage = React.createClass({
   render: function() {
     return (
       <div className="PlaceBox">
-        <div className="col-lg-12"><AddPlaceButton /></div>
+        <AddPlaceButton />
           <div>&nbsp;</div>
-        <div className="col-lg-12"><DatabaseSearch /></div>
+        <DatabaseSearch />
         <div>&nbsp;</div>
-        <h1>Places Near You</h1>
+        <h1>Toilets Near You</h1>
+          <div className="placeBox">
         <PlaceList data={this.state.data} />
+          </div>
       </div>
     );
   }
@@ -99,10 +79,9 @@ var PlaceList = React.createClass({
     render: function() {
           var placeNodes = [];
           //Catches error in case no data passed
+        console.log("5", this.props.data);
           if (this.props.data) {
-              //if (document.readyState === "complete") {
-              console.log(this.props.data);
-              // finds closest highly-rated toilet for use with Gotta Go Now button
+              // finds closest highly-rated toilet for use with Bathroom Emergency button
               var closestDistance = 99999;
               var goNowButton = document.getElementById("goNowButton");
               // Sets placeNodes, which populate placeList
@@ -114,7 +93,7 @@ var PlaceList = React.createClass({
                           userPositionCoords.longitude, place.latitude, place.longitude);
                       if (distanceFromYou <= 1) { // 1 kilometer
 
-                          if (distanceFromYou <= closestDistance && place.overall_average_rating > 3){
+                          if (distanceFromYou <= closestDistance && place.overall_average_rating >= 3){
                               closestDistance = distanceFromYou;
                               goNowButton.href = '#place/'+place.id;
                           }
@@ -128,10 +107,10 @@ var PlaceList = React.createClass({
                   }
 
               });
+              console.log("4", placeNodes)
               return (
                   <div className="placeList">
                   {placeNodes}
-                      <ItemPaginator items={placeNodes}/>
                   </div>
               );
           }
@@ -174,29 +153,6 @@ var OverallStarRating = React.createClass({
         );
     }
 });
-
-//var VoteForm = React.createClass({
-//  handleSubmit: function(e) {
-//    e.preventDefault();
-//    var author = this.refs.author.getDOMNode().value.trim();
-//    var text = this.refs.text.getDOMNode().value.trim();
-//    if (!text || !author) {
-//      return;
-//    }
-//    this.props.onCommentSubmit({author: author, text: text});
-//    this.refs.author.getDOMNode().value = '';
-//    this.refs.text.getDOMNode().value = '';
-//  },
-//  render: function() {
-//    return (
-//      <form className="commentForm" onSubmit={this.handleSubmit}>
-//        <input type="text" placeholder="Your name" ref="author" />
-//        <input type="text" placeholder="Say something..." ref="text" />
-//        <input type="submit" value="Post" />
-//      </form>
-//    );
-//  }
-//});
 
 var DataList = React.createClass({
   render: function() {

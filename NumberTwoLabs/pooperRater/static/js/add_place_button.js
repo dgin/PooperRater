@@ -1,20 +1,29 @@
+function cleanManualAdd () {
+    document.getElementById("placeName").value = "";
+    document.getElementById("placeAddress").value = "";
+    document.getElementById("placeCity").value = "";
+    var manualRes = document.getElementById("manualResult");
+    manualRes.innerHTML = "";
+    manualRes.className = "";
+}
+
 var AddPlaceButton = React.createClass({
     handleClick: function() {
         //document.getElementById('yelpIsLocation').value='no';
+        cleanManualAdd();
         if (document.getElementById('yelpIsLocation').value === 'no') {
             returnUserPosition();
         }
         //returnUserPosition();
     },
   render: function() {
-    return <button className="btn btn-lg btn-default  col-lg-12 col-sm-12 col-xs-12"
+    return <button className="btn btn-default btn-block"
         data-toggle="modal" data-target="#yelpModal" onClick={this.handleClick}>Add Place</button>;
   }
 });
 
 var GoNowButton = React.createClass({
     render: function() {
-        return <a id="goNowButton" className="col-lg-3 col-lg-offset-1 col-sm-6 col-xs-12 hidden-xs
-            text-center btn btn-danger">GET ME A TOILET NOW</a>
+        return <a id="goNowButton" className="btn btn-danger btn-block">BATHROOM EMERGENCY</a>
     }
 });
