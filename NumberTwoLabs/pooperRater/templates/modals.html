@@ -37,16 +37,16 @@
         <div class="modal-content" style="background-color: #fafafa">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="yelpModalLabel">Add a Business</h4>
+                <h3 class="modal-title" id="yelpModalLabel">Add a Place from Yelp</h3>
             </div>
             <div class="modal-body text-center">
                 <script src="../static/src/jquery-1.11.2.min.js"></script>
                 <script src="../static/js/ajax.js"></script>
 
-                <h3>Add a place from Yelp</h3>
+                <!--<h3>Add a place from Yelp</h3>-->
                 <div class="btn-group">
                     <!--Change value of yelpIsLocation to determine type of search-->
-                    <button type="button" id="yelpIsNear" class="active btn btn-default" name="inputAddress" value="yes" onclick="document.getElementById('yelpIsLocation').value='no';returnUserPosition();"><b>Addresses near you</b></button>
+                    <button type="button" id="yelpIsNear" class="active btn btn-default" name="inputAddress" value="yes" onclick="document.getElementById('yelpIsLocation').value='no';returnUserPosition();"><b>Nearby Places</b></button>
                     <button type="button" id="yelpIsLocation" class="btn btn-default" name="inputAddress" value="no" onclick="this.value='yes';enableLocationSearch();"><b>Search by address</b></button><br>
                 </div>
 
