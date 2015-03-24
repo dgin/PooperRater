@@ -71,8 +71,8 @@ def profile(request):
         # Sets related user to whoever is signed in
         new_anon_user.related_user = request.user
         new_anon_user.save()
-        return redirect('/places/#places/')
-        #     return redirect('/profile/')
+        return redirect('index')
+            # return redirect('/profile/')
         # if new_anon_user.save():
         #     return HttpResponse("All went well", status=200)
         # else:
@@ -87,20 +87,6 @@ def profile(request):
         form = AnonUserInfoCreationForm({'anonymous_name': "Anonymous"+str(request.user.id)})
     data['form'] = form
     return render(request, 'registration/profile.html', data)
-
-def place_add(request):
-
-    if request.method == "POST":
-        form = ManualPlaceCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/places', status=201)
-    else:
-        form = ManualPlaceCreationForm()
-    data = {
-        'form': form
-    }
-    return render(request, 'places/place_add.html', data)
 
 def login_redirect(request):
     # To check if first time login, compare the first and last login

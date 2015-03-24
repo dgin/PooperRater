@@ -6,6 +6,8 @@ body {
   margin: 0;
   padding: 30px;
   padding-top: 80px;
+    height:100%;
+    width:100%;
 }
 
 a {

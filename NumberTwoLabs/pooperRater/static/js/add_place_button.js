@@ -24,6 +24,6 @@ var AddPlaceButton = React.createClass({
 
 var GoNowButton = React.createClass({
     render: function() {
-        return <a id="goNowButton" className="btn btn-danger btn-block">BATHROOM EMERGENCY</a>
+        return <a id="goNowButton" className="btn btn-danger btn-lg btn-block">BATHROOM EMERGENCY</a>
     }
 });

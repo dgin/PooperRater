@@ -3,29 +3,31 @@
 {% block content2 %}
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <h2>Welcome!</h2>
+        <h2>Welcome {{ user.username }}!</h2>
+            <h5>You last pooped with us on {{ user.last_login }}</h5>
             <br>
-            <div class="text-center alert alert-info">{{ welcome_message }}</div>
+            <!--<div class="text-center alert alert-info">{{ welcome_message }}</div>-->
             <br>
             <div class="text-center">
             <h4>Edit anonymous username</h4>
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-            <div>
-
-                <div class="alert alert-danger text-left in collapse" id="profilealert" role="alert"><strong>Oops!</strong> This anonymous username is already taken, please try another name <a href="#" class="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
+            <div class="alert alert-danger text-left hide in collapse" id="profilealert" role="alert">
+                <strong>Oops!</strong> This anonymous username is already taken, please try another name!
             </div>
-            <div>
-                <div class="alert alert-success text-left collapse" id="profilesuccess" role="alert"><strong>Yay!</strong> You have updated your anonymous username <a href="#" class="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
+            <div class="alert alert-success hide text-left in collapse" id="profilesuccess" role="alert">
+                <strong>Yay!</strong> This username is available!<a href="#" class="close glyphicon glyphicon-remove" data-dismiss="alert"></a>
             </div>
+            <div class="alert alert-warning hide text-left in collapse" id="profileisyou" role="alert">
+                <strong>Hello!</strong> This username is yours!
+            </div>
+                <button class="btn btn-default" onclick="checkUniqueUsername();
+                return false;" data-toggle="alert">Check Availability</button>
             <div class="text-right">
-                <!--<input class="btn btn-default" type="submit" onclick="return false;"
-                value="Save changes">-->
-                <input class="btn btn-default" type="submit" id="submit_anon" onclick="checkUniqueUsername();" value="Save changes">
+                <input id="anonNameSubmit" class="btn btn-default disabled" type="submit" value="Save changes">
             </div>
             </form>
-                <button class="btn btn-default" onclick="checkUniqueUsername()">HELLo</button>
             </div>
         </div>
     </div>
