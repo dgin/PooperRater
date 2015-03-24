@@ -6,7 +6,7 @@ var App = React.createClass({
     },
 
     componentDidMount: function() {
-        
+
         router.addRoute('', function() {
             this.setState({page: <PlacesPage url="/api/v1/places/" pollInterval={0} />});
         }.bind(this));

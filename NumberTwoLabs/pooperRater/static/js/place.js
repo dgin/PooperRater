@@ -64,7 +64,7 @@ var PlacePage = React.createClass({
     this.loadPlacesFromServer();
     if (this.props.pollInterval > 0){
           setInterval(this.loadPlacesFromServer, this.props.pollInterval);
-       };
+       }
   },
   render: function() {
       if (this.state.data.length == 0) {
