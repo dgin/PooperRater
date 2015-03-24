@@ -1,10 +1,3 @@
-
-// App
-//      - PlacesPage
-//      - PlacePage
-//            - rating
-//            - VoteBox
-//                  - VoteBox
 var App = React.createClass({
     getInitialState: function() {
         return {
@@ -13,7 +6,6 @@ var App = React.createClass({
     },
 
     componentDidMount: function() {
-
 
         router.addRoute('places/', function() {
             this.setState({page: <PlacesPage url="/api/v1/places/" pollInterval={0} />});
