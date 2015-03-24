@@ -4,18 +4,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addPlaceModalLabel">Add a Business Manually</h4>
+                <h4 class="modal-title text-center" id="addPlaceModalLabel">Add a Business Manually</h4>
             </div>
             <div class="modal-body">
                 <form method="POST">
                     <div class="text-left">
-                        <label>Business name</label><br>
-                        <input type="text" id ="placeName" placeholder="Number Two Labs"> The fields below are optional.<br>
+                        <label>Business name <small>*Required</small></label><br>
+                        <input type="text" class="form-control" id ="placeName" placeholder="Number Two Labs"><br>
                         <ul id="nameRequired" style="display:none"><li>This business needs a name!</li></ul>
                         <label>Address</label><br>
-                        <input type="text" id="placeAddress" placeholder="1234 Sesame Street"><br>
+                        <input type="text" class="form-control" id="placeAddress" placeholder="1234 Sesame Street"><br>
                         <label>City</label><br>
-                        <input type="text" id="placeCity" placeholder="San Francisco"><br>
+                        <input type="text" class="form-control" id="placeCity" placeholder="San Francisco"><br>
                         <div id="manualResult"></div>
                     </div>
 
@@ -69,8 +69,7 @@
                 </form>
                 <br>
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-danger" onclick="yelp_ajax();">Search on Yelp!</button>&nbsp;
-                    <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addPlaceModal">Add Manually</button>
+                    <button type="button" class="btn btn-danger btn-lg" onclick="yelp_ajax();">Search on Yelp!</button>&nbsp;
                 </div>
                 <p></p>
                 <br>
@@ -81,7 +80,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#addPlaceModal">Can't find your toilet? Add it manually!</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" data-toggle="modal" data-target="#addPlaceModal">Can't find your toilet? Add it manually!</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
