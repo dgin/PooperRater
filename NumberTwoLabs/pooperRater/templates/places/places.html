@@ -1,11 +1,12 @@
 {% extends 'index.html' %}
+
 {% block content2 %}
-{% include 'modals.html' %}
+
+    {% include 'modals.html' %}
 
     <div class="row">
         <!--Added Now Loading text which disappears on place load-->
         <div class="col-md-6">
-            <!--<div id="buttonDiv"></div>-->
             <br>
             <div id="places" >Now Loading...</div>
         </div>
@@ -13,7 +14,6 @@
             <br><br>
             <div id="buttonDiv"></div>
             <div id="map-canvas" class="text-center panel panel-default">{% include 'tests/goog_place_snip.html' %}</div>
-            <!--<div id="map-canvas" class="hidden-xs text-center">{% include 'tests/goog_place_snip.html' %}</div>-->
         </div>
     </div>
 

@@ -1,23 +1,15 @@
 from django.contrib.auth.models import User
 from django.db import models
-
-# Create your models here.
 from django.db.models import Avg
 
 
 class Place(models.Model):
     # PlaceListItem data - general
     name = models.CharField(max_length=80)
-    floor = models.IntegerField(null=True, blank=True)
-
-    unit = models.CharField(null=True, blank=True, max_length=5)
     address = models.CharField(null=True, blank=True, max_length=120)
     city = models.CharField(null=True, blank=True, max_length=120)
     desc = models.TextField(null=True, blank=True, max_length=200)
-    place_type = models.SmallIntegerField(null=True, blank=True)
-    start_hours = models.TimeField(null=True, blank=True)
-    end_hours = models.TimeField(null=True, blank=True)
-    pic = models.ImageField(null=True, blank=True)
+
     # Location data
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
@@ -39,10 +31,6 @@ class Place(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def __unicode__(self):
-        return u"{}".format(self.name)
-               # + " Types: {}.".format(self.type_conversion[self.place_type])
 
     @property
     def number_of_ratings(self):
@@ -79,13 +67,14 @@ class Place(models.Model):
                 overall_average += self.average_rating[average]
         return overall_average / len(self.average_rating)
 
+    def __unicode__(self):
+        return u"{}".format(self.name)
+
 
 class AnonUserInfo(models.Model):
     related_user = models.OneToOneField(User, related_name='anon_user')
     anonymous_name = models.CharField(max_length=80, default='Anonymous', unique=True)
     user_img = models.ImageField(null=True, blank=True)
-
-    # REQUIRED_FIELDS = ['username', 'anon_name']
 
     def __unicode__(self):
         return u"{}".format(self.anonymous_name)
@@ -115,9 +104,6 @@ class Rating(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return u"{}, {}".format(self.place, self.owner)
-
     def save(self, **kwargs):
         super(Rating, self).save(**kwargs)
         vote = Vote(rating_vote=self)
@@ -131,6 +117,9 @@ class Rating(models.Model):
     def number_of_downvotes(self):
         return Vote.objects.filter(rating_vote__id=self.id).filter(downvote=True).count()
 
+    def __unicode__(self):
+        return u"{}, {}".format(self.place, self.owner)
+
 
 class Vote(models.Model):
     rating_vote = models.ForeignKey(Rating)
@@ -142,22 +131,5 @@ class Vote(models.Model):
 
     def __unicode__(self):
         return u"{}".format(self.rating_vote)
-
-
-class Restroom(models.Model):
-    # Identifying information
-    place = models.ForeignKey(Place)
-    floor = models.CharField(max_length=3, null=True, blank=True)
-    local_identifier = models.SmallIntegerField(null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    type = models.SmallIntegerField(max_length=1)
-    features = models.TextField(null=True, blank=True)
-
-    type_conversion = {
-        1: "test",
-        2: "other"
-    }
-
 
 

@@ -7,7 +7,7 @@ var App = React.createClass({
 
     componentDidMount: function() {
 
-        router.addRoute('places/', function() {
+        router.addRoute('', function() {
             this.setState({page: <PlacesPage url="/api/v1/places/" pollInterval={0} />});
         }.bind(this));
         router.addRoute('place/:id', function(id) {
@@ -15,9 +15,6 @@ var App = React.createClass({
         }.bind(this));
         router.addRoute('ratings/:id', function(id) {
             this.setState({page: <PostRatingsBox url={"/api/v1/places/" + id + "/ratings/"} placeID = {id} pollInterval={0} />});
-        }.bind(this));
-        router.addRoute('anon/', function(id) {
-            this.setState({page: <UserBox url={"/api/v1/ratings/1/owner/"} pollInterval={0} />});
         }.bind(this));
         router.start();
     },

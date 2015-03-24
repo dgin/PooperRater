@@ -67,7 +67,7 @@ var PlacesPage = React.createClass({
         <DatabaseSearch />
         <div>&nbsp;</div>
         <h1>Toilets Near You</h1>
-          <div className="pre-scrollable">
+          <div className="placeBox">
         <PlaceList data={this.state.data} />
           </div>
       </div>

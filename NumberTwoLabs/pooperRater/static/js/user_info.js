@@ -63,10 +63,3 @@ var UserList = React.createClass({
     );
   }
 });
-
-
-//
-//React.render(
-//    <UserBox url="/api/v1/ratings/1/owner/" pollInterval={10000} />,
-//  document.getElementById('userinfo')
-//);

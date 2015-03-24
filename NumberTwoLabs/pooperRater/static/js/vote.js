@@ -180,8 +180,6 @@ var VoteForm = React.createClass({
 
   render: function() {
     return (
-      <div className="panel panel-default">
-        <div className="panel-body">
               <form className="voteForm" onSubmit={this.handleSubmit}>
                 <div class="row">
                     <div className="col-lg-4"><button type="text"
@@ -195,8 +193,6 @@ var VoteForm = React.createClass({
                                                     onClick = {this.handleDownvote}>Dislike</button></div>
                 </div>
               </form>
-        </div>
-      </div>
     );
   }
 });
