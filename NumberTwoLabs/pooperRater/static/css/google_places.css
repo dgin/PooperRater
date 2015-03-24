@@ -7,18 +7,10 @@ body {
 
 #map-canvas {
     height: 400px;
-    width: 350px;
+    width: 80%;
     margin-left:auto;
     margin-right:auto;
-    /*height: 100%;*/
-    /*weight: 100%;*/
     top: 55px;
-    /*Commented out border because otherwise produces two overlapping borders
-    Remove comment if you can fix that bug.*/
-    /*border: solid;*/
-    /*display:inline-block;*/
-    /*height: auto;*/
-    /*width: auto;*/
 }
 
 #place-details {

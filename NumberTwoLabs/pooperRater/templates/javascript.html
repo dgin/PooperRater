@@ -14,6 +14,8 @@ Don't use minified react. It breaks the routes-->
 <script type="text/jsx;harmony=true" src="{% static 'js/scrollPaginator.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/pagination_scroll.js' %}"></script>
 
+<script type="text/jsx;harmony=true" src="{% static 'js/uniqueUsernameCheck.js' %}"></script>
+
 <script type="text/jsx;harmony=true" src="{% static 'js/place_map.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/places.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/place.js' %}"></script>
@@ -31,6 +33,12 @@ Don't use minified react. It breaks the routes-->
 {% else %}
 <script>GlobalUserID = 0</script>
 {% endif %}
+<script>
+    if (GlobalUserID === 0) {
+        console.log(1);
+        document.getElementById("loggedInWarning").className = "alert alert-info";
+    }
+</script>
 
 <script type="text/jsx;harmony=true" src="{% static 'js/button_control.js' %}"></script>
 <script type="text/jsx;harmony=true" src="{% static 'js/app.js' %}"></script>

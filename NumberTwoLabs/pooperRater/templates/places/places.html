@@ -6,11 +6,15 @@
 
     <div class="row">
         <!--Added Now Loading text which disappears on place load-->
-        <div class="col-md-6">
+        <div class="col-md-6 col-xs-12">
+            <!--<div id="buttonDiv"></div>-->
+            <div id="loggedInWarning" class="alert alert-info hide">Hey, you're not logged in.
+                You can still browse our site, but you won't be able to post or create a profile.
+                You might want to <b><a href="/login">LOGIN.</a></b></div>
             <br>
             <div id="places" >Now Loading...</div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-xs-12" id="mapemerg">
             <br><br>
             <div id="buttonDiv"></div>
             <div id="map-canvas" class="text-center panel panel-default">{% include 'tests/goog_place_snip.html' %}</div>

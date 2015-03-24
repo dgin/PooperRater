@@ -73,4 +73,6 @@ class AnonUserInfoViewSet(viewsets.ModelViewSet):
     queryset = AnonUserInfo.objects.all()
     serializer_class = AnonUserInfoSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, AnonInfoIsRelatedUserOrReadOnly,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('anonymous_name',)
 

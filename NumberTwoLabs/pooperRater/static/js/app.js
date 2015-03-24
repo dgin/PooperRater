@@ -53,8 +53,8 @@ function reactRenderAppPromise(position) {
 
 function setGoNowButtonLocation(position) {
     return new Promise(function(resolve, reject) {
-        document.getElementById('goNowButton').value = [position.coords.latitude,
-            position.coords.longitude];
+        //document.getElementById('goNowButton').value = [position.coords.latitude,
+        //    position.coords.longitude];
         resolve(position);
     });
 }

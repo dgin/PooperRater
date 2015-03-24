@@ -81,39 +81,45 @@ var PlaceList = React.createClass({
           //Catches error in case no data passed
         console.log("5", this.props.data);
           if (this.props.data) {
-              // finds closest highly-rated toilet for use with Bathroom Emergency button
-              var closestDistance = 99999;
-              var goNowButton = document.getElementById("goNowButton");
-              // Sets placeNodes, which populate placeList
-              placeNodes = this.props.data.map(function (place) {
-                  // Catches error in case user doesn't have position coordinates
-                  // Here: if position data exists, then find nearby places
-                  if (userPositionCoords !== undefined) {
-                      var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
-                          userPositionCoords.longitude, place.latitude, place.longitude);
-                      if (distanceFromYou <= 1) { // 1 kilometer
+             // finds closest highly-rated toilet for use with Bathroom Emergency button
+             var closestDistance = 99999;
+             var goNowButton = document.getElementById("goNowButton");
+             var goNowButtonActivated = false;
+             // Sets placeNodes, which populate placeList
+             placeNodes = this.props.data.map(function (place) {
+                 // Catches error in case user doesn't have position coordinates
+                 // Here: if position data exists, then find nearby places
+                 if (userPositionCoords !== undefined) {
+                     var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
+                         userPositionCoords.longitude, place.latitude, place.longitude);
+                     if (distanceFromYou <= 1) { // 1 kilometer
 
-                          if (distanceFromYou <= closestDistance && place.overall_average_rating >= 3){
-                              closestDistance = distanceFromYou;
-                              goNowButton.href = '#place/'+place.id;
-                          }
-                          // Puts marker on the map
-                          createPlaceMarker(place);
-                          return (
-                              <PlaceListItem place = {place}></PlaceListItem>
-                          );
-                      }
-                      // If position data doesn't exist, return no places
-                  }
+                         if (distanceFromYou <= closestDistance && place.overall_average_rating >= 3){
+                             closestDistance = distanceFromYou;
+                             goNowButton.href = '#place/'+place.id;
+                             goNowButtonActivated = true;
+                         }
+                         // Puts marker on the map
+                         createPlaceMarker(place);
+                         return (
+                             <PlaceListItem place = {place}></PlaceListItem>
+                         );
+                     }
+                     // If position data doesn't exist, return no places
+                 }
 
-              });
-              console.log("4", placeNodes)
-              return (
-                  <div className="placeList">
-                  {placeNodes}
-                  </div>
-              );
-          }
+             });
+             // If no place matches criteria of <= 1 km away and rating >= 3
+             if (!goNowButtonActivated && this.props.data.length > 0) {
+                 goNowButton.href = '#place/'+this.props.data[0].id
+             }
+
+             return (
+                 <div className="placeList">
+                 {placeNodes}
+                 </div>
+             );
+         }
           else {
               return (
                   <div className="placeList">
