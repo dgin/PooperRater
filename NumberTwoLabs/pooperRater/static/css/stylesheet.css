@@ -5,9 +5,7 @@ body {
   line-height: 1.7;
   margin: 0;
   padding: 30px;
-  padding-top: 80px;
-    height:100%;
-    width:100%;
+  padding-top: 70px;
 }
 
 a {
@@ -17,6 +15,16 @@ a {
 
 #ratingalert {
  display: none;
+}
+
+#goNowButton {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+#mapemerg {
+    postiion: fixed;
+    display: block;
 
 }
 
