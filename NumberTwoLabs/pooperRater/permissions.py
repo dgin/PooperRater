@@ -14,7 +14,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         # Write permissions are only allowed to the owner of the snippet.
         return obj.owner == request.user
 
-class CommentIsOwnerOrReadOnly(permissions.BasePermission):
+class VoteIsOwnerOrReadOnly(permissions.BasePermission):
     """
     Custom permission to only allow owners of an object to edit it.
     """
@@ -25,7 +25,7 @@ class CommentIsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         # Write permissions are only allowed to the owner of the snippet.
-        return obj.rating.owner == request.user
+        return obj.rating_vote.owner == request.user
 
 class UserIsOwnerOrReadOnly(permissions.BasePermission):
     """

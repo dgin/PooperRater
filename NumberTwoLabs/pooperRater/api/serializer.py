@@ -6,7 +6,8 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ('id', 'owner', 'place', 'air_flow', 'cleanliness', 'available', 'quality', 'other','rating_comment',
+        fields = ('id', 'owner', 'place', 'air_flow', 'cleanliness', 'available', 'quality', 'other',
+                  'rating_comment','number_of_upvotes','number_of_downvotes',
                   'created_at', 'updated_at')
 
 class PlaceSerializer(serializers.ModelSerializer):
