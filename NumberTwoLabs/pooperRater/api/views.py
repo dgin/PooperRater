@@ -4,7 +4,7 @@ from requests import Response
 from rest_framework import viewsets, generics, filters
 from pooperRater.models import Rating, Place, Restroom, User, AnonUserInfo, Vote
 from pooperRater.api.serializer import RatingSerializer, PlaceSerializer, RestroomSerializer, UserSerializer, AnonUserInfoSerializer, VoteSerializer
-from pooperRater.permissions import IsOwnerOrReadOnly, IsAdminUserOrReadOnly, AnonInfoIsRelatedUserOrReadOnly, UserIsOwnerOrReadOnly, CommentIsOwnerOrReadOnly
+from pooperRater.permissions import IsOwnerOrReadOnly, IsAdminUserOrReadOnly, AnonInfoIsRelatedUserOrReadOnly, UserIsOwnerOrReadOnly, VoteIsOwnerOrReadOnly
 from rest_framework import permissions
 
 
@@ -43,7 +43,7 @@ class PlaceViewSet(viewsets.ModelViewSet):
 class VoteViewSet(viewsets.ModelViewSet):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, CommentIsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, VoteIsOwnerOrReadOnly,)
 
 
 class RestroomViewSet(viewsets.ModelViewSet):

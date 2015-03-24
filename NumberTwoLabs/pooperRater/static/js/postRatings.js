@@ -87,6 +87,7 @@ var PostRatingsBox = React.createClass({
   },
   handleRatingSubmit: function(rating) {
     var ratings = this.state.data;
+      console.log(ratings);
     ratings.push(rating);
     this.setState({data: ratings}, function() {
 
