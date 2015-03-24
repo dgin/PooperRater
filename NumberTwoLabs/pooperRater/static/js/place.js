@@ -12,7 +12,7 @@ var Place = React.createClass({
     return (
         <div className="place">
 
-            <h1><a href="#places/" ><BackButton /></a>&nbsp; {this.props.data.name}</h1>
+            <h1><a href="#" ><BackButton /></a>&nbsp; {this.props.data.name}</h1>
 
             <div className="panel panel-default">
                 <div className="panel-body">

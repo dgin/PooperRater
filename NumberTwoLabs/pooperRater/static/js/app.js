@@ -15,7 +15,8 @@ var App = React.createClass({
     componentDidMount: function() {
 
 
-        router.addRoute('places/', function() {
+        //router.addRoute('places/', function() {
+        router.addRoute('', function() {
             this.setState({page: <PlacesPage url="/api/v1/places/" pollInterval={0} />});
         }.bind(this));
         router.addRoute('place/:id', function(id) {
@@ -64,8 +65,8 @@ function reactRenderAppPromise(position) {
 
 function setGoNowButtonLocation(position) {
     return new Promise(function(resolve, reject) {
-        document.getElementById('goNowButton').value = [position.coords.latitude,
-            position.coords.longitude];
+        //document.getElementById('goNowButton').value = [position.coords.latitude,
+        //    position.coords.longitude];
         resolve(position);
     });
 }

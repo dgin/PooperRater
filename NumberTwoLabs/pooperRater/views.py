@@ -87,6 +87,7 @@ def profile(request):
         new_anon_user = form.save(commit=False)
         # Sets related user to whoever is signed in
         new_anon_user.related_user = request.user
+        new_anon_user.save()
         return redirect('/places/#places/')
         #     return redirect('/profile/')
         # if new_anon_user.save():

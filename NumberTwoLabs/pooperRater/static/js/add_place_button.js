@@ -18,7 +18,7 @@ var AddPlaceButton = React.createClass({
     },
   render: function() {
     return <button className="btn btn-default btn-block"
-        data-toggle="modal" data-target="#yelpModal" onClick={this.handleClick}>Add Place</button>;
+        data-toggle="modal" data-target="#yelpModal" onClick={this.handleClick}><b>Add Place</b></button>;
   }
 });
 
