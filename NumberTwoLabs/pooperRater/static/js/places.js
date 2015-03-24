@@ -84,12 +84,12 @@ var PlacesPage = React.createClass({
   render: function() {
     return (
       <div className="PlaceBox">
-        <div className="col-lg-12"><AddPlaceButton /></div>
+        <AddPlaceButton />
           <div>&nbsp;</div>
-        <div className="col-lg-12"><DatabaseSearch /></div>
+        <DatabaseSearch />
         <div>&nbsp;</div>
         <h1>Places Near You</h1>
-          <div id="extra" className="pre-scrollable">
+          <div className="pre-scrollable">
         <PlaceList data={this.state.data} />
           </div>
       </div>
@@ -104,7 +104,7 @@ var PlaceList = React.createClass({
           if (this.props.data) {
               //if (document.readyState === "complete") {
               console.log(this.props.data);
-              // finds closest highly-rated toilet for use with Gotta Go Now button
+              // finds closest highly-rated toilet for use with Bathroom Emergency button
               var closestDistance = 99999;
               var goNowButton = document.getElementById("goNowButton");
               // Sets placeNodes, which populate placeList
@@ -116,7 +116,7 @@ var PlaceList = React.createClass({
                           userPositionCoords.longitude, place.latitude, place.longitude);
                       if (distanceFromYou <= 1) { // 1 kilometer
 
-                          if (distanceFromYou <= closestDistance && place.overall_average_rating > 3){
+                          if (distanceFromYou <= closestDistance && place.overall_average_rating >= 3){
                               closestDistance = distanceFromYou;
                               goNowButton.href = '#place/'+place.id;
                           }
