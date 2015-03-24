@@ -5,4 +5,13 @@ $(".btn-group > .btn").click(function(){
     $(this).addClass("active");
 });
 
+$("#submit_anon").on("submit", function(){
+    if ("sumbit" == err){
+        $(this).toggle("profilealert")
+    }
+    else {
+        $(this).toggle("profilesuccess")
+    }
+});
+
 

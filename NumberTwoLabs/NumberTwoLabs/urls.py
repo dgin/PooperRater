@@ -16,18 +16,15 @@ urlpatterns = patterns('',
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': 'successful_logout'}, name='logout'),
     url(r'^successful_logout/$', 'pooperRater.views.successful_logout', name='successful_logout'),
+    url(r'^login_redirect/$', 'pooperRater.views.login_redirect', name='login_redirect'),
     url('', include('django.contrib.auth.urls', namespace='auth')),
 
 
     # url(r'^logout/$', 'pooperRater.views.home', name='logout'),
-    # url(r'^comment/api/v1/', include('pooperRater.api.urls')),
-    # url(r'^vote/api/v1/', include('pooperRater.api.urls')),
-    # url(r'^rating/api/v1/', include('pooperRater.api.urls')),
-
 
     url(r'^api/v1/', include('pooperRater.api.urls')),
     url(r'^yelp/ajax/$', views.yelp_ajax, name='yelp_ajax'),
-    url(r'^user/create', views.create_anon_user, name='create_anon_user'),
+    url(r'^profile', views.profile, name='profile'),
 
     url(r'place/add/$', views.place_add, name='place_add')
 )

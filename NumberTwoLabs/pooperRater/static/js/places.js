@@ -96,52 +96,57 @@ var PlacesPage = React.createClass({
 });
 
 var PlaceList = React.createClass({
-  render: function() {
-    //  Catches error in case no data passed
-    if (this.props.data) {
-        var placeNodes = this.props.data.map(function(place) {
-            // Catches error in case user doesn't have position coordinates
-            // Here: if position data exists, then find nearby places
-            if (userPositionCoords !== undefined) {
-                var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
-                    userPositionCoords.longitude, place.latitude,place.longitude);
-                if (distanceFromYou <= 1) { // 1 kilometer
-                    // Puts marker on the map
-                    createPlaceMarker(place);
-                return (
-                    <PlaceListItem place = {place}></PlaceListItem>
-                );
-                }
-            // If position data doesn't exist, return no places
-            }
-    });
-    }
-    //var placeNodes = this.props.data.map(function(place) {
-    //
-    //    // Catches error in case user doesn't have position data
-    //    // Here: if position data exists, then find nearby places
-    //    if (userPositionCoords !== undefined) {
-    //        var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
-    //            userPositionCoords.longitude, place.latitude,place.longitude);
-    //        if (distanceFromYou <= 1) { // 1 kilometer
-    //            // Puts marker on the map
-    //            createPlaceMarker(place);
-    //        return (
-    //            <PlaceListItem place = {place}></PlaceListItem>
-    //        );
-    //        }
-    //    // If position data doesn't exist, return no places
-    //    }
-    //});
+    render: function() {
+          var placeNodes = [];
+          //Catches error in case no data passed
+          if (this.props.data) {
+              //if (document.readyState === "complete") {
+              console.log(this.props.data);
+              // finds closest highly-rated toilet for use with Gotta Go Now button
+              var closestDistance = 99999;
+              var goNowButton = document.getElementById("goNowButton");
+              // Sets placeNodes, which populate placeList
+              placeNodes = this.props.data.map(function (place) {
+                  // Catches error in case user doesn't have position coordinates
+                  // Here: if position data exists, then find nearby places
+                  if (userPositionCoords !== undefined) {
+                      var distanceFromYou = getDistanceFromLatLonInKm(userPositionCoords.latitude,
+                          userPositionCoords.longitude, place.latitude, place.longitude);
+                      if (distanceFromYou <= 1) { // 1 kilometer
 
-    return (
-      <div className="placeList">
-        {placeNodes}
-      </div>
-    );
-  }
+                          if (distanceFromYou <= closestDistance && place.overall_average_rating > 3){
+                              closestDistance = distanceFromYou;
+                              goNowButton.href = '#place/'+place.id;
+                          }
+                          // Puts marker on the map
+                          createPlaceMarker(place);
+                          return (
+                              <PlaceListItem place = {place}></PlaceListItem>
+                          );
+                      }
+                      // If position data doesn't exist, return no places
+                  }
+
+              });
+              return (
+                  <div className="placeList">
+                  {placeNodes}
+                      <ItemPaginator items={placeNodes}/>
+                  </div>
+              );
+          }
+          else {
+              return (
+                  <div className="placeList">
+                      loading...
+                  </div>
+              );
+          }
+    }
 });
 
+
+//<ItemPaginator items={placeNodes}/>
 
 // overallRating - expecting number
 var OverallStarRating = React.createClass({
@@ -214,15 +219,12 @@ var DatabaseSearch = React.createClass({
     getInitialState: function() {
         return {message: '', results: "" };
     },
-    //componentDidMount: function() {
-    //},
     handleChange: function(event) {
         this.setState({message: event.target.value});
         if (event.target.value.length >= 3) {
-            //this.handleSearchSubmit();
             // UI add-ons
-            setTimeout(this.handleSearchSubmit,2000);
-            document.getElementById("noResults").innerHTML = "Now searching..."
+            setTimeout(this.handleSearchSubmit,1000);
+            document.getElementById("noResults").innerHTML = "Now searching...";
         } else {
             // Cleanup the search section
             this.setState({results: ""});
@@ -232,42 +234,42 @@ var DatabaseSearch = React.createClass({
     },
     handleSearchSubmit: function() {
         var searchTerm = document.getElementById("databaseSearchbar").value;
-        //console.log('/api/v1/places/?search='+searchTerm);
-        $.ajax({
-            url: '/api/v1/places/?search='+searchTerm,
-            type: 'GET',
-            success: function(response) {
-                if (response.length === 0) {
-                    this.setState({results: response});
-                    document.getElementById("noResults").innerHTML = "No toilets found! " +
-                    "Maybe you should add some?";
-                } else {
-                    this.setState({results: response});
-                    document.getElementById("noResults").innerHTML = "";
-                }
-                document.getElementById("searchTitle").innerHTML = "<h1>Search Results</h1>";
-                //document.getElementsByClassName("placeList").style.display = 'none';
-            }.bind(this)
+        // Requiring a length here prevents "Return all" errors if user
+        // rapidly empties search input during search
+        if (searchTerm.length >= 3) {
+            $.ajax({
+                url: '/api/v1/place_search/?search='+searchTerm,
+                type: 'GET',
+                success: function(response) {
+                    if (response.length === 0) {
+                        this.setState({results: response});
+                        document.getElementById("noResults").innerHTML = "No toilets found! " +
+                        "Maybe you should <b>add some</b>?<br>" +
+                        "(You can always add one using the button above)";
+                    } else {
+                        this.setState({results: response});
+                        document.getElementById("noResults").innerHTML = "";
+                    }
+                    document.getElementById("searchTitle").innerHTML = "<h1>Search Results</h1>";
+                    //document.getElementsByClassName("placeList").style.display = 'none';
+                }.bind(this)
 
-        });
+            });
+        }
     },
     render: function() {
         var message = this.state.message;
             var results = this.state.results;
             return (
-
                 <div id="searchDataComponents">
                     <div className="col-lg-12">
-                        <div className="col-lg-10">
-                            <input id="databaseSearchbar"
-                                aria-describedby="sizing-addon1"
-                                className="form-control"
-                                type="text"
-                                placeholder="Search a toilet!"
-                                value={message}
-                                onChange={this.handleChange} /></div>
-                        <div className="col-lg-2">
-                            <button className="btn btn-lg btn-default">Search it</button></div>
+                        <input id="databaseSearchbar"
+                            aria-describedby="sizing-addon1"
+                            className="form-control input-lg"
+                            type="text"
+                            placeholder="Search for a toilet... (e.g Number Two Labs 123 Sesame St)"
+                            value={message}
+                            onChange={this.handleChange} />
                     </div>
                     <div id="searchTitle"></div>
                     <div id="searchResults">

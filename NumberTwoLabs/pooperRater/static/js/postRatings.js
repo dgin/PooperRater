@@ -1,45 +1,6 @@
 
 var converter = new Showdown.converter();
 
-//var Rating = React.createClass({
-//  render: function() {
-//
-//      //console.log(this.props.air_flow);
-//
-//    return (
-//        <div className="panel panel-default">
-//        <div className="panel-body">
-//            <div className="rating">
-//                <div className="ratingBody">
-//                    <div className="row">
-//                     <div className="col-lg-6 col-sm-12 col-xs-12">
-//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.air_flow}></SmallStarRating></div></div>
-//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Clean:  </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.cleanliness}></SmallStarRating></div></div>
-//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Availible: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.available}></SmallStarRating></div></div>
-//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.quality}></SmallStarRating></div></div>
-//                          <div className="col-lg-12 col-sm-12 col-xs-12"><div className="col-lg-6 col-sm-6 col-xs-6 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-6"><SmallStarRating rating={this.props.rating.other}></SmallStarRating></div></div>
-//                     </div>
-//                     <div className="col-lg-6 col-sm-12 col-xs-12">
-//                         <CommentsBox url={"/api/v1/ratings/" + this.props.rating.id + "/comments/"} pollInterval={10000} ></CommentsBox>
-//                     </div>
-//                </div>
-//                </div>
-//                <div className="col-lg-12 col-sm-12 col-xs-12">
-//                    <h1>&nbsp;</h1>
-//                    <VoteBox url={"/api/v1/vote/" + this.props.rating.id + "/"} pollInterval={10000} ></VoteBox>
-//                </div>
-//            </div>
-//
-//        </div>
-//        </div>
-//
-//
-//    );
-//  }
-//});
-
-//<CommentsBox url={"/api/v1/comments/" + this.props.rating.id + "/"}></CommentsBox>
-
 //*************************
 function getCookie(name) {
     var cookieValue = null;
@@ -133,92 +94,6 @@ var PostRatingsBox = React.createClass({
 
   }
 });
-
-//<DjangoCSRFToken />
-
-//<RatingList data={this.state.data} />
-
-//var RatingList = React.createClass({
-//  render: function() {
-//
-//
-//    var ratingNodes = this.props.data.map(function(rating, index) {
-//
-//      return (
-//        <Rating key={index}
-//                air_flow = {rating.air_flow}
-//                cleanliness = {rating.cleanliness}
-//                available = {rating.available}
-//                quality = {rating.quality}
-//                other = {rating.other}>
-//        </Rating>
-//      );
-//    });
-//
-//    if (Array.isArray(this.props.data)){
-//        ratingNodes = this.props.data.map(function(rating) {
-//            return (
-//            <Rating rating = {rating}></Rating>
-//          );
-//        });
-//    } else {
-//        ratingNodes = [];
-//        ratingNodes.push(this.singleNode(this.props.data));
-//    }
-//
-//
-//    return (
-//      <div className="ratingList">
-//        {ratingNodes}
-//      </div>
-//    );
-//  },
-//
-//    singleNode: function(rating) {
-//        return (
-//            <Rating rating = {rating}></Rating>
-//        );
-//    }
-//});
-
-
-//var RatingForm = React.createClass({
-//  handleSubmit: function(e) {
-//    e.preventDefault();
-//    var air_flow = this.refs.air_flow.getDOMNode().value.trim();
-//    var cleanliness = this.refs.cleanliness.getDOMNode().value.trim();
-//    var available = this.refs.available.getDOMNode().value.trim();
-//    var quality = this.refs.quality.getDOMNode().value.trim();
-//    var other = this.refs.other.getDOMNode().value.trim();
-//
-//    if (!air_flow || !cleanliness || !available || !quality || !other) {
-//      return;
-//    }
-//    this.props.onRatingSubmit({air_flow: air_flow,
-//                                cleanliness: cleanliness,
-//                                available: available,
-//                                quality: quality,
-//                                other: other
-//                                });
-//    this.refs.air_flow.getDOMNode().value = 0;
-//    this.refs.cleanliness.getDOMNode().value = 0;
-//    this.refs.available.getDOMNode().value = 0;
-//    this.refs.quality.getDOMNode().value = 0;
-//    this.refs.other.getDOMNode().value = 0;
-//  },
-//  render: function() {
-//    return (
-//      <form className="commentForm" onSubmit={this.handleSubmit}>
-//        <input type="text" placeholder="air_flow" ref="air_flow" />
-//        <input type="text" placeholder="cleanliness" ref="cleanliness" />
-//        <input type="text" placeholder="available" ref="available" />
-//        <input type="text" placeholder="quality" ref="quality" />
-//        <input type="text" placeholder="other" ref="other" />
-//        <input type="submit" value="Post" />
-//      </form>
-//    );
-//  }
-//});
 
 
 var Star = React.createClass({
@@ -425,7 +300,7 @@ var RatingForm = React.createClass({
                                     &nbsp;
                                 </div>
                                 <div>
-                                    <div className="alert alert-danger" id="ratingalert" role="alert"><strong>Error!</strong> You missed a rating <a href="#" className="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
+                                    <div className="alert alert-danger" id="ratingalert" role="alert"><strong>Oops!</strong> You missed a rating <a href="#" className="close glyphicon glyphicon-remove" data-dismiss="alert"></a></div>
                                 </div>
                                 <div className="col-lg-12 col-sm-12 col-xs-12 text-right">
                                         <button href={"#place/" + this.props.onRatingSubmit.__reactBoundContext.props.placeID} className="btn btn-lg btn-default text-left" type="submit" value="Rate">Rate</button>
