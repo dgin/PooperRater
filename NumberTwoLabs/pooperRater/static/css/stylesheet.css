@@ -24,7 +24,6 @@ a {
   background: #f7f7f7;
 }
 
-
 #ratingalert {
  display: none;
 }
@@ -33,8 +32,6 @@ a {
     font-weight: bold;
     font-size: 2em;
 }
-
-
 
 code {
   background-color: #f8f8f8;
