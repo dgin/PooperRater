@@ -111,13 +111,13 @@ class Rating(models.Model):
         vote = Vote(rating_vote=self)
         vote.save()
 
-    @property
-    def users_rated_ratings(self):
-        user_rated = []
-        owners = Vote.objects.filter(rating_vote__id = self.id).values('vote_owner')
-        for item in owners:
-            user_rated.append(item['vote_owner'])
-        return user_rated
+    # @property
+    # def users_rated_ratings(self):
+    #     user_rated = []
+    #     owners = Vote.objects.filter(rating_vote__id = self.id).values('vote_owner')
+    #     for item in owners:
+    #         user_rated.append(item['vote_owner'])
+    #     return user_rated
 
     @property
     def number_of_upvotes(self):
@@ -132,7 +132,7 @@ class Rating(models.Model):
 
 
 class Vote(models.Model):
-    vote_owner = models.ForeignKey(User)
+    # vote_owner = models.ForeignKey(User)
     rating_vote = models.ForeignKey(Rating)
     upvote = models.BooleanField(default=False)
     downvote = models.BooleanField(default=False)
