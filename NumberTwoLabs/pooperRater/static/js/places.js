@@ -15,7 +15,7 @@ var PlaceListItem = React.createClass({
                         <div>
                             <div>
                                     <div className="placeName col-lg-9 col-sm-12 col-xs-12"><h3> {this.props.place.name}</h3></div>
-                                    <div className="col-lg-3 col-sm-12 col-xs-12"><OverallStarRating rating={this.props.place.overall_average_rating}></OverallStarRating> <small>({this.props.place.number_of_ratings})</small></div>
+                                    <div className="col-lg-3 col-sm-12 col-xs-12 avgstars"><OverallStarRating rating={this.props.place.overall_average_rating}></OverallStarRating> <small>({this.props.place.number_of_ratings})</small></div>
 
                             </div>
                             <div>

@@ -271,23 +271,23 @@ var RatingForm = React.createClass({
 
 
 
-                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Air: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right ratingstars">Air: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.airFlowHandleRate} ref="air_flow"/>
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right ratingstars">Clean: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.cleanlinessHandleRate} ref="cleanliness" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Available: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right ratingstars">Available: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.availableHandleRate} ref="available" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right ratingstars">Quality: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.qualityHandleRate} ref="quality" />
                                 </div>
 
-                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right">Other: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
+                                <div className="col-lg-6 col-sm-6 col-xs-4 text-right ratingstars">Amenities: </div><div className="col-lg-6 col-sm-6 col-xs-8 text-left">
                                     <Rater total={5} rating={0} onRate={this.otherHandleRate} ref="other" />
                                 </div>
                                 <div>
