@@ -206,7 +206,7 @@ var DatabaseSearch = React.createClass({
                     if (response.length === 0) {
                         this.setState({results: response});
                         document.getElementById("noResults").innerHTML = "No toilets found! " +
-                        "Maybe you should <b>add some</b>?<br>" +
+                        "Maybe you should <b>add one</b>?<br>" +
                         "(You can always add one using the button above)";
                     } else {
                         this.setState({results: response});
