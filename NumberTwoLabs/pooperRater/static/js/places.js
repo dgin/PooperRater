@@ -21,7 +21,7 @@ var PlaceListItem = React.createClass({
                             <div>
                                     <div className="col-lg-8 col-sm-12 col-xs-12">{this.props.place.desc}</div>
                                     <div className="col-lg-4 col-sm-12 col-xs-12">
-                                        <div><small className="glyphicon glyphicon-home"> {this.props.place.address}</small></div>
+                                        <div><small className="glyphicon glyphicon-home"> {this.props.place.address} </small></div>
                                         <div><small className="glyphicon glyphicon-globe"> {this.props.place.city}</small></div></div>
                             </div>
                         </div>
@@ -75,18 +75,63 @@ var PlacesPage = React.createClass({
   }
 });
 
+
 var PlaceList = React.createClass({
+     getInitialState: function () {
+        return {
+            hasMore: true,
+            items: []
+        };
+    },
+    loadChunkSize:7,
+
+
+    loadMore: function (page, callback) {
+        if (this.props.data.length > 0){
+            var items = this.state.items.concat(this.props.data.slice(this.state.items.length,
+                    Math.min(this.state.items.length + this.loadChunkSize, this.props.data.length)));
+
+            this.setState({
+                items: items,
+                hasMore: ((this.props.data.length - this.state.items.length) > 0)
+            });
+            console.log("Has more:" + this.state.hasMore);
+
+            callback(items);
+        }
+        else {
+            setTimeout(function()
+                {this.loadMore(page, callback);}.bind(this), 1000);
+        }
+    },
+
+    //    setTimeout(function () {
+    //        var items = this.state.items.concat(this.props.data.slice(this.state.items.length,
+    //            Math.min(this.state.items.length + this.loadChunkSize, this.props.data.length)));
+    //
+    //        this.setState({
+    //            items: items,
+    //            hasMore: ((this.props.data.length - this.state.items.length) > 0)
+    //        });
+    //        console.log("Has more:" + this.state.hasMore);
+    //
+    //        callback(items);
+    //
+    //    }.bind(this), 1000);
+    //},
+
+
     render: function() {
           var placeNodes = [];
           //Catches error in case no data passed
-        console.log("5", this.props.data);
+        //console.log("5", this.props.data);
           if (this.props.data) {
              // finds closest highly-rated toilet for use with Bathroom Emergency button
              var closestDistance = 99999;
              var goNowButton = document.getElementById("goNowButton");
              var goNowButtonActivated = false;
              // Sets placeNodes, which populate placeList
-             placeNodes = this.props.data.map(function (place) {
+             placeNodes = this.state.items.map(function (place) {
                  // Catches error in case user doesn't have position coordinates
                  // Here: if position data exists, then find nearby places
                  if (userPositionCoords !== undefined) {
@@ -116,7 +161,10 @@ var PlaceList = React.createClass({
 
              return (
                  <div className="placeList">
-                 {placeNodes}
+                    <InfiniteScroll loadMore={this.loadMore} hasMore={this.state.hasMore}
+                        loader={<div className="loader">loading...</div>}>
+                        {placeNodes}
+                    </InfiniteScroll>
                  </div>
              );
          }

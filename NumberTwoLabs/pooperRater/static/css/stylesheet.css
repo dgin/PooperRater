@@ -4,13 +4,24 @@ body {
   font-size: 15px;
   line-height: 1.7;
   margin: 0;
-  padding: 30px;
   padding-top: 70px;
 }
 
 a {
   color: #000000;
   text-decoration: none;
+}
+
+.innerAlignment {
+    padding: 30px;
+}
+
+#footer {
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0;
+  background: #f7f7f7;
 }
 
 #ratingalert {
@@ -20,12 +31,6 @@ a {
 #goNowButton {
     font-weight: bold;
     font-size: 2em;
-}
-
-#mapemerg {
-    postiion: fixed;
-    display: block;
-
 }
 
 code {
