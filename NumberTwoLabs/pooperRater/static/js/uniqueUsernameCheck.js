@@ -32,7 +32,7 @@ function checkUniqueUsername() {
             }
         },
         error: function(err) {
-            console.log(err);
+            $("#profileerror").removeClass('hide');
         }
     });
     return false;

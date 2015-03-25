@@ -17,10 +17,13 @@
                 <strong>Oops!</strong> This anonymous username is already taken, please try another name!
             </div>
             <div class="alert alert-success hide text-left in collapse" id="profilesuccess" role="alert">
-                <strong>Yay!</strong> This username is available!<a href="#" class="close glyphicon glyphicon-remove" data-dismiss="alert"></a>
+                <strong>Yay!</strong> This username is available!
             </div>
             <div class="alert alert-warning hide text-left in collapse" id="profileisyou" role="alert">
                 <strong>Hello!</strong> This username is yours!
+            </div>
+            <div class="alert alert-danger text-left hide in collapse" id="profileerror" role="alert">
+                <strong>Uh oh!</strong> We were unable to check the availability of this username. This could be due to a variety of issues, such as our server experiencing high traffic. Please reload the page and try again.
             </div>
                 <button class="btn btn-default" onclick="checkUniqueUsername();
                 return false;" data-toggle="alert">Check Availability</button>
