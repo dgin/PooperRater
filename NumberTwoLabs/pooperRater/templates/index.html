@@ -7,14 +7,29 @@
 
 </head>
 
-<body style="background-color:rgb(226, 226, 226)">
+<body style="width: 100%; height: 100%; background-color:rgb(226, 226, 226)">
   {% include 'navbar.html' %}
 
-        <div class="top">
-          <div class="container-fluid">
-                    {% block content2 %}{% endblock content2 %}
-          </div>
+    <div class="top">
+      <div class="container-fluid">
+            <div class="innerAlignment">
+                {% block content2 %}{% endblock content2 %}
+            </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div id="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div style="margin-left: 50px;">Made with <span class="fa fa-heart" style="color: crimson;"></span> by <a href="http://www.numbertwolabs.com" target="_blank">NumberTwoLabs.com</a></div>
+            </div>
         </div>
+    </div>
+
 
   {% include 'javascript.html' %}
 </body>
