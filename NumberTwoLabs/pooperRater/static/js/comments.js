@@ -1,4 +1,3 @@
-
 var converter = new Showdown.converter();
 
 var Comment = React.createClass({
@@ -58,7 +57,7 @@ var CommentsBox = React.createClass({
 
       if (this.props.pollInterval > 0) {
           setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-      };
+      }
   },
   render: function() {
     if (this.state.data.length === null) {
@@ -73,8 +72,6 @@ var CommentsBox = React.createClass({
     }
   }
 });
-
-//<CommentForm onCommentSubmit={this.handleCommentSubmit} />
 
 var CommentList = React.createClass({
   render: function() {
@@ -102,7 +99,6 @@ var CommentList = React.createClass({
         );
     }
 });
-
 
 var CommentForm = React.createClass({
   handleSubmit: function(e) {
@@ -139,8 +135,8 @@ var CommentForm = React.createClass({
     );
   }
 });
-
-React.render(
-  <CommentsBox url="/api/v1/comments/" pollInterval={10000} />,
-  document.getElementById('comments')
-);
+//
+//React.render(
+//  <CommentsBox url="/api/v1/comments/" pollInterval={10000} />,
+//  document.getElementById('comments')
+//);

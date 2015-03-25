@@ -218,16 +218,6 @@ findPlaceId = function(placeData) {
         });
 };
 
-//findPlaceIdNotYelp = function(fullSearchTerm) {
-//    $.ajax({
-//        url: '/api/v1/places_search/?search='+fullSearchTerm,
-//        type: 'GET',
-//        success: function(response) {
-//            redirectToPlacePage(response[0]['id'])
-//        }
-//    })
-//};
-
 resolveOtherManual = function() {
     var result = document.getElementById('manualResult');
     result.innerHTML = 'Successfully added a place. Find it in our search bar!';

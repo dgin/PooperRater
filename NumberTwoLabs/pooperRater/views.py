@@ -72,11 +72,6 @@ def profile(request):
         new_anon_user.related_user = request.user
         new_anon_user.save()
         return redirect('index')
-            # return redirect('/profile/')
-        # if new_anon_user.save():
-        #     return HttpResponse("All went well", status=200)
-        # else:
-        #     return HttpResponse("Something went wrong with your submission. Please try again.", status=400)
 
     # If method is not post
     # Get will error out if no anon user, so use filter and return the first

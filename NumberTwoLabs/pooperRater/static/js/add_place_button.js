@@ -9,12 +9,10 @@ function cleanManualAdd () {
 
 var AddPlaceButton = React.createClass({
     handleClick: function() {
-        //document.getElementById('yelpIsLocation').value='no';
         cleanManualAdd();
         if (document.getElementById('yelpIsLocation').value === 'no') {
             returnUserPosition();
         }
-        //returnUserPosition();
     },
   render: function() {
     return <button className="btn btn-default btn-add btn-block"
@@ -27,6 +25,4 @@ var GoNowButton = React.createClass({
         return <a id="goNowButton" className="btn btn-emergency btn-danger text-center col-lg-6 col-lg-offset-3 col-xs-12"><span className="fa fa-male"></span><span className="fa fa-female"></span> EMERGENCY</a>
     }
 });
-
-//return <a id="goNowButton" className="btn btn-danger btn-lg btn-block">BATHROOM EMERGENCY</a>
 
