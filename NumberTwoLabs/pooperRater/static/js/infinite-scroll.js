@@ -31,15 +31,15 @@ var InfiniteScroll = React.createClass({
         // Get the smaller of either the height of the container of the height of all shown items
         // the reason for this is to force some items to load at the start
         var scrollHeight = Math.min(this.container == window?document.body.scrollHeight:this.container.scrollHeight, el.offsetHeight);
-        console.log("scrollHeight", document.body.scrollHeight)
+        //console.log("scrollHeight", document.body.scrollHeight)
 
         // Get the bottom of the scroll
         var scrollBottom = (this.container == window?window.pageYOffset:this.container.scrollTop) + (this.container == window?window.innerHeight:this.container.offsetHeight);
-        console.log("WindowHeight", window.innerHeight, scrollHeight, scrollBottom)
+        //console.log("WindowHeight", window.innerHeight, scrollHeight, scrollBottom)
 
-        console.log("onscroll",
-            "Math.min(", this.container.scrollHeight, el.offsetHeight, ")-(",
-            this.container.scrollTop, "+", this.container.offsetHeight,")<", Number(this.props.threshold));
+        //console.log("onscroll",
+        //    "Math.min(", this.container.scrollHeight, el.offsetHeight, ")-(",
+        //    this.container.scrollTop, "+", this.container.offsetHeight,")<", Number(this.props.threshold));
 
         // if top of this element + height of this element - how far we scrolled - scrollable height
 
@@ -51,7 +51,7 @@ var InfiniteScroll = React.createClass({
         }
     },
     loadedMore: function(items) {
-        console.log("finished loading items", (items && items.length));
+        //console.log("finished loading items", (items && items.length));
     },
 
     attachScrollListener: function () {

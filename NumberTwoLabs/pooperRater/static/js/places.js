@@ -95,7 +95,7 @@ var PlaceList = React.createClass({
                 items: items,
                 hasMore: ((this.props.data.length - this.state.items.length) > 0)
             });
-            console.log("Has more:" + this.state.hasMore);
+            //console.log("Has more:" + this.state.hasMore);
 
             callback(items);
         }

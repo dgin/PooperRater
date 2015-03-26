@@ -18,7 +18,7 @@ function initMapAndMarkers(position) {
 }
 
 initializeMap = function(lat, lng) {
-    console.log(lat, lng);
+    //console.log(lat, lng);
     var currentLocation = new google.maps.LatLng(lat,lng);
 
     map = new google.maps.Map(document.getElementById('map-canvas'), {
